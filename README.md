@@ -1,6 +1,6 @@
 # About
 
-Notes taken from various things I studied and learned.
+Notes taken from various things I studied and learned. CMIIW
 
 *Silahkan membuka issue dan PR untuk berkontribusi atau ingin mengoreksi kesalahan, atau bisa juga dengan mengirim email ke [mfathirirhas@gmail.com](mailto:mfathirirhas@gmail.com). Thanks!*
 
