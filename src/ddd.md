@@ -250,3 +250,6 @@ Kind of identity:
 - Example of value objects: String in some programming languages, types related with time, money, currency, etc.
 
 *Opinion: Looking at Rust's standard types, almost all of its primitive and built-in types contain operations related to the value contained, making all of them value objects. While some languages really have primitive types where they really stand alone do nothing.*
+
+
+## Chapter 7: Services
