@@ -423,6 +423,26 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <p><em>Opinion: Looking at Rust's standard types, almost all of its primitive and built-in types contain operations related to the value contained, making all of them value objects. While some languages really have primitive types where they really stand alone do nothing.</em></p>
 <h2 id="chapter-7-services"><a class="header" href="#chapter-7-services">Chapter 7: Services</a></h2>
 <p><em>“A Service in the domain is a stateless operation that fulfills a domain-specific task”</em>.</p>
+<p>What service is NOT:</p>
+<ul>
+<li>Service in DDD is NOT service in SOA terms.</li>
+<li>Service in DDD is NOT doing IO into other(e.g. http, grpc, etc)</li>
+<li>The one that storing IO specifics implementation is called <strong>Application</strong></li>
+</ul>
+<p>What service is:</p>
+<ul>
+<li>Service in DDD contains business logics.</li>
+<li>In Clean Architecture by Uncle Bob, this is called <em>Use Case</em></li>
+<li>Service is stateless.</li>
+<li>Service tidak berurusan dengan implementasi dari database, web, http, dan IO lainnya.</li>
+<li>Service contains more complex logics than entity and value objects.</li>
+<li>Service designed using ubiquitous languages.</li>
+<li>Service should be written <strong>after</strong> entities and value objects defined clearly, otherwise the entities could ended up anemic if focus on service first.</li>
+<li>Service contains logics leveraged from entities and value objects, e.g. logic specific to certain functionalities of particular components of an entities or value objects, or service could be aggregation logics of multiple entities or value objects.</li>
+<li>In OOP, services don't always have to be segregated by interface class/type.</li>
+<li>If you want to define interface(OOP) and implementation details, separate them. Interfaces inside domain model, and implementations inside infrastructure.</li>
+</ul>
+<h2 id="chapter-8-domain-events"><a class="header" href="#chapter-8-domain-events">Chapter 8: Domain Events</a></h2>
 
                     </main>
 
