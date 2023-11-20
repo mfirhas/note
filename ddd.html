@@ -1,0 +1,471 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Domain-Driven Design - note</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="about.html"><strong aria-hidden="true">1.</strong> About</a></li><li class="chapter-item expanded "><a href="clean_code.html"><strong aria-hidden="true">2.</strong> Clean Code</a></li><li class="chapter-item expanded "><a href="clean_arch.html"><strong aria-hidden="true">3.</strong> Clean Architecture</a></li><li class="chapter-item expanded "><a href="ddd.html" class="active"><strong aria-hidden="true">4.</strong> Domain-Driven Design</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">note</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="domain-driven-design"><a class="header" href="#domain-driven-design">Domain-Driven Design</a></h1>
+<p>from book: <em>Implementing Domain-Driven Design</em> by Vaughn Vernon.</p>
+<h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
+<p>Ubiquitous Language: </p>
+<ul>
+<li><em>“It is a team pattern used to capture the concepts and terms of a specific core business domain in the software model itself”</em></li>
+<li><em>“The Ubiquitous Language is a shared language developed by the team—a team composed of both domain experts and software developers.”</em></li>
+<li><em>“more centered on how the business itself thinks and operates”</em></li>
+</ul>
+<p>Bounded Context: </p>
+<ul>
+<li>Explicit boundaries around Ubiquitous Language.</li>
+<li>There is one Ubiquitous Language per bounded context.</li>
+</ul>
+<p>Context Map: Interaction between bounded context.</p>
+<p>When to use DDD:</p>
+<ul>
+<li>Complex business operations/usecases</li>
+<li>Many domains and business operations/usecases</li>
+<li>Even it's not complex in the beginning, it has potential to grow in complexity.</li>
+<li>Frequent changes</li>
+<li>You don't understand the domain yet, meaning there'll be a lot of researches/modifications/changes of requirements.</li>
+</ul>
+<p>When to NOT use DDD:</p>
+<ul>
+<li>Pure CRUD only</li>
+<li>Few business operations/usecases</li>
+</ul>
+<p>Goal of DDD: Able to express ubiquitous languages, bounded context and their mapping in the team composed of technical and non-technical people, not only see it from technical perspective, but also from business perspective.</p>
+<h2 id="domain-model"><a class="header" href="#domain-model">Domain Model</a></h2>
+<p>Part of Ubiquitous Language which resides inside bounded context.</p>
+<p><em>“It’s a software model of the very specific business domain you are working in. Often it’s implemented as an object model, where those objects have both data and behavior with literal and accurate business meaning.”</em></p>
+<ul>
+<li>Rich of business rules and logics, not only data/attributes.</li>
+<li>Tend to be small and focused.</li>
+</ul>
+<h2 id="anemic-domain-model"><a class="header" href="#anemic-domain-model">Anemic Domain Model</a></h2>
+<p>Domain model which doesn't contain additional business rules/logics other than getters/setters.</p>
+<h1 id="chapter-2-domains-subdomains-and-bounded-context"><a class="header" href="#chapter-2-domains-subdomains-and-bounded-context">Chapter 2: Domains, Subdomains, and Bounded Context</a></h1>
+<h2 id="domain"><a class="header" href="#domain">Domain</a></h2>
+<p>Domains contain ubiquitous languages, and business rules specific to the smallest possible context. Each domains reside inside bounded context. Domains can have subdomain, where smaller domain with its own bounded context.</p>
+<p>Domain has subdomains called Core Domains and Supporting Domains.</p>
+<p>Core Domains is the more specialized domain which has smaller context but central to the business rules/logics.</p>
+<p>Supporting Domains are domain to compliment the systems widely, usually when you make adapter to certain business rules/logics.</p>
+<p>Whole business domain contains 1 to many bounded contexts. Each Bounded Context contains 1 to many domains(subdomains). Bounded context separate related domains/subdomains. Each domains/subdomains can communicate to other domains/subdomains in same bounded context or to other bounded context(context mapping).</p>
+<p>Bounded context is to give context to the domain, some domains might have same names, even same functionalities/operations, but they have different context. 
+E.g. Account in term of banking is different than Account in term of social media.</p>
+<p>The business rules and logics inside domains are defined by Domain Experts, they are people having expertise in the particular domain, doesn't have to be the developers, can be anyone with required knowledge in the domain.</p>
+<p>Subdomain Types:</p>
+<ul>
+<li><strong>Core subdomain</strong>: core to business rules and logics, the most rarely changed, many other domains depend on this domain.</li>
+<li><strong>Supporting subdomain</strong>: domain extending the rules and logics, more frequent changes than core domains.</li>
+<li><strong>Generic subdomain</strong>: not too related to the business rules and logics, but required.</li>
+</ul>
+<p>Domain dan subdomain terdiri dari:</p>
+<ul>
+<li><strong>Entity</strong>: </li>
+<li><strong>Value Object</strong>: </li>
+</ul>
+<p>Bounded context bisa terdiri dari:</p>
+<ul>
+<li>Domains/Subdomains(entity and/or value object)</li>
+<li>Services</li>
+<li>Events</li>
+<li>Modules</li>
+<li>Aggregates</li>
+<li>Context Maps</li>
+<li>Shared Kernel</li>
+</ul>
+<p>Domain Model consists of 1 or more bounded contexts.</p>
+<p>The size of bounded context should not more nor less, but exact as to what is needed.</p>
+<p>Separate architectural(or infrastructural?) from ubiquitous languages inside the domain's bounded context, architectural/infrastructural should have their own bounded context, probably inside generic domain.</p>
+<p>Domain modeling should not be dictated by technical terms/components, instead be dictated by business requirements/rules/logics. Ubiquitous languages should come from domain experts instead of technical experts, unless technical experts play double role as domain experts as well. We should map those business requirements into domain models utilizing terms existed in particular programming languages as programming languages have different ways of representing DDD components.</p>
+<h1 id="chapter-3-context-maps"><a class="header" href="#chapter-3-context-maps">Chapter 3: Context Maps</a></h1>
+<p>Relations and Integrations between bounded context.</p>
+<p>Types of Relations between bounded contexts:</p>
+<ul>
+<li><strong>Partnership</strong>: Synchronous integration, both ends must coordinate and schedule the release well in order to work well.</li>
+<li><strong>Shared Kernel</strong>: Only share part of the codes/models. Shared items cannot be change without consultations with other teams used it.</li>
+<li><strong>Customer-Supplier Development</strong>: Upstream-Downstream relationship where upstream needs to address downstream needs in order to succeed.</li>
+<li><strong>Conformist</strong>: When downstream follows what upstream already defined.</li>
+<li><strong>Anticorruption Layer(ACL)</strong>: Downstream creates additional layer to translate upstream into downstream's own model. E.g. serde? validations?</li>
+<li><strong>Open Host Service(OHS)</strong>: Provide protocol to be accessed(e.g. http, grpc, message queue)</li>
+<li><strong>Published Language(PL)</strong>: Common &quot;language&quot; to communicate, combined with Opeh Host Service. Message exchange format, e.g. JSON, XML, Protobuf, etc.</li>
+<li><strong>Separate Ways</strong>: No connections and specialized solutions within small scope. E.g. having own oauth implementation.</li>
+<li><strong>Big Ball of Mud</strong>: Where large domain models mixed and offer inconsistent connections. Proceed with cautious.</li>
+</ul>
+<h1 id="chapter-4-architecture"><a class="header" href="#chapter-4-architecture">Chapter 4: Architecture</a></h1>
+<h2 id="the-layers-architecturebuschmann"><a class="header" href="#the-layers-architecturebuschmann">The Layers Architecture(Buschmann):</a></h2>
+<ul>
+<li>User Interface Layer</li>
+<li>Application Layer</li>
+<li>Domain Layer</li>
+<li>Infrastructure Layer</li>
+</ul>
+<h2 id="hexagonal-and-portadapters-pattern"><a class="header" href="#hexagonal-and-portadapters-pattern">Hexagonal and Port/Adapters Pattern</a></h2>
+<ul>
+<li>Providing port and adapter for each input and output</li>
+<li>Separation between client and implementations detail.</li>
+</ul>
+<h2 id="service-oriented-architecture"><a class="header" href="#service-oriented-architecture">Service-Oriented Architecture</a></h2>
+<ol>
+<li>Service Contract: document or message format defined as contract. E.g. JSON format, xml format, etc.</li>
+<li>Service Loose Coupling: Service minimize dependency and only have an awareness of each other.</li>
+<li>Service Abstraction: Publish only what defined in contracts, hide implementation details.</li>
+<li>Service Reusability: Can use reused by other services.</li>
+<li>Service Autonomy: Has their own resource independent of other's.</li>
+<li>Service Statelessness: Service store no states, instead states are handled by clients.</li>
+<li>Service Discoverability</li>
+<li>Service Composability</li>
+</ol>
+<p>Service-Oriented Architecture Manifesto.</p>
+<p>There's no specific rules defining how domains and their size inside each services in SOA, it depends on business rules handled by that specific service.</p>
+<h2 id="rest"><a class="header" href="#rest">REST</a></h2>
+<ul>
+<li>Constraints: <a href="https://codewords.recurse.com/issues/five/what-restful-actually-means">REST's Constraints</a></li>
+<li>Represents a resource on server side with identifier(URI).</li>
+<li>Stateless: each request is independent of previous or next requests. There is no session in each request, the session might be stored somewhere else.</li>
+<li>Fixed methods/interfaces</li>
+<li>REST API should represent use cases, not domain models.</li>
+<li>Loose coupling</li>
+</ul>
+<h2 id="command-query-responsibility-segregation-todo-need-more-dedicated-research"><a class="header" href="#command-query-responsibility-segregation-todo-need-more-dedicated-research">Command-Query Responsibility Segregation (TODO: need more dedicated research)</a></h2>
+<ul>
+<li>Command: write-only interfaces, modify system states, return no values.</li>
+<li>Query: read-only interfaces, doesn't modify system states , return values.</li>
+<li>Commands can be synchronous or asynchronous.</li>
+</ul>
+<h2 id="event-driven-architecture"><a class="header" href="#event-driven-architecture">Event-Driven Architecture</a></h2>
+<ul>
+<li>Services communicate in asynchronous ways through messaging sending/receiving events.</li>
+</ul>
+<h2 id="pipes-and-filters"><a class="header" href="#pipes-and-filters">Pipes and Filters</a></h2>
+<p>Event-Driven Architecture is achieved by piping messages through <strong>Pipes/Channels</strong>, these messages got sent or accepted by <strong>Port</strong>, then port will pass the messages into <strong>filter processor/processors</strong> and send messages into another port to be sent into another pipes/channels.</p>
+<p>Processors are loosely coupled to each other, the orders can be re-order, and interchangable. 
+Filters/processors may read/write from/to 1/multiple pipes. Filters/processors can be made parallel.</p>
+<p>Channels or the messages queues/brokers can be used: amqp(e.g. rabbitmq), or kafka.
+Each amqp and kafka have different ports, but the messages can be processed the same.</p>
+<h2 id="long-running-processes-aka-sagas-todo-need-more-dedicated-research"><a class="header" href="#long-running-processes-aka-sagas-todo-need-more-dedicated-research">Long-Running Processes, aka Sagas (TODO: need more dedicated research)</a></h2>
+<p><em>“...Event-Driven, distributed, parallel processing pattern...”</em>
+Executive and Tracker</p>
+<h2 id="event-sourcing"><a class="header" href="#event-sourcing">Event Sourcing</a></h2>
+<p>Storing and tracking changes of domain model.
+Data can be gathered and made by combining multiple changes made into storage.</p>
+<p>Event Sourcing typically only has 1 get query, no other complex query should happen. Combine with CQRS for querying mechanism.</p>
+<p>Issue: how to handle keep-growing changes with millions event billions of changes made?</p>
+<p>Solution:</p>
+<ul>
+<li>Snapshots: background process of creating in-memory state where events from event store loaded into memory, calculated/serialized and store-back into event store, then next calculation/serializing use the calculated/serialized data in event store with newer events. This method require synchroniation between app, in-memory state and event store.</li>
+</ul>
+<p>Example of event sourcing: Journaling/Bookkeeping process of accounting may use event sourcing to store users debit/credit activities.</p>
+<h2 id="data-fabric-and-grid-based-distributed-computing-todo-need-more-dedicated-research"><a class="header" href="#data-fabric-and-grid-based-distributed-computing-todo-need-more-dedicated-research">Data Fabric and Grid-Based Distributed Computing (TODO: need more dedicated research)</a></h2>
+<p>To handle big data.</p>
+<h2 id="data-replication-todo-need-more-dedicated-research"><a class="header" href="#data-replication-todo-need-more-dedicated-research">Data Replication (TODO: need more dedicated research)</a></h2>
+<h2 id="continuous-queries-todo-need-more-dedicated-research"><a class="header" href="#continuous-queries-todo-need-more-dedicated-research">Continuous Queries (TODO: need more dedicated research)</a></h2>
+<h2 id="distributed-processing-todo-need-more-dedicated-research"><a class="header" href="#distributed-processing-todo-need-more-dedicated-research">Distributed Processing (TODO: need more dedicated research)</a></h2>
+<h1 id="chapter-5-entities"><a class="header" href="#chapter-5-entities">Chapter 5: Entities</a></h1>
+<p><em>“When an object is distinguished by its identity, rather than its attributes, make this primary to its definition in the model. Keep the class definition simple and focused on life cycle continuity and identity. Define a means of distinguishing each object regardless of its form or history. . . . The model must define what it means to be the same thing.”</em></p>
+<p>Entity:</p>
+<ul>
+<li>Representation of business object that has attributes and operations related to them. </li>
+<li>Store data and its changes through the stages of program.</li>
+<li>Identified by specific identity.
+<ul>
+<li>Identity can be represented in one of its attribute.</li>
+<li>Identity must be unique that really differentiate each entity.</li>
+<li>E.g. RDBMS's primary keys, uuid, etc.</li>
+</ul>
+</li>
+<li>Equality by its identity(Partial Equivalence).</li>
+<li>Each entity can have more than 1 identity(surrogate identities).</li>
+<li>Surrogate identity should not exposed to users, since it's not part of domain model, but part of persistence.</li>
+<li>Domain identity and surrogate identity should be separated</li>
+<li>Entity should not be anemic. Anemic model could cause by designing too focus on database tables, instead of focusing on domain model.</li>
+<li>Entity should be rich with operations related to the domain it handles.</li>
+<li>Example of entities: class/object representing tables from rdbms, object representing complex object that's easily changed/modified through program lifetime, e.g. Application wide context, and its dependencies.</li>
+</ul>
+<p>Entity validation:</p>
+<ul>
+<li>design by contract: setting pre-condition, post-condition, invariant.</li>
+<li>Defensive programming: checking and guarding against invalid states.</li>
+<li>Validating whole entity after validating its attributes.</li>
+</ul>
+<p>Kind of identity:</p>
+<ul>
+<li>User Generated Identity.</li>
+<li>Application Generated Identity(e.g. UUID)</li>
+<li>Persistent Generated Identity(e.g. auto-increment primary key)</li>
+<li>Bounded Context assigned identity(local to bounded context)</li>
+</ul>
+<h1 id="chapter-6-value-objects"><a class="header" href="#chapter-6-value-objects">Chapter 6: Value Objects</a></h1>
+<ul>
+<li>Like entity, the difference is that value object is identified by the whole data it contains.</li>
+<li>Value object tends to be part of entity to represent some of entity's attributes/data.  E.g. Time, Address, Money.</li>
+<li>Equality by whole data(Full Equivalence(reflexivity)), e.g. Time is considered same if all of its component is same, like hours, minutes, seconds and timezone.</li>
+<li><em>“...strive to model using Value Objects instead of Entities wherever possible...”</em></li>
+<li>Immutable, you don't change only parts of it, the only thing you do is either replace whole of it, or modify it through sepecified operations that have no side effects.</li>
+<li>Value objects can be easily replaced and handed off, without worry of side effects or misuse.</li>
+<li>Value objects merupakan component penyusun entity.</li>
+<li>Value objects can contain 1 or more data inside, represented wholly as single value.</li>
+<li>Use factory to create value objects.</li>
+<li>Values objects have operations related to them, but should be side-effects free.</li>
+<li>Values objects should avoid containing entities since entities are highly changeable making value object mutable.</li>
+<li>Passing entities into value objects methods will break immutability and inconsistency in API as it's not sure how it affects the entity.</li>
+<li>You can implement value objects immutability by: 
+<ul>
+<li>create them at constructions, or </li>
+<li>injecting them into entities construction, or</li>
+<li>making setters private, or </li>
+<li>you can utilize language's type system such as Java final keyword, or Rust immutability(default).</li>
+</ul>
+</li>
+<li>Value objects are NOT to be confused with <em>primitive types</em>, they're different. Primitive Types stand on their own with no functionalities at all.</li>
+<li>While primitive types only occupy stack memory, value objects can be in stack or heap depend on the values it contains.</li>
+<li>There are 2 kinds of Value Objects:
+<ul>
+<li>Full Value Object (in functional programming it's called <em>Product Type</em>): acts as a whole. E.g. string, time, money, date of birth, etc.</li>
+<li>Partial Value Object/Standard Types (in functional programming it's called <em>Sum Type</em> or <em>Tagged Union</em> or <em>Discriminated Union</em>): there are multiple types in 1 value object and only one of them valid at one time. E.g. Currency(USD, SGD, IDR, YEN, there's no money with dual/triple currency), User types(admin, public users, internal users, etc)</li>
+</ul>
+</li>
+<li>Full Value Object may contains Partial Value Object, or the other way around, or a combinations of it.</li>
+<li>Don't design value objects with JavaBean Specs in mind, because it allows you using setters which violate immutability of value objects.</li>
+<li>Here are atleast methods/operations each value objects should have:
+<ul>
+<li><em>Equality</em>:
+<ul>
+<li>Method that define equality of value objects.</li>
+<li>In Java it's <code>equals()</code> method derived, </li>
+<li>In Rust it's trait <code>Eq</code> for standard/built-in types or <code>PartialEq</code> for other types.</li>
+</ul>
+</li>
+<li><em>Hashable</em>: 
+<ul>
+<li>Method to hash the object to create unique code/hash that differentiate it with others, even for tiny change.</li>
+<li>In Java it's <code>hashCode()</code> method derived,</li>
+<li>In Rust it's trait <code>Hash</code> derived(using derive macro).</li>
+</ul>
+</li>
+<li><em>Stringable</em>:
+<ul>
+<li>Method that convert object into string to represent it to users or for debugging.</li>
+<li>In Java it's <code>toString()</code> method derived,</li>
+<li>In Rust it's trait <code>Display</code> or <code>Debug</code>(for debugging only) or <code>ToString</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Example of value objects: String in some programming languages, types related with time, money, currency, etc.</li>
+</ul>
+<p><em>Opinion: Looking at Rust's standard types, almost all of its primitive and built-in types contain operations related to the value contained, making all of them value objects. While some languages really have primitive types where they really stand alone do nothing.</em></p>
+<h2 id="chapter-7-services"><a class="header" href="#chapter-7-services">Chapter 7: Services</a></h2>
+<p><em>“A Service in the domain is a stateless operation that fulfills a domain-specific task”</em>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="clean_arch.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="clean_arch.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

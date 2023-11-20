@@ -1,0 +1,876 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>note</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="about.html"><strong aria-hidden="true">1.</strong> About</a></li><li class="chapter-item expanded "><a href="clean_code.html"><strong aria-hidden="true">2.</strong> Clean Code</a></li><li class="chapter-item expanded "><a href="clean_arch.html"><strong aria-hidden="true">3.</strong> Clean Architecture</a></li><li class="chapter-item expanded "><a href="ddd.html"><strong aria-hidden="true">4.</strong> Domain-Driven Design</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">note</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="about"><a class="header" href="#about">About</a></h1>
+<p>Notes taken from various things I studied and learned. Feel free to comment, fix, or any thought, Thanks!</p>
+<p><em>Silahkan membuka issue dan PR untuk berkontribusi atau ingin mengoreksi kesalahan, atau bisa juga dengan mengirim email ke <a href="mailto:mfathirirhas@gmail.com">mfathirirhas@gmail.com</a>. Thanks!</em></p>
+<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="clean-code"><a class="header" href="#clean-code">Clean Code</a></h1>
+<p>from book: <em>Clean Code A Handbook of Agile Software Craftsmanship</em> by Robert C. Martin.</p>
+<h2 id="what"><a class="header" href="#what">What?</a></h2>
+<p><em>&quot;I like my code to be elegant and efficient. The
+logic should be straightforward to make it hard
+for bugs to hide, the dependencies minimal to
+ease maintenance, error handling complete
+according to an articulated strategy, and performance close to optimal so as not to tempt
+people to make the code messy with unprincipled optimizations. Clean code does one thing
+well.&quot;</em></p>
+<p>~ Bjarne Stroustrup</p>
+<p>Clean code: elegant and efficient.</p>
+<p><em>&quot;Clean code is simple and direct. Clean code
+reads like well-written prose. Clean code never
+obscures the designer’s intent but rather is full
+of crisp abstractions and straightforward lines
+of control.&quot;</em></p>
+<p>~ Grady Booch, author of Object
+Oriented Analysis and Design with
+Applications</p>
+<p>Clean code: simple &amp; direct -&gt; readibility.</p>
+<p><em>&quot;Clean code can be read, and enhanced by a
+developer other than its original author. It has
+unit and acceptance tests. It has meaningful
+names. It provides one way rather than many
+ways for doing one thing. It has minimal dependencies, which are explicitly defined, and provides a clear and minimal API. Code should be
+literate since depending on the language, not all
+necessary information can be expressed clearly
+in code alone.&quot;</em></p>
+<p>~ “Big” Dave Thomas, founder
+of OTI, godfather of the
+Eclipse strategy</p>
+<p>Clean code: has tests(unit and integration), minimal dependencies, minimal API.</p>
+<p>Ron Jeffries, author of Extreme Programming
+Installed and Extreme Programming
+Adventures in C#:</p>
+<p>In recent years I begin, and nearly end, with Beck’s
+rules of simple code. In priority order, simple code:</p>
+<p>• Runs all the tests;</p>
+<p>• Contains no duplication;</p>
+<p>• Expresses all the design ideas that are in the
+system;</p>
+<p>• Minimizes the number of entities such as classes,
+methods, functions, and the like.</p>
+<h2 id="meaningful-names"><a class="header" href="#meaningful-names">Meaningful Names</a></h2>
+<ul>
+<li>Names should reveal intentions(without comments).</li>
+<li>Avoid Disinformations.</li>
+<li>Make meaningful distinctions.</li>
+<li>Use pronounceable names.</li>
+<li>Use searchable names, avoid single letter, unique enough while searching.</li>
+<li>Avoid encoding, e.g. Hungarian Notation.</li>
+<li>No need prefix, each naming should be small enough. E.g. if it's already represented by the package names, no need to put it in classes name.</li>
+<li>Avoid mental mapping, avoid readers thinking about something else about the names.</li>
+<li>Class/Object/Struct or any kind of object/type should be named with <strong>noun</strong>.</li>
+<li>Methods/Functions should be named with <strong>verb</strong>.</li>
+</ul>
+<h2 id="functions"><a class="header" href="#functions">Functions</a></h2>
+<ul>
+<li>Small</li>
+<li>Do one thing</li>
+<li>Top-Down approach, read code from top to down</li>
+<li>Function arguments max to 3, more than 3 need some kind of refactor if possible.</li>
+<li>Avoid output argument, argument passed-in, and also acts as output value. Use return value instead.</li>
+<li>Avoid flag argument, e.g. passing boolean as argument, implying the function do more than 1 thing.</li>
+<li>More than 3 arguments should be made into its own class/object.</li>
+<li>Avoid side effects.</li>
+<li>Output arguments: avoid it, in early days before OOP it might be needed, but in OOP output argument is only for <code>this</code> object, not the arguments passed-in.</li>
+<li>Command Query Separation: Commands: Mutations, Query: Read-only.</li>
+<li>Prefer exceptions to returning codes.</li>
+</ul>
+<h2 id="comments"><a class="header" href="#comments">Comments</a></h2>
+<ul>
+<li>Don't comment bad code, rewrite it.</li>
+<li>Make code self explainatory</li>
+<li>Good comments: 
+<ul>
+<li>Legal comments(e.g. license).</li>
+<li>Informative and details of the code, if cannot be explain by function name.</li>
+<li>Making clarification.</li>
+<li>Warnings</li>
+<li>TODO</li>
+<li>Amplify importance of something for certain consequences.</li>
+<li>Documentation for public APIs</li>
+</ul>
+</li>
+</ul>
+<h2 id="objects-and-data-structure"><a class="header" href="#objects-and-data-structure">Objects and Data Structure</a></h2>
+<ul>
+<li>Make attributes private, access them with methods.</li>
+<li>Objects: data and behaviour coupled, Data structure: data and behaviour separated.
+<ul>
+<li><em>&quot;Procedural code (code using data structures) makes it easy to add new functions without changing the existing data structures. OO code, on the other hand, makes it easy to add new classes without changing existing functions.&quot;</em></li>
+<li><em>&quot;Procedural code makes it hard to add new data structures because all the functions must change. OO code makes it hard to add new functions because all the classes must change&quot;</em></li>
+<li>Know when to use procedural code, when to use OOP. Not everything is an object.</li>
+</ul>
+</li>
+<li>Law of Demeter: <em>The method should not invoke methods on objects that are returned by any of the allowed functions. In other words, talk to friends, not to strangers.</em></li>
+<li>Train Wrecks: Long chain of calls should be avoided, prefer them into each lines.</li>
+<li>Data Transfer Object: Class/Data Structure with public members and no functions/methods.
+<ul>
+<li>Much like <em>bean</em> object in Java. DTO is one kind of a bean.</li>
+<li>Beans are (<a href="https://semanticreatures.com/2018/10/16/java-beans-and-dtos">source</a>):
+<ul>
+<li>all properties are private (and they are accessed through getters and setters).</li>
+<li>they have zero-arg constructors (aka default constructors).</li>
+<li>they implement the Serializable Interface.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="errors-handling"><a class="header" href="#errors-handling">Errors Handling</a></h2>
+<ul>
+<li>Use exceptions rather than return codes.</li>
+<li>Use unchecked exceptions
+<ul>
+<li>The price of checked exceptions is violation of open-close principle of clean arch.</li>
+<li>You need to expose the type of exceptions to higher level callers.</li>
+<li>Changes to exception types mean changes to higher level caller.</li>
+</ul>
+</li>
+<li>Use checked exceptions if you make it mandatory for the caller to handle the errors, such that the error is supposed to be strongly typed and specific to the dependencies(e.g. libraries, some libraries define their own error types).</li>
+<li>Don't return null, returning null causing NPE. Throw exceptions instead of null, or wrap with something else.</li>
+<li>Don't pass null, you never know what the function/method does when you pass null, but for sure it's gonna be NPE. As method/function provider, consider checking null and handle them with exceptions.</li>
+</ul>
+<h2 id="boundaries"><a class="header" href="#boundaries">Boundaries</a></h2>
+<ul>
+<li>Careful when introducing 3rd party library, cause we never know what APIs they provide and what are the impact to the maintainer of the code depending on it. Some client/caller might be arbitrarily invoking anything from said 3rd libraries without care, causing something unexpected. E.g. Map, which expose anything that you can do with map. If you need this Map anywhere in the code, provide abstractions/wrappers around the library and only expose things you need. Also it's not recommended to cast things from literal map, use generics instead.</li>
+<li>Learning tests, spending time learning new 3rd party lib by testing it, or write tests on it.</li>
+<li>Minimize interfaces to 3rd party codes only to the ones we really need, exposing naked dependencies might introduce side effects(but not always, depends on how the lib's APIs written).</li>
+</ul>
+<h2 id="unit-tests"><a class="header" href="#unit-tests">Unit Tests</a></h2>
+<p>Write tests to automate testing so the tests can be easily reproduced.</p>
+<p>From Unit tests raised TDD.</p>
+<p>TDD: Write unit tests first, before production code.</p>
+<p>3 Laws of TDD:</p>
+<ul>
+<li><em>You may not write production code until you have written a failing unit test.</em></li>
+<li><em>You may not write more of a unit test than is sufficient to fail, and not compiling is failing.</em></li>
+<li><em>You may not write more production code than is sufficient to pass the currently failing test</em></li>
+</ul>
+<p><em>Test code is just as important as production code</em>.</p>
+<p>Unit Tests make the code maintainable because it guards from any changes. Any changes to the existing code must break something, and that's the tests.</p>
+<p><em>One Assert per Test</em></p>
+<p><em>Single concept per Test</em></p>
+<h3 id="first-principles-for-clean-tests"><a class="header" href="#first-principles-for-clean-tests">FIRST Principles for Clean Tests</a></h3>
+<ul>
+<li>Fast: Tests should run fast, because it needs to be run frequently. Slow tests prevent from frequent run.</li>
+<li>Independent: Tests should not depends on each other, should not have its own states(not shared with other tests), should run in any order, and not causing cascading errors.</li>
+<li>Repeatable: Tests can be run in any environment, without anything needed(except the code &amp; tests itself). No network, no nothing needed.</li>
+<li>Self-Validating: Tests should be either <em>Passed</em> or <em>Failed</em>, no need to trace the logs nor any information, simply from whether it passed or failed.</li>
+<li>Timely: Unit tests should be written <em>just before</em> the productions code(in timely fashion). The timing is adjusted, as long as tests first. If you write production code first, you can end up not writing tests to it.</li>
+</ul>
+<p><em>Opinion: This is why unit tests involve mock to make the tests fast and independent, since mock cut the IO/syscalls dependencies, and can be repeat multiple times anywhere without setting things up.</em></p>
+<h2 id="classes"><a class="header" href="#classes">Classes</a></h2>
+<ul>
+<li>Classes should be small.</li>
+<li>Refer to SRP in SOLID Principles.</li>
+<li><em>We want our systems to be composed of many small classes, not a few large ones. Each small class encapsulates a single responsibility, has a single reason to change, and collaborates with a few others to achieve the desired system behaviors.</em></li>
+<li>Cohesion: instance variables are used in every methods(maximizing the cohesion, coupling between attributes and methods).</li>
+<li>Cohesion gives Smaller Classes, when class loose cohesion, separate it into different classes.</li>
+<li>Isolating from changes(OCP, ISP, DIP): concrete classes should not be depended upon directly by client/caller, instead caller/client should depends on abstractions/interfaces.</li>
+</ul>
+<h2 id="system"><a class="header" href="#system">System</a></h2>
+<ul>
+<li>Separate apps/systems dependencies from using it, by having initialization process for dependencies or other components needed by the runtime. Runtime only depends on those objects created at initialization phase.</li>
+<li>One of ideal way to separate initialization is to put it in <code>main</code>.</li>
+<li>Use Abstract Factory pattern for initializing/creating these system dependencies.</li>
+<li>Use dependency injection for system dependencies, an object should not responsible for its own dependencies creation/initialization, instead it's up to higher level part of code handling it(e.g. main function/method).</li>
+<li>Another place to put dependencies is container, through IoC(Inversion of Control) principle.</li>
+<li>Pass dependencies into object's constructor, instead of creating/initializing them inside said object. Or use specialised object to contain all dependencies and pass it along, called container(ApplicationContext).</li>
+</ul>
+<p><em>An optimal system architecture consists of modularized domains of concern, each of which is implemented with Plain Old Java (or other) Objects. The different domains are integrated together with minimally invasive Aspects or Aspect-like tools. This architecture can be test-driven, just like the code.</em></p>
+<p>Communicate using DSL(Domain Specific Language) to narrowing the gap between domain experts and implementor.</p>
+<h2 id="kent-becks-simple-design-rules"><a class="header" href="#kent-becks-simple-design-rules">Kent Beck's simple design rules</a></h2>
+<p>It's related to how TDD is implemented.</p>
+<ol>
+<li>Run All The Tests, related to TDD, all tests should passed to be able to verify the program. Low coupling and High cohesion. Tests are all specified first. before next steps.</li>
+<li>Refactoring, after running all the tests, implements the code and keep refactoring, while checking the tests. If we broke anything, keep refactoring until tests all assesrted, keep repeating the steps by refactoring the codes and cleaning up the tests to adjust the new changes.</li>
+</ol>
+<h2 id="concurrency"><a class="header" href="#concurrency">Concurrency</a></h2>
+<p>Myths and misconceptions:</p>
+<ul>
+<li>Myth: <em>Concurrency always improve performance</em>
+<ul>
+<li>Actual: it improves performance only when there're wait points on blocking components(e.g. IOs, or some syscalls).</li>
+</ul>
+</li>
+<li>Myth: <em>Design doesn't change when writing concurrent programs</em>. 
+<ul>
+<li>It could be</li>
+<li>(e.g <em>What's the color of your functions?</em>)</li>
+</ul>
+</li>
+<li>Myth: <em>Understanding concurrency issues is not important when working with a container such as a Web or EJB container.</em>
+<ul>
+<li>How to deal with requests coming from the web servers?</li>
+<li>How to synchronize the shared data?, </li>
+<li>How to ensure thread safety?</li>
+</ul>
+</li>
+</ul>
+<p>What concurrencies will have:</p>
+<ul>
+<li>Incurs some overhead if not used correctly.</li>
+<li>Correct concurrency is complex.</li>
+<li>Bugs are not repeatable/reproducible easily.</li>
+<li>Often require fundamental changes.</li>
+<li>Incurs thread-safety problems(e.g. data races, some race conditions)</li>
+</ul>
+<p>Concurrency Defense:</p>
+<ul>
+<li>SRP</li>
+<li>Limit the scope of data: carefully sharing data, especially mutables ones, even don't share mutable data at all on multiple threads.</li>
+<li>Copy the data, so it's not shared.</li>
+<li>Threads should be independent.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="clean-architecture"><a class="header" href="#clean-architecture">Clean Architecture</a></h1>
+<p>from book: <em>Clean Architecture A CRAFTSMAN’S GUIDE TO SOFTWARE STRUCTURE AND DESIGN</em> by Robert C. Martin.</p>
+<h2 id="two-values-of-software-system"><a class="header" href="#two-values-of-software-system">Two Values of Software System</a></h2>
+<ul>
+<li><strong>Behaviour</strong>: Stakeholders define requirements, swe implements them and fix any bugs.</li>
+<li><strong>Architecture</strong>: Software's architecture to ease changes of requirements. Software must be easy to change.</li>
+</ul>
+<p>Most people focus on Behaviour aspect, but what actually important is architecture, because requirements keep changing and the easeness of requirements change will speed up software development yet still meeting the said requirements and easier finding and fixing bugs.</p>
+<h2 id="3-main-paradigms-of-programming"><a class="header" href="#3-main-paradigms-of-programming">3 Main Paradigms of Programming</a></h2>
+<ul>
+<li><strong>Structured Programming</strong>: By Edsger Wybe Dijkstra in 1968. Imperative programming model with imperative constructs <code>if/then/else</code> and <code>do/while/until</code>. <em>Structured programming imposes discipline on direct transfer of control</em>.</li>
+<li><strong>Object Oriented Programming</strong>: by Ole Johan Dahl and Kristen Nygaard in 1966. Late binding of function calls to heaps. <em>Object-oriented programming imposes discipline on indirect transfer of control</em>.</li>
+<li><strong>Functional Programming</strong>: By Alonzo Church in 1936 through his Lambda Calculus. Immutable. <em>Functional programming imposes discipline upon assignment.</em></li>
+</ul>
+<h2 id="structured-programming"><a class="header" href="#structured-programming">Structured Programming</a></h2>
+<blockquote>
+<p><em>In 1955, having been a programmer for three years, and while still a student, Dijkstra concluded that
+the intellectual challenge of programming was greater than the intellectual challenge of theoretical
+physics. As a result, he chose programming as his long-term career.</em></p>
+</blockquote>
+<blockquote>
+<p><em>During his investigation, Dijkstra discovered that certain uses of goto statements prevent modules
+from being decomposed recursively into smaller and smaller units, thereby preventing use of the
+divide-and-conquer approach necessary for reasonable proofs.</em></p>
+</blockquote>
+<p>Structured Programming: using the good parts of <code>goto</code> feature, the imperative constructs, like <code>if/then/else</code> and <code>do/while</code>.</p>
+<p>In 1968, Dijkstra wrote a letter titled &quot;Go To Statement Considered Harmful&quot;</p>
+<p>From Dijkstra -&gt; Tests: <em>are to show the presence of bugs, not the absence of them. We tests our program as much as we can until we failed to prove incorrectness</em>, then it's correct enough.</p>
+<h2 id="object-oriented-programming"><a class="header" href="#object-oriented-programming">Object-Oriented Programming</a></h2>
+<p>First form of OO is when Dahl and Nygaard before 1966 moved function call stack-frame to heap becoming function pointer.
+The definition become: &quot;Data + Behaviour&quot;. 
+Then become: &quot;Encapsulation + Inheritance + Polymorphism&quot;</p>
+<ul>
+<li>Encapsulation: not unique to OO language as a general concept. C has actually encapsulation in form of header file.
+The removal of header file and using private,public and protected members as a way to encapsulate things actually weakens encapsulation C has.</li>
+<li>Inheritance: Prior to OOP &quot;inheritance&quot; was done through some kind of composition, becoming superset of something, even today composition still preferred over inheritance.</li>
+<li>Polymorphism: Pre-OO has somekind of inheritance in form of function pointers which have same signatures for different implementations.
+E.g. IO interface functions in UNIX having 5 API: <code>open</code>, <code>close</code>, <code>read</code>, <code>write</code>, and <code>seek</code>.
+This state that function pointer is the early form of OO's inheritance.</li>
+</ul>
+<p>OO actually gives nothing new, it just make things in the past safer for implementations, especially in the hands of programmers not experienced enough with low level memory managements and things like pointers.</p>
+<h3 id="dependency-inversion"><a class="header" href="#dependency-inversion">Dependency Inversion</a></h3>
+<p>Previously the program dependency went from top level function(e.g. main) into lower level calling in each layer/level. Flow and dependencies go from top to bottom.</p>
+<p><strong>Dependency Inversion</strong>: the flow is reversed through the use of interface(bunch of function pointers) to define dependencies and used by top level as their calling signatures, and by implementors as calee's signatures. With inversion, dependencies go into interface, interface acts as implementation references for implementor, means it's implementor who depends on those references(interface), and caller who used to depends on implementor, now be the ones who declared those implementation references(interface), this interface also called as business rules.</p>
+<p>OOP: <em>OO is the ability, through the use of polymorphism, to gain absolute control over every source code dependency in the system</em>.</p>
+<p>The ability to loosely coupling software components like a plugins, those plugins implementations will refer to APIs defined in the interface.</p>
+<blockquote>
+<p>We can change implementation detail without client/caller aware of it and can load it into code/program directly because of the common interface shared, also can be load at runtime with dynamic linking strategy.</p>
+</blockquote>
+<h2 id="functional-programming"><a class="header" href="#functional-programming">Functional Programming</a></h2>
+<p>Immutability: Why matters? because: <em>All race conditions, deadlock conditions, and concurrent update problems are due to mutable variables. You cannot have a race condition or a concurrent update problem if no variable is ever updated. You cannot have deadlocks without mutable locks.</em></p>
+<p>Need to segregate between between mutable and immutable values in order to make immutability pragmatic. E.g. using transactional memory like atomic, other way is to implement <em><strong>Event Sourcing</strong></em> to record only the transaction, not the value resulted from it. If we calculate value from the transaction, there will be state need to be managed from previous transaction, it becomes stateful, becoming mutable, hence not functional enough.</p>
+<p><strong>Conclusion</strong></p>
+<ul>
+<li>Structured programming is discipline imposed upon direct transfer of control.</li>
+<li>Object-oriented programming is discipline imposed upon indirect transfer of control.</li>
+<li>Functional programming is discipline imposed upon variable assignment.</li>
+</ul>
+<h2 id="solid"><a class="header" href="#solid">SOLID</a></h2>
+<blockquote>
+<p><em>The SOLID principles tell us how to arrange our functions and data structures into
+classes, and how those classes should be interconnected. The use of the word “class”
+does not imply that these principles are applicable only to object-oriented software.
+A class is simply a coupled grouping of functions and data. Every software system
+has such groupings, whether they are called classes or not. The SOLID principles
+apply to those groupings.</em></p>
+</blockquote>
+<ul>
+<li>SRP: Single Responsibility Principle
+<ul>
+<li>Each software modules/components must have <strong>only 1 reason to change</strong>.</li>
+<li>Each module should only has one user/stakeholder/actor.</li>
+<li>Each module should only be responsible to one user/stakeholder/actor.</li>
+<li>Common mistake understanding this is saying each module/class only do one thing, which doesn't necessarily the case for SRP.</li>
+</ul>
+</li>
+<li>OCP: Open/Close Principle
+Open for extension, Close for modification. Changes are made by adding new code, instead of modifying one.
+Separating system into different components(classes) with their own context(e.g. controller, presenters, database, models, etc)
+Dependencies go one way, A depends B, A knows about B, B doesn't need to know about A.
+Is about protecting higher dependencies from changes from lower dependencies, e.g. A depends on B, B is protected from changes in A.
+Utilizing interface to hide/information hiding, the most privileged component is the one rarely changes, and that many components depend on(e.g. interactor).</li>
+<li>LSP: Liskov Substitution Principle
+Is about subtypes, components are substitutable based on rules defined.
+When deriving a class, mind their functionalities and its impact on APIs. E.g. The Square/Rectangle Problem.</li>
+<li>ISP: Interface Segregation Principle
+Don't depends on things not used. Create interface for set of functionalities actually used by the client/caller, not the ones provided by implementors.
+Create small interfaces, only needed for each concrete components.</li>
+<li>DIP: Dependency Inversion Principle
+Implementation detail depends on specifications/requirements made by higher level components.
+Client/caller depends on abstractions(e.g. interface) not concrete implementations, and implementor implements those abstractions.</li>
+</ul>
+<h2 id="business-rules"><a class="header" href="#business-rules">Business Rules</a></h2>
+<ul>
+<li>Entities: 
+<ul>
+<li>contains core business data and logics. </li>
+<li>Not related to other technical implementations(e.g. databases, IOs, etc)</li>
+<li>Depend on nothing.</li>
+</ul>
+</li>
+<li>Use Cases: 
+<ul>
+<li>Defines more elaborated business rules by utilizing entities. </li>
+<li>Entities know nothing about use cases, use cases know about entities. </li>
+<li>Usecases contain input and output data from outside(e.g. user inputs), process the input with its own logics and utilizing entities and give an output.</li>
+<li>Depend on Entities</li>
+</ul>
+</li>
+<li>Request and Response Models(DTOs)
+<ul>
+<li>Data model used by usecases as input and output.</li>
+<li>Independent of anything, even entities.</li>
+<li>Anemic: standalone and have no operations.</li>
+</ul>
+</li>
+</ul>
+<h2 id="the-clean-architecture"><a class="header" href="#the-clean-architecture">The Clean Architecture</a></h2>
+<ul>
+<li>Independent of Frameworks.</li>
+<li>Testable.</li>
+<li>Independent of the UI.</li>
+<li>Independent of the Database.</li>
+<li>Independent of any external agency.</li>
+</ul>
+<h3 id="layers"><a class="header" href="#layers">Layers</a></h3>
+<p>From high-level to low-level, dependencies go from low-level to high-level:</p>
+<ul>
+<li>Entities</li>
+<li>Use Cases</li>
+<li>Interface Adapters: controllers, APIs(rest api), grpc definitions and functions, models/DTOs, etc.</li>
+<li>Frameworks and Drivers(infrastructure): http frameworks, database, caches, any technical dependencies.</li>
+</ul>
+<h2 id="service-oriented-architecture-and-microservice"><a class="header" href="#service-oriented-architecture-and-microservice">Service Oriented Architecture and Microservice</a></h2>
+<p>SOA dan MS tidak menjamin dari total loose-coupling yang diharapkan dari dua arsitektur di atas, karena tetap ada <em>cross-cutting</em> concerns yang menyebabkan semua komponen baik itu monolith ataupun MS tetap harus diubah.</p>
+<p>Solusi: Strategy Pattern
+Object implementor terpisah dan comply ke set of common interfaces defined. Cukup menambahkan object implementor tersebut, dan membuat factory nya, maka tidak diperlukan perubahan di semua tempat.
+Bisa menggunakan abstract class atau interface class sebagai boundaries untuk internal implementor dan memenuhi dependency inversion rule dimana abstract/interface class tersebut yang define rules(behaviours/functions/methods).</p>
+<h2 id="components"><a class="header" href="#components">Components</a></h2>
+<ul>
+<li>Monolith: 
+<ul>
+<li>Produce 1 binary, </li>
+<li>The boundaries are all compiled into 1 binary/artifact,</li>
+<li>Boundaries are in the level of function calls, abstract/interface segregation.</li>
+<li>Run in one process</li>
+<li>Changes can be made by re-compiling whole program, or inject component/object dynamically at runtime according to the boundaries.</li>
+</ul>
+</li>
+<li>Services:
+<ul>
+<li>Multiple binaries</li>
+<li>Independent deployments.</li>
+<li>Run in one or multiple process, even in separate CPU/server/vm.</li>
+<li>Communicate through common interface(e.g. http, rpc, etc)</li>
+<li>Changes can be flexible as each service has its own concern and deployment pipeline without whole system recompile/redeploy.</li>
+</ul>
+</li>
+</ul>
+<h2 id="tests"><a class="header" href="#tests">Tests</a></h2>
+<ul>
+<li>Outermost of layers,</li>
+<li>Avoid tests coupling,</li>
+<li>Don't depend on volatile things, volatile things mostly are the IOs where they happen to be in infrastructure layers.</li>
+<li>Test coupling:
+<ul>
+<li>Structural coupling: 
+<ul>
+<li>Provide test apis to avoid this.</li>
+<li>Test apis hide production code internal details so it's free to change, leaving test code unaffected.</li>
+<li>Production codes tend to be more general, while Test codes tend to be more specific.</li>
+</ul>
+</li>
+<li>Separate Test code into its own module.</li>
+</ul>
+</li>
+</ul>
+<h2 id="low-level-details"><a class="header" href="#low-level-details">Low-level details</a></h2>
+<ul>
+<li>Database, Web, and Frameworks are low level details.</li>
+<li>Should be separated from core of the apps.</li>
+<li>Should not polluted system archs.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="domain-driven-design"><a class="header" href="#domain-driven-design">Domain-Driven Design</a></h1>
+<p>from book: <em>Implementing Domain-Driven Design</em> by Vaughn Vernon.</p>
+<h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
+<p>Ubiquitous Language: </p>
+<ul>
+<li><em>“It is a team pattern used to capture the concepts and terms of a specific core business domain in the software model itself”</em></li>
+<li><em>“The Ubiquitous Language is a shared language developed by the team—a team composed of both domain experts and software developers.”</em></li>
+<li><em>“more centered on how the business itself thinks and operates”</em></li>
+</ul>
+<p>Bounded Context: </p>
+<ul>
+<li>Explicit boundaries around Ubiquitous Language.</li>
+<li>There is one Ubiquitous Language per bounded context.</li>
+</ul>
+<p>Context Map: Interaction between bounded context.</p>
+<p>When to use DDD:</p>
+<ul>
+<li>Complex business operations/usecases</li>
+<li>Many domains and business operations/usecases</li>
+<li>Even it's not complex in the beginning, it has potential to grow in complexity.</li>
+<li>Frequent changes</li>
+<li>You don't understand the domain yet, meaning there'll be a lot of researches/modifications/changes of requirements.</li>
+</ul>
+<p>When to NOT use DDD:</p>
+<ul>
+<li>Pure CRUD only</li>
+<li>Few business operations/usecases</li>
+</ul>
+<p>Goal of DDD: Able to express ubiquitous languages, bounded context and their mapping in the team composed of technical and non-technical people, not only see it from technical perspective, but also from business perspective.</p>
+<h2 id="domain-model"><a class="header" href="#domain-model">Domain Model</a></h2>
+<p>Part of Ubiquitous Language which resides inside bounded context.</p>
+<p><em>“It’s a software model of the very specific business domain you are working in. Often it’s implemented as an object model, where those objects have both data and behavior with literal and accurate business meaning.”</em></p>
+<ul>
+<li>Rich of business rules and logics, not only data/attributes.</li>
+<li>Tend to be small and focused.</li>
+</ul>
+<h2 id="anemic-domain-model"><a class="header" href="#anemic-domain-model">Anemic Domain Model</a></h2>
+<p>Domain model which doesn't contain additional business rules/logics other than getters/setters.</p>
+<h1 id="chapter-2-domains-subdomains-and-bounded-context"><a class="header" href="#chapter-2-domains-subdomains-and-bounded-context">Chapter 2: Domains, Subdomains, and Bounded Context</a></h1>
+<h2 id="domain"><a class="header" href="#domain">Domain</a></h2>
+<p>Domains contain ubiquitous languages, and business rules specific to the smallest possible context. Each domains reside inside bounded context. Domains can have subdomain, where smaller domain with its own bounded context.</p>
+<p>Domain has subdomains called Core Domains and Supporting Domains.</p>
+<p>Core Domains is the more specialized domain which has smaller context but central to the business rules/logics.</p>
+<p>Supporting Domains are domain to compliment the systems widely, usually when you make adapter to certain business rules/logics.</p>
+<p>Whole business domain contains 1 to many bounded contexts. Each Bounded Context contains 1 to many domains(subdomains). Bounded context separate related domains/subdomains. Each domains/subdomains can communicate to other domains/subdomains in same bounded context or to other bounded context(context mapping).</p>
+<p>Bounded context is to give context to the domain, some domains might have same names, even same functionalities/operations, but they have different context. 
+E.g. Account in term of banking is different than Account in term of social media.</p>
+<p>The business rules and logics inside domains are defined by Domain Experts, they are people having expertise in the particular domain, doesn't have to be the developers, can be anyone with required knowledge in the domain.</p>
+<p>Subdomain Types:</p>
+<ul>
+<li><strong>Core subdomain</strong>: core to business rules and logics, the most rarely changed, many other domains depend on this domain.</li>
+<li><strong>Supporting subdomain</strong>: domain extending the rules and logics, more frequent changes than core domains.</li>
+<li><strong>Generic subdomain</strong>: not too related to the business rules and logics, but required.</li>
+</ul>
+<p>Domain dan subdomain terdiri dari:</p>
+<ul>
+<li><strong>Entity</strong>: </li>
+<li><strong>Value Object</strong>: </li>
+</ul>
+<p>Bounded context bisa terdiri dari:</p>
+<ul>
+<li>Domains/Subdomains(entity and/or value object)</li>
+<li>Services</li>
+<li>Events</li>
+<li>Modules</li>
+<li>Aggregates</li>
+<li>Context Maps</li>
+<li>Shared Kernel</li>
+</ul>
+<p>Domain Model consists of 1 or more bounded contexts.</p>
+<p>The size of bounded context should not more nor less, but exact as to what is needed.</p>
+<p>Separate architectural(or infrastructural?) from ubiquitous languages inside the domain's bounded context, architectural/infrastructural should have their own bounded context, probably inside generic domain.</p>
+<p>Domain modeling should not be dictated by technical terms/components, instead be dictated by business requirements/rules/logics. Ubiquitous languages should come from domain experts instead of technical experts, unless technical experts play double role as domain experts as well. We should map those business requirements into domain models utilizing terms existed in particular programming languages as programming languages have different ways of representing DDD components.</p>
+<h1 id="chapter-3-context-maps"><a class="header" href="#chapter-3-context-maps">Chapter 3: Context Maps</a></h1>
+<p>Relations and Integrations between bounded context.</p>
+<p>Types of Relations between bounded contexts:</p>
+<ul>
+<li><strong>Partnership</strong>: Synchronous integration, both ends must coordinate and schedule the release well in order to work well.</li>
+<li><strong>Shared Kernel</strong>: Only share part of the codes/models. Shared items cannot be change without consultations with other teams used it.</li>
+<li><strong>Customer-Supplier Development</strong>: Upstream-Downstream relationship where upstream needs to address downstream needs in order to succeed.</li>
+<li><strong>Conformist</strong>: When downstream follows what upstream already defined.</li>
+<li><strong>Anticorruption Layer(ACL)</strong>: Downstream creates additional layer to translate upstream into downstream's own model. E.g. serde? validations?</li>
+<li><strong>Open Host Service(OHS)</strong>: Provide protocol to be accessed(e.g. http, grpc, message queue)</li>
+<li><strong>Published Language(PL)</strong>: Common &quot;language&quot; to communicate, combined with Opeh Host Service. Message exchange format, e.g. JSON, XML, Protobuf, etc.</li>
+<li><strong>Separate Ways</strong>: No connections and specialized solutions within small scope. E.g. having own oauth implementation.</li>
+<li><strong>Big Ball of Mud</strong>: Where large domain models mixed and offer inconsistent connections. Proceed with cautious.</li>
+</ul>
+<h1 id="chapter-4-architecture"><a class="header" href="#chapter-4-architecture">Chapter 4: Architecture</a></h1>
+<h2 id="the-layers-architecturebuschmann"><a class="header" href="#the-layers-architecturebuschmann">The Layers Architecture(Buschmann):</a></h2>
+<ul>
+<li>User Interface Layer</li>
+<li>Application Layer</li>
+<li>Domain Layer</li>
+<li>Infrastructure Layer</li>
+</ul>
+<h2 id="hexagonal-and-portadapters-pattern"><a class="header" href="#hexagonal-and-portadapters-pattern">Hexagonal and Port/Adapters Pattern</a></h2>
+<ul>
+<li>Providing port and adapter for each input and output</li>
+<li>Separation between client and implementations detail.</li>
+</ul>
+<h2 id="service-oriented-architecture"><a class="header" href="#service-oriented-architecture">Service-Oriented Architecture</a></h2>
+<ol>
+<li>Service Contract: document or message format defined as contract. E.g. JSON format, xml format, etc.</li>
+<li>Service Loose Coupling: Service minimize dependency and only have an awareness of each other.</li>
+<li>Service Abstraction: Publish only what defined in contracts, hide implementation details.</li>
+<li>Service Reusability: Can use reused by other services.</li>
+<li>Service Autonomy: Has their own resource independent of other's.</li>
+<li>Service Statelessness: Service store no states, instead states are handled by clients.</li>
+<li>Service Discoverability</li>
+<li>Service Composability</li>
+</ol>
+<p>Service-Oriented Architecture Manifesto.</p>
+<p>There's no specific rules defining how domains and their size inside each services in SOA, it depends on business rules handled by that specific service.</p>
+<h2 id="rest"><a class="header" href="#rest">REST</a></h2>
+<ul>
+<li>Constraints: <a href="https://codewords.recurse.com/issues/five/what-restful-actually-means">REST's Constraints</a></li>
+<li>Represents a resource on server side with identifier(URI).</li>
+<li>Stateless: each request is independent of previous or next requests. There is no session in each request, the session might be stored somewhere else.</li>
+<li>Fixed methods/interfaces</li>
+<li>REST API should represent use cases, not domain models.</li>
+<li>Loose coupling</li>
+</ul>
+<h2 id="command-query-responsibility-segregation-todo-need-more-dedicated-research"><a class="header" href="#command-query-responsibility-segregation-todo-need-more-dedicated-research">Command-Query Responsibility Segregation (TODO: need more dedicated research)</a></h2>
+<ul>
+<li>Command: write-only interfaces, modify system states, return no values.</li>
+<li>Query: read-only interfaces, doesn't modify system states , return values.</li>
+<li>Commands can be synchronous or asynchronous.</li>
+</ul>
+<h2 id="event-driven-architecture"><a class="header" href="#event-driven-architecture">Event-Driven Architecture</a></h2>
+<ul>
+<li>Services communicate in asynchronous ways through messaging sending/receiving events.</li>
+</ul>
+<h2 id="pipes-and-filters"><a class="header" href="#pipes-and-filters">Pipes and Filters</a></h2>
+<p>Event-Driven Architecture is achieved by piping messages through <strong>Pipes/Channels</strong>, these messages got sent or accepted by <strong>Port</strong>, then port will pass the messages into <strong>filter processor/processors</strong> and send messages into another port to be sent into another pipes/channels.</p>
+<p>Processors are loosely coupled to each other, the orders can be re-order, and interchangable. 
+Filters/processors may read/write from/to 1/multiple pipes. Filters/processors can be made parallel.</p>
+<p>Channels or the messages queues/brokers can be used: amqp(e.g. rabbitmq), or kafka.
+Each amqp and kafka have different ports, but the messages can be processed the same.</p>
+<h2 id="long-running-processes-aka-sagas-todo-need-more-dedicated-research"><a class="header" href="#long-running-processes-aka-sagas-todo-need-more-dedicated-research">Long-Running Processes, aka Sagas (TODO: need more dedicated research)</a></h2>
+<p><em>“...Event-Driven, distributed, parallel processing pattern...”</em>
+Executive and Tracker</p>
+<h2 id="event-sourcing"><a class="header" href="#event-sourcing">Event Sourcing</a></h2>
+<p>Storing and tracking changes of domain model.
+Data can be gathered and made by combining multiple changes made into storage.</p>
+<p>Event Sourcing typically only has 1 get query, no other complex query should happen. Combine with CQRS for querying mechanism.</p>
+<p>Issue: how to handle keep-growing changes with millions event billions of changes made?</p>
+<p>Solution:</p>
+<ul>
+<li>Snapshots: background process of creating in-memory state where events from event store loaded into memory, calculated/serialized and store-back into event store, then next calculation/serializing use the calculated/serialized data in event store with newer events. This method require synchroniation between app, in-memory state and event store.</li>
+</ul>
+<p>Example of event sourcing: Journaling/Bookkeeping process of accounting may use event sourcing to store users debit/credit activities.</p>
+<h2 id="data-fabric-and-grid-based-distributed-computing-todo-need-more-dedicated-research"><a class="header" href="#data-fabric-and-grid-based-distributed-computing-todo-need-more-dedicated-research">Data Fabric and Grid-Based Distributed Computing (TODO: need more dedicated research)</a></h2>
+<p>To handle big data.</p>
+<h2 id="data-replication-todo-need-more-dedicated-research"><a class="header" href="#data-replication-todo-need-more-dedicated-research">Data Replication (TODO: need more dedicated research)</a></h2>
+<h2 id="continuous-queries-todo-need-more-dedicated-research"><a class="header" href="#continuous-queries-todo-need-more-dedicated-research">Continuous Queries (TODO: need more dedicated research)</a></h2>
+<h2 id="distributed-processing-todo-need-more-dedicated-research"><a class="header" href="#distributed-processing-todo-need-more-dedicated-research">Distributed Processing (TODO: need more dedicated research)</a></h2>
+<h1 id="chapter-5-entities"><a class="header" href="#chapter-5-entities">Chapter 5: Entities</a></h1>
+<p><em>“When an object is distinguished by its identity, rather than its attributes, make this primary to its definition in the model. Keep the class definition simple and focused on life cycle continuity and identity. Define a means of distinguishing each object regardless of its form or history. . . . The model must define what it means to be the same thing.”</em></p>
+<p>Entity:</p>
+<ul>
+<li>Representation of business object that has attributes and operations related to them. </li>
+<li>Store data and its changes through the stages of program.</li>
+<li>Identified by specific identity.
+<ul>
+<li>Identity can be represented in one of its attribute.</li>
+<li>Identity must be unique that really differentiate each entity.</li>
+<li>E.g. RDBMS's primary keys, uuid, etc.</li>
+</ul>
+</li>
+<li>Equality by its identity(Partial Equivalence).</li>
+<li>Each entity can have more than 1 identity(surrogate identities).</li>
+<li>Surrogate identity should not exposed to users, since it's not part of domain model, but part of persistence.</li>
+<li>Domain identity and surrogate identity should be separated</li>
+<li>Entity should not be anemic. Anemic model could cause by designing too focus on database tables, instead of focusing on domain model.</li>
+<li>Entity should be rich with operations related to the domain it handles.</li>
+<li>Example of entities: class/object representing tables from rdbms, object representing complex object that's easily changed/modified through program lifetime, e.g. Application wide context, and its dependencies.</li>
+</ul>
+<p>Entity validation:</p>
+<ul>
+<li>design by contract: setting pre-condition, post-condition, invariant.</li>
+<li>Defensive programming: checking and guarding against invalid states.</li>
+<li>Validating whole entity after validating its attributes.</li>
+</ul>
+<p>Kind of identity:</p>
+<ul>
+<li>User Generated Identity.</li>
+<li>Application Generated Identity(e.g. UUID)</li>
+<li>Persistent Generated Identity(e.g. auto-increment primary key)</li>
+<li>Bounded Context assigned identity(local to bounded context)</li>
+</ul>
+<h1 id="chapter-6-value-objects"><a class="header" href="#chapter-6-value-objects">Chapter 6: Value Objects</a></h1>
+<ul>
+<li>Like entity, the difference is that value object is identified by the whole data it contains.</li>
+<li>Value object tends to be part of entity to represent some of entity's attributes/data.  E.g. Time, Address, Money.</li>
+<li>Equality by whole data(Full Equivalence(reflexivity)), e.g. Time is considered same if all of its component is same, like hours, minutes, seconds and timezone.</li>
+<li><em>“...strive to model using Value Objects instead of Entities wherever possible...”</em></li>
+<li>Immutable, you don't change only parts of it, the only thing you do is either replace whole of it, or modify it through sepecified operations that have no side effects.</li>
+<li>Value objects can be easily replaced and handed off, without worry of side effects or misuse.</li>
+<li>Value objects merupakan component penyusun entity.</li>
+<li>Value objects can contain 1 or more data inside, represented wholly as single value.</li>
+<li>Use factory to create value objects.</li>
+<li>Values objects have operations related to them, but should be side-effects free.</li>
+<li>Values objects should avoid containing entities since entities are highly changeable making value object mutable.</li>
+<li>Passing entities into value objects methods will break immutability and inconsistency in API as it's not sure how it affects the entity.</li>
+<li>You can implement value objects immutability by: 
+<ul>
+<li>create them at constructions, or </li>
+<li>injecting them into entities construction, or</li>
+<li>making setters private, or </li>
+<li>you can utilize language's type system such as Java final keyword, or Rust immutability(default).</li>
+</ul>
+</li>
+<li>Value objects are NOT to be confused with <em>primitive types</em>, they're different. Primitive Types stand on their own with no functionalities at all.</li>
+<li>While primitive types only occupy stack memory, value objects can be in stack or heap depend on the values it contains.</li>
+<li>There are 2 kinds of Value Objects:
+<ul>
+<li>Full Value Object (in functional programming it's called <em>Product Type</em>): acts as a whole. E.g. string, time, money, date of birth, etc.</li>
+<li>Partial Value Object/Standard Types (in functional programming it's called <em>Sum Type</em> or <em>Tagged Union</em> or <em>Discriminated Union</em>): there are multiple types in 1 value object and only one of them valid at one time. E.g. Currency(USD, SGD, IDR, YEN, there's no money with dual/triple currency), User types(admin, public users, internal users, etc)</li>
+</ul>
+</li>
+<li>Full Value Object may contains Partial Value Object, or the other way around, or a combinations of it.</li>
+<li>Don't design value objects with JavaBean Specs in mind, because it allows you using setters which violate immutability of value objects.</li>
+<li>Here are atleast methods/operations each value objects should have:
+<ul>
+<li><em>Equality</em>:
+<ul>
+<li>Method that define equality of value objects.</li>
+<li>In Java it's <code>equals()</code> method derived, </li>
+<li>In Rust it's trait <code>Eq</code> for standard/built-in types or <code>PartialEq</code> for other types.</li>
+</ul>
+</li>
+<li><em>Hashable</em>: 
+<ul>
+<li>Method to hash the object to create unique code/hash that differentiate it with others, even for tiny change.</li>
+<li>In Java it's <code>hashCode()</code> method derived,</li>
+<li>In Rust it's trait <code>Hash</code> derived(using derive macro).</li>
+</ul>
+</li>
+<li><em>Stringable</em>:
+<ul>
+<li>Method that convert object into string to represent it to users or for debugging.</li>
+<li>In Java it's <code>toString()</code> method derived,</li>
+<li>In Rust it's trait <code>Display</code> or <code>Debug</code>(for debugging only) or <code>ToString</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Example of value objects: String in some programming languages, types related with time, money, currency, etc.</li>
+</ul>
+<p><em>Opinion: Looking at Rust's standard types, almost all of its primitive and built-in types contain operations related to the value contained, making all of them value objects. While some languages really have primitive types where they really stand alone do nothing.</em></p>
+<h2 id="chapter-7-services"><a class="header" href="#chapter-7-services">Chapter 7: Services</a></h2>
+<p><em>“A Service in the domain is a stateless operation that fulfills a domain-specific task”</em>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
