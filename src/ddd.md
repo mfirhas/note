@@ -253,3 +253,4 @@ Kind of identity:
 
 
 ## Chapter 7: Services
+*“A Service in the domain is a stateless operation that fulfills a domain-specific task”*.
