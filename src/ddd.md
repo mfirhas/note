@@ -254,3 +254,22 @@ Kind of identity:
 
 ## Chapter 7: Services
 *“A Service in the domain is a stateless operation that fulfills a domain-specific task”*.
+
+What service is NOT:
+- Service in DDD is NOT service in SOA terms.
+- Service in DDD is NOT doing IO into other(e.g. http, grpc, etc)
+- The one that storing IO specifics implementation is called **Application**
+
+What service is:
+- Service in DDD contains business logics.
+- In Clean Architecture by Uncle Bob, this is called *Use Case*
+- Service is stateless.
+- Service tidak berurusan dengan implementasi dari database, web, http, dan IO lainnya.
+- Service contains more complex logics than entity and value objects.
+- Service designed using ubiquitous languages.
+- Service should be written **after** entities and value objects defined clearly, otherwise the entities could ended up anemic if focus on service first.
+- Service contains logics leveraged from entities and value objects, e.g. logic specific to certain functionalities of particular components of an entities or value objects, or service could be aggregation logics of multiple entities or value objects.
+- In OOP, services don't always have to be segregated by interface class/type.
+- If you want to define interface(OOP) and implementation details, separate them. Interfaces inside domain model, and implementations inside infrastructure.
+
+## Chapter 8: Domain Events
