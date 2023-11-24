@@ -443,6 +443,28 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>If you want to define interface(OOP) and implementation details, separate them. Interfaces inside domain model, and implementations inside infrastructure.</li>
 </ul>
 <h2 id="chapter-8-domain-events"><a class="header" href="#chapter-8-domain-events">Chapter 8: Domain Events</a></h2>
+<p>Something that is published and subscribed in order to achieve decoupling that provide highly scalable and peak-performing cooperating services, whether in the same local bounded-context, or foreign bounded-context(e.g. distributed system).</p>
+<p>Facilitate Eventual Consistency.</p>
+<p>Events can be stored before forward to subscriber. If events are not stored then 2-phase commit needed.</p>
+<p>Evented system can be made to streaming things that used to be catched later in order to avoid synchronized batched process(querying many data at once per time).</p>
+<p>Synchronized batched process is when you gather all data that stored previously, and do the processing all at once, this require specific time needed(e.g. midnight) and require big cost of processing time the bigger the data.</p>
+<p>We can just publish all those data becoming events into subscriber to be handled right-away.</p>
+<p>Evented system consisted of 3 component: <strong>Publisher</strong>, <strong>Channel</strong>, and <strong>Subscriber</strong>.</p>
+<p>Events are handled asynchronously. </p>
+<p>If transaction needed, can be done in subscriber in application context.</p>
+<p>Event is immutable, unlike entity, but it has identities just like entity, it has multiple identities based on event's properties and unique identity for that particular event. This means more than one event can be sent but still have uniqueness to them from the unique id they have.</p>
+<p>Adding unique identity is not mandatory if comparison between events are not needed, but still recommended if events are sent outside local bounded-context.</p>
+<p>Events are handled by a system called message queue. Event's source acts as published can be from any bounded context or aggregate, the events passed into channel the message queue, and forwarded into subscriber. Channel might has its own storage to store events published from publisher before forwarding into subscriber through queue/channel. This kind of system usually called message broker(channel + storage). Events sent through mq/mb commonly called messages.</p>
+<p>Events belong to domain model, not infrastructure.</p>
+<p>Publisher send events from aggregate, throught publisher implementation at infrastructure part </p>
+<p>Subscriber receive events from application, to aggregate.</p>
+<p>Only modify 1 aggregate instance per transaction(publish-subscribe).</p>
+<p>Autonomous and Independence: avoid synchronized api like http, rpc.</p>
+<p>Forwarding methods:</p>
+<ul>
+<li>Polling(Pull Model): REST based approach, server send the data into event store, and client poll the data.</li>
+<li>Queue(Push Model): Using messaging system to queue events from publisher to subscriber. E.g. AMQP, Kafka.</li>
+</ul>
 
                     </main>
 
