@@ -124,7 +124,7 @@ methods, functions, and the like.
 - Use exceptions rather than return codes.
 - Use unchecked exceptions
   - The price of checked exceptions is violation of open-close principle of clean arch.
-  - You need to expose the type of exceptions to higher level callers.
+  - Using checked exceptions make you need to expose the type of exceptions to higher level callers.
   - Changes to exception types mean changes to higher level caller.
 - Use checked exceptions if you make it mandatory for the caller to handle the errors, such that the error is supposed to be strongly typed and specific to the dependencies(e.g. libraries, some libraries define their own error types).
 - Don't return null, returning null causing NPE. Throw exceptions instead of null, or wrap with something else.
@@ -165,6 +165,8 @@ Unit Tests make the code maintainable because it guards from any changes. Any ch
 - Timely: Unit tests should be written *just before* the productions code(in timely fashion). The timing is adjusted, as long as tests first. If you write production code first, you can end up not writing tests to it.
 
 *Opinion: This is why unit tests involve mock to make the tests fast and independent, since mock cut the IO/syscalls dependencies, and can be repeat multiple times anywhere without setting things up.*
+
+*Opinion: With clear separation between business rules/logics/domains, mocks aren't really needed. Mocks tend to exist when infrastructures part of the code mixed with non-infrastructure codes.*
 
 ## Classes
 
