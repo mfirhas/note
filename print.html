@@ -91,7 +91,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="about.html"><strong aria-hidden="true">1.</strong> About</a></li><li class="chapter-item expanded "><a href="clean_code.html"><strong aria-hidden="true">2.</strong> Clean Code</a></li><li class="chapter-item expanded "><a href="clean_arch.html"><strong aria-hidden="true">3.</strong> Clean Architecture</a></li><li class="chapter-item expanded "><a href="ddd.html"><strong aria-hidden="true">4.</strong> Domain-Driven Design</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -294,7 +296,7 @@ methods, functions, and the like.</p>
 <li>Use unchecked exceptions
 <ul>
 <li>The price of checked exceptions is violation of open-close principle of clean arch.</li>
-<li>You need to expose the type of exceptions to higher level callers.</li>
+<li>Using checked exceptions make you need to expose the type of exceptions to higher level callers.</li>
 <li>Changes to exception types mean changes to higher level caller.</li>
 </ul>
 </li>
@@ -331,6 +333,7 @@ methods, functions, and the like.</p>
 <li>Timely: Unit tests should be written <em>just before</em> the productions code(in timely fashion). The timing is adjusted, as long as tests first. If you write production code first, you can end up not writing tests to it.</li>
 </ul>
 <p><em>Opinion: This is why unit tests involve mock to make the tests fast and independent, since mock cut the IO/syscalls dependencies, and can be repeat multiple times anywhere without setting things up.</em></p>
+<p><em>Opinion: With clear separation between business rules/logics/domains, mocks aren't really needed. Mocks tend to exist when infrastructures part of the code mixed with non-infrastructure codes.</em></p>
 <h2 id="classes"><a class="header" href="#classes">Classes</a></h2>
 <ul>
 <li>Classes should be small.</li>
