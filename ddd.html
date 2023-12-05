@@ -428,7 +428,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <p>What service is NOT:</p>
 <ul>
 <li>Service in DDD is NOT service in SOA terms.</li>
-<li>Service in DDD is NOT doing IO into other(e.g. http, grpc, etc)</li>
+<li>Service in DDD is NOT doing IO into/from other(e.g. http, grpc, etc)</li>
 <li>The one that storing IO specifics implementation is called <strong>Application</strong></li>
 </ul>
 <p>What service is:</p>
@@ -467,6 +467,74 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Polling(Pull Model): REST based approach, server send the data into event store, and client poll the data.</li>
 <li>Queue(Push Model): Using messaging system to queue events from publisher to subscriber. E.g. AMQP, Kafka.</li>
 </ul>
+<h2 id="chapter-9-modules"><a class="header" href="#chapter-9-modules">Chapter 9: Modules</a></h2>
+<p>Modules are group of related and cohesive domain objects to separate it from other low-coupled set of domain objects in another modules.</p>
+<ul>
+<li>Name modules using ubiquitous languages.</li>
+<li>Module is about how to segregates domain and infrastructure components into accessible and testable APIs.</li>
+<li>Avoid cyclic dependencies between peer modules(Unidirectional).</li>
+<li>Domain objects inside module are cohesive, while inter-modules are low-coupled.</li>
+<li>Module encompasses many things inside(value objects, entities, events, etc), </li>
+<li>Top-level module naming depends on programming languages convention/style.</li>
+<li>Next level is bounded-context.</li>
+<li>Do <strong>not</strong> name modules using models name from domains, because modules only represents API segregations, not representing specific objects/types.</li>
+<li>The smaller modules segments, the more cohesive items inside it.</li>
+<li>Modules are not bounded context.</li>
+<li>Naming modules are important as it will impacts cohesiveness and API ergonomic and testability.</li>
+</ul>
+<h2 id="chapter-10-aggregates"><a class="header" href="#chapter-10-aggregates">Chapter 10: Aggregates</a></h2>
+<ul>
+<li>Cluster of entities and value objects related to each others to form a single object called root aggregate.</li>
+<li>Multiple sames entities and value objects can form new unique aggregates each with identity.</li>
+<li>Define boundaries for invariants -&gt; transactional -&gt; atomic, form consistency boundaries, inside bounded context.</li>
+<li>1 aggregate has its own invariant rules guarded within single transaction, independent of other aggregates.</li>
+<li>Bounded context only modify 1 aggregate in single transaction. There should not be more than 1 aggregate in single transactions.</li>
+<li>User request should be mapped 1-to-1 when dealing aggregate modification.</li>
+<li>Aggregates size should be small, not bloated.</li>
+<li>Big size aggregates will hurt invariants protections, hurting maintenance, breaking consistency between model's objects.</li>
+<li>Big size aggregates will also hurt performance since many basics objects require big load, instead simple ones.</li>
+<li>Each aggregates represented by its own entity called Root Entity, along with multiple entities and value objects.</li>
+<li>When you are dealing with multiple aggregates that need to be synchronized, prefer <strong>Eventual Consistency</strong> instead putting them all in <strong>Transactional Consistency</strong>.</li>
+<li>Aggregates can be designed with entities only, or value objects only, or combinations of both.</li>
+<li>Aggregate references other aggregate by ID, not by whole aggregate definition.</li>
+<li>Aggregates referencing each other must <strong>not</strong> be handled in same transactions, employ Eventual Consistency instead.</li>
+<li>Aggregates holding an ID to other aggregates have potential doing eventual consistency operations.</li>
+<li>Besides using events for navigating between aggregates, one can use repository or domain service, or application service before invoking aggregates behaviour</li>
+<li>Use theta joins or CQRS for front end/UI for representing whole data(not limited by reference ID only), because FE should get the whole data without having to dispatch separate requests.</li>
+<li>Use message-based event driven for handling multiple aggregates modifications accross boundaries.</li>
+<li>A aggregate published, when failed, need to be retried until consistency achieved.</li>
+<li>Reasons to break cross context eventual consistency:
+<ul>
+<li>If you are doing batch processing the multiple same aggregates with same types, it's okay to break the rule and process them all at once in one transaction, before delivering the event to different aggregates in another bounded context. Whether they're sent one-by-one, or in batch, it doesn't matter anymore since their state already recorded from publisher bounded context. So you don't have to process and deliver the event one-by-one repetitively for the same aggregates.</li>
+<li>If tech stacks you used don't support messaging system. Some languages have no internal concurrency and asynchronous support to apply observer patterns, and subscribing methods(e.g. PHP?)</li>
+<li>Global transactions: e.g. using 2-phase commits protocol handling multiple aggregates in one transactions, it's not wrong, just coming from legacy or old implementations. The problem with global transactions is performance and scalability.</li>
+<li>Query performance.</li>
+</ul>
+</li>
+<li><em>&quot;Transactions across distributed systems are not atomic. The various systems bring multiple Aggregates into a consistent state <strong>eventually</strong>.&quot;</em></li>
+<li><em>Law of Demeter</em>:
+<ul>
+<li>When exposing services to clients, expose through public APIs, don't expose innards of the object implementations/services.</li>
+<li>An object only invoke method on:
+<ul>
+<li>itself</li>
+<li>any parameters passed into</li>
+<li>any objects it instantiated</li>
+<li>self contained objects it can directly access(e.g. fields, dependencies injected)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em>Tell, Don't Ask</em>:
+<ul>
+<li>Client invoke public API in Server to make server do something, instead of server giving things and let client do the rest.</li>
+</ul>
+</li>
+<li>Optimistic Concurrency: Avoid multiple clients mutate single aggregate in one transaction, local to the aggregate.</li>
+<li>Don't inject domain services or repository into aggregates, instead they go to application services. Aggregates should have their own operations independent from those injections, instead do the domain services and/or repository operations before doing aggregates operations.</li>
+<li>Values objects &lt; Entities &lt; Aggregates &lt; Context</li>
+</ul>
+<h2 id="chapter-11-factories"><a class="header" href="#chapter-11-factories">Chapter 11: Factories</a></h2>
 
                     </main>
 

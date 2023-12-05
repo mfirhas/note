@@ -322,7 +322,7 @@ methods, functions, and the like.</p>
 <h3 id="first-principles-for-clean-tests"><a class="header" href="#first-principles-for-clean-tests">FIRST Principles for Clean Tests</a></h3>
 <ul>
 <li>Fast: Tests should run fast, because it needs to be run frequently. Slow tests prevent from frequent run.</li>
-<li>Independent: Tests should not depends on each other, should not have its own states(not shared with other tests), should run in any order, and not causing cascading errors.</li>
+<li>Independent: Tests should not depends on each other, should be stateless(not shared with other tests), should run in any order, and not causing cascading errors.</li>
 <li>Repeatable: Tests can be run in any environment, without anything needed(except the code &amp; tests itself). No network, no nothing needed.</li>
 <li>Self-Validating: Tests should be either <em>Passed</em> or <em>Failed</em>, no need to trace the logs nor any information, simply from whether it passed or failed.</li>
 <li>Timely: Unit tests should be written <em>just before</em> the productions code(in timely fashion). The timing is adjusted, as long as tests first. If you write production code first, you can end up not writing tests to it.</li>
