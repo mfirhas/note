@@ -159,7 +159,7 @@ Unit Tests make the code maintainable because it guards from any changes. Any ch
 
 ### FIRST Principles for Clean Tests
 - Fast: Tests should run fast, because it needs to be run frequently. Slow tests prevent from frequent run.
-- Independent: Tests should not depends on each other, should not have its own states(not shared with other tests), should run in any order, and not causing cascading errors.
+- Independent: Tests should not depends on each other, should be stateless(not shared with other tests), should run in any order, and not causing cascading errors.
 - Repeatable: Tests can be run in any environment, without anything needed(except the code & tests itself). No network, no nothing needed.
 - Self-Validating: Tests should be either *Passed* or *Failed*, no need to trace the logs nor any information, simply from whether it passed or failed.
 - Timely: Unit tests should be written *just before* the productions code(in timely fashion). The timing is adjusted, as long as tests first. If you write production code first, you can end up not writing tests to it.
