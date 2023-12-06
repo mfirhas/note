@@ -368,4 +368,36 @@ Modules are group of related and cohesive domain objects to separate it from oth
 - Don't inject domain services or repository into aggregates, instead they go to application services. Aggregates should have their own operations independent from those injections, instead do the domain services and/or repository operations before doing aggregates operations.
 - Values objects < Entities < Aggregates < Context
 
+
 ## Chapter 11: Factories
+- Used to create/instantiate new object(value objects, entity, aggregates, domain services, etc)
+- Used to manage invariant of objects with predefined parameters, so you don't have to create objects manually by setters, because it can breaks invariants.
+- Ease the clients whenever they want to create objects, by just calling factory objects/method.
+- Factories handle details of objects creations, their invariants, their pre/post conditions, client must not worry about these.
+- Factory on services are used for integratiing bounded context.
+- Factory can also be used for transating objects from/to domain models/contexts
+
+
+## Chapter 12: Repositories
+- Acts as interfaces directly to storage where you store Aggregates.
+- 2 kinds of repositories:
+  - Collection-oriented repository: 
+    - Mimics **Set** data structure.
+    - Tracks changes to data being read/write.
+    - E.g: Relational Database.
+  - Persistence-oriented repository:
+    - Mimics **Map** data structures.
+    - Doesn't track changes to data being read/write.
+    - E.g: NoSQL Database
+- Managing transactions should be the responsibility of **Application Layer**.
+- Implement Facade pattern to handle & manage transactions before and after invoking domain layer's operations.
+- Repository vs DAO:
+  - Use Repository in DDD context.
+  - Repository focus on domain models.
+  - While DAO focus on data in the database(e.g. in term of object -> tables)
+  - Domain models should not be ruled by tables in database, use repositroy to map this operations.
+  - DAO create mapping 1-1 with tables in database and use said object as representation of tables in database.
+  - Repository can be said as bigger scope of DAO, as repository might employ DAO operations inside. All depends on implementations.
+- Testing repository: 
+  - Test the operations connected to the production database in used.
+  - Test the operations using in-memory implementations(mocked).
