@@ -640,6 +640,55 @@ Data can be gathered and made by combining multiple changes made into storage.</
 </li>
 <li>Application layer can interact directly to infra layer or through domain layer, depends on the designs, no hard rules here.</li>
 </ul>
+<h2 id="summary"><a class="header" href="#summary">Summary</a></h2>
+<ul>
+<li>DDD extends many concepts from Clean Architecture especially about SOLID principles.</li>
+<li>DDD gives more detailed concept of separation of concerns leveraging from clean arch and SOLID principles.</li>
+<li>DDD contains:
+<ul>
+<li>Domain Models, The core of your software containing business rules and logics, separated from outer, and know nothing about outer layers. All other layers depend on this, while it should not depend on anything else(mostly). They are(from smallest to the biggest):
+<ul>
+<li>Value Objects: Immutable. Wrap primitive values and provide cohesive operations related to values inside. Partial or Full Equivalence.</li>
+<li>Entities: Mutable. Contains primitives and/or value objects with cohesive operations. Identity Equivalence.</li>
+<li>Aggregates: Group of value objects and entities in 1 transaction consistency boundary. Multiple aggregates should be handled eventually.</li>
+<li>Services: Provide richer operations related to aggregates. Accessed and orchestrated by application layer.</li>
+<li>Events: Provide asynced/autonomous communication styles to different bounded context and aggregates. Usually handled through message queuing.</li>
+</ul>
+</li>
+<li>Application, Connecting interfaces with domain models. Orchestrating aggregates and domain services. Handle aggregates's transactions, accepts requests and events from other bounded contexts. Implementations:
+<ul>
+<li>DTOs: Data Transfer Object containing request from user interfaces wrapping and mapping into domain models.</li>
+<li>DPOs: Data Payload Object, bigger DTOs.</li>
+<li>Services: APIs in form of: HTTP API/REST, RPC, messaging subscribers.</li>
+</ul>
+</li>
+<li>Infrastructure, contain implementations details related to most outer layers connecting to other systems(networks, file system, remote APIs, messaging, etc).
+<ul>
+<li>Repository: contain implementation details of interaction to concrete databases(Relational or NoSQL), e.g. MySQL, Postgresql, sqlite, mongo, etc</li>
+<li>Cache: contain implementation details of interaction to in-memory databases</li>
+<li>Message Queue: contain implementation details of messaging infrastructure, e.g. rabbitmq, kafka, etc.</li>
+<li>HTTP Clients: contain clients for remote APIs calls to other bounded contexts.</li>
+<li>RPC clients: contains clients for remote rpc calls to other bounded contexts.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Each of 3 above organize inside Module for namespacing the responsibilities.</li>
+<li>1 or more modules combined into Bounded Context providing cohesive components.</li>
+<li>Each bounded context can contain 1 or more domain models along with application layer.</li>
+<li>Bounded context can also contain domain models only with separated shared application layer used by multiple bounded contexts.</li>
+<li>Transactional Consistency happen inside 1 aggregate.</li>
+<li>Eventual Consistency happen between multiple aggregates.</li>
+<li>Eventual Consistency can be local or between bounded contexts.</li>
+<li>Local Eventual Consistency can be achieved via Observer Pattern(e.g. golang channel, or MPSC)</li>
+<li>Local Eventual Consistency can also be achieved via queue outside process, consumed by same process. E.g celery, etc.</li>
+<li>Inter Bounded-Context Eventual Consistency can be achieved via long polling or messaging.</li>
+<li>Long polling can use storage to store events, and consumer pull the data.</li>
+<li>Messaging can be achieved with messaging system providing automatic system of publishing and subscribing.</li>
+<li>Messaging can use event store to store events published by aggregates.</li>
+<li>Event store can be used to avoid 2-phase commit/lock when synchronizing event-driven system.</li>
+</ul>
+<p><em>...as always, CMIIW!</em></p>
 
                     </main>
 
