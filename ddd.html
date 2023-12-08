@@ -583,6 +583,33 @@ Data can be gathered and made by combining multiple changes made into storage.</
 </ul>
 </li>
 </ul>
+<h2 id="chapter-13-integrating-bounded-context"><a class="header" href="#chapter-13-integrating-bounded-context">Chapter 13: Integrating Bounded Context</a></h2>
+<ul>
+<li>Using <strong>Context Mapping</strong> to integrate 2 or more bounded contexts.</li>
+<li>3 of ways to integrate:
+<ul>
+<li>RPC: SOAP, gRPC.</li>
+<li>Messaging: pub-sub, message queue.
+<ul>
+<li>Autonomous</li>
+<li>Asynchronous</li>
+<li>Published from domain events(from its aggregate specifically).</li>
+<li>Provide its own storage(events store) to store messages to be delivered into subscriber.</li>
+</ul>
+</li>
+<li>REST: HTTP.
+<ul>
+<li>Open Host Service.</li>
+<li>Synced.</li>
+<li>Not-autonomous.</li>
+<li>Use timeout and backoff</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>TODO: more dedicated reads about event-driven system.</li>
+</ul>
+<h2 id="chapter-14-application"><a class="header" href="#chapter-14-application">Chapter 14: Application</a></h2>
 
                     </main>
 
