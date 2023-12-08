@@ -443,3 +443,43 @@ Modules are group of related and cohesive domain objects to separate it from oth
   - Each with its own application layer, or
   - 1 application layer for multiple domain models, creating its own bounded context joining multiple bounded contexts(with their respective domain models).
 - Application layer can interact directly to infra layer or through domain layer, depends on the designs, no hard rules here.
+
+
+## Summary
+- DDD extends many concepts from Clean Architecture especially about SOLID principles.
+- DDD gives more detailed concept of separation of concerns leveraging from clean arch and SOLID principles.
+- DDD contains:
+  - Domain Models, The core of your software containing business rules and logics, separated from outer, and know nothing about outer layers. All other layers depend on this, while it should not depend on anything else(mostly). They are(from smallest to the biggest):
+    - Value Objects: Immutable. Wrap primitive values and provide cohesive operations related to values inside. Partial or Full Equivalence.
+    - Entities: Mutable. Contains primitives and/or value objects with cohesive operations. Identity Equivalence.
+    - Aggregates: Group of value objects and entities in 1 transaction consistency boundary. Multiple aggregates should be handled eventually.
+    - Services: Provide richer operations related to aggregates. Accessed and orchestrated by application layer.
+    - Events: Provide asynced/autonomous communication styles to different bounded context and aggregates. Usually handled through message queuing.
+  - Application, Connecting interfaces with domain models. Orchestrating aggregates and domain services. Handle aggregates's transactions, accepts requests and events from other bounded contexts. Implementations:
+    - DTOs: Data Transfer Object containing request from user interfaces wrapping and mapping into domain models.
+    - DPOs: Data Payload Object, bigger DTOs.
+    - Services: APIs in form of: HTTP API/REST, RPC, messaging subscribers.
+  - Infrastructure, contain implementations details related to most outer layers connecting to other systems(networks, file system, remote APIs, messaging, etc).
+    - Repository: contain implementation details of interaction to concrete databases(Relational or NoSQL), e.g. MySQL, Postgresql, sqlite, mongo, etc
+    - Cache: contain implementation details of interaction to in-memory databases
+    - Message Queue: contain implementation details of messaging infrastructure, e.g. rabbitmq, kafka, etc.
+    - HTTP Clients: contain clients for remote APIs calls to other bounded contexts.
+    - RPC clients: contains clients for remote rpc calls to other bounded contexts.
+- Each of 3 above organize inside Module for namespacing the responsibilities.
+- 1 or more modules combined into Bounded Context providing cohesive components.
+- Each bounded context can contain 1 or more domain models along with application layer.
+- Bounded context can also contain domain models only with separated shared application layer used by multiple bounded contexts.
+- Transactional Consistency happen inside 1 aggregate.
+- Eventual Consistency happen between multiple aggregates.
+- Eventual Consistency can be local or between bounded contexts.
+- Local Eventual Consistency can be achieved via Observer Pattern(e.g. golang channel, or MPSC)
+- Local Eventual Consistency can also be achieved via queue outside process, consumed by same process. E.g celery, etc.
+- Inter Bounded-Context Eventual Consistency can be achieved via long polling or messaging.
+- Long polling can use storage to store events, and consumer pull the data.
+- Messaging can be achieved with messaging system providing automatic system of publishing and subscribing.
+- Messaging can use event store to store events published by aggregates.
+- Event store can be used to avoid 2-phase commit/lock when synchronizing event-driven system.
+
+
+*...as always, CMIIW!*
+    
