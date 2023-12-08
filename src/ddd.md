@@ -401,3 +401,23 @@ Modules are group of related and cohesive domain objects to separate it from oth
 - Testing repository: 
   - Test the operations connected to the production database in used.
   - Test the operations using in-memory implementations(mocked).
+
+
+## Chapter 13: Integrating Bounded Context
+- Using **Context Mapping** to integrate 2 or more bounded contexts.
+- 3 of ways to integrate:
+  - RPC: SOAP, gRPC.
+  - Messaging: pub-sub, message queue.
+    - Autonomous
+    - Asynchronous
+    - Published from domain events(from its aggregate specifically).
+    - Provide its own storage(events store) to store messages to be delivered into subscriber.
+  - REST: HTTP.
+    - Open Host Service.
+    - Synced.
+    - Not-autonomous.
+    - Use timeout and backoff
+- TODO: more dedicated reads about event-driven system.
+
+
+## Chapter 14: Application
