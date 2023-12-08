@@ -646,7 +646,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>DDD gives more detailed concept of separation of concerns leveraging from clean arch and SOLID principles.</li>
 <li>DDD contains:
 <ul>
-<li>Domain Models, The core of your software containing business rules and logics, separated from outer, and know nothing about outer layers. All other layers depend on this, while it should not depend on anything else(mostly). They are(from smallest to the biggest):
+<li><strong>Domain Models</strong>, The core of your software containing business rules and logics, separated from outer, and know nothing about outer layers. All other layers depend on this, while it should not depend on anything else(mostly). They are(from smallest to the biggest):
 <ul>
 <li>Value Objects: Immutable. Wrap primitive values and provide cohesive operations related to values inside. Partial or Full Equivalence.</li>
 <li>Entities: Mutable. Contains primitives and/or value objects with cohesive operations. Identity Equivalence.</li>
@@ -655,30 +655,31 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Events: Provide asynced/autonomous communication styles to different bounded context and aggregates. Usually handled through message queuing.</li>
 </ul>
 </li>
-<li>Application, Connecting interfaces with domain models. Orchestrating aggregates and domain services. Handle aggregates's transactions, accepts requests and events from other bounded contexts. Implementations:
+<li><strong>Application</strong>, Connecting interfaces with domain models. Orchestrating aggregates and domain services. Handle aggregates's transactions, accepts requests and events from other bounded contexts. Direct client of Domain Model. Implementations:
 <ul>
 <li>DTOs: Data Transfer Object containing request from user interfaces wrapping and mapping into domain models.</li>
 <li>DPOs: Data Payload Object, bigger DTOs.</li>
 <li>Services: APIs in form of: HTTP API/REST, RPC, messaging subscribers.</li>
 </ul>
 </li>
-<li>Infrastructure, contain implementations details related to most outer layers connecting to other systems(networks, file system, remote APIs, messaging, etc).
+<li><strong>Infrastructures</strong>, contain implementations details related to most outer layers connecting to other systems(networks, file system, remote APIs, messaging, etc).
 <ul>
 <li>Repository: contain implementation details of interaction to concrete databases(Relational or NoSQL), e.g. MySQL, Postgresql, sqlite, mongo, etc</li>
 <li>Cache: contain implementation details of interaction to in-memory databases</li>
 <li>Message Queue: contain implementation details of messaging infrastructure, e.g. rabbitmq, kafka, etc.</li>
 <li>HTTP Clients: contain clients for remote APIs calls to other bounded contexts.</li>
 <li>RPC clients: contains clients for remote rpc calls to other bounded contexts.</li>
+<li>Interfaces: some kind of interfaces can be implemented here too, connecting to application layer.</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>Each of 3 above organize inside Module for namespacing the responsibilities.</li>
-<li>1 or more modules combined into Bounded Context providing cohesive components.</li>
+<li>Each of 3 above organized inside <strong>Module</strong> for namespacing the responsibilities.</li>
+<li>1 or more modules combined into <strong>Bounded Context</strong> providing cohesive components.</li>
 <li>Each bounded context can contain 1 or more domain models along with application layer.</li>
 <li>Bounded context can also contain domain models only with separated shared application layer used by multiple bounded contexts.</li>
-<li>Transactional Consistency happen inside 1 aggregate.</li>
-<li>Eventual Consistency happen between multiple aggregates.</li>
+<li><strong>Transactional Consistency</strong> happen inside 1 aggregate.</li>
+<li><strong>Eventual Consistency</strong> happen between multiple aggregates.</li>
 <li>Eventual Consistency can be local or between bounded contexts.</li>
 <li>Local Eventual Consistency can be achieved via Observer Pattern(e.g. golang channel, or MPSC)</li>
 <li>Local Eventual Consistency can also be achieved via queue outside process, consumed by same process. E.g celery, etc.</li>
@@ -687,6 +688,8 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Messaging can be achieved with messaging system providing automatic system of publishing and subscribing.</li>
 <li>Messaging can use event store to store events published by aggregates.</li>
 <li>Event store can be used to avoid 2-phase commit/lock when synchronizing event-driven system.</li>
+<li>Components of DDD can be implemented concretely inside different architecture layer, e.g. hexagonal, etc.</li>
+<li><em><strong>High Cohesion, Low Coupling</strong></em></li>
 </ul>
 <p><em>...as always, CMIIW!</em></p>
 
