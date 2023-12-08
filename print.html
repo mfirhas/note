@@ -1017,6 +1017,36 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>TODO: more dedicated reads about event-driven system.</li>
 </ul>
 <h2 id="chapter-14-application"><a class="header" href="#chapter-14-application">Chapter 14: Application</a></h2>
+<ul>
+<li>Sit between domain model and user interfaces.</li>
+<li>Application Services != Domain Services.</li>
+<li>Application = DTOs, DPOs, Services.</li>
+<li>Application layer is used to orchestrate domain models and their use-cases.</li>
+<li>There should be no business rules and logics in Application Layer, they're in Domain Layer.</li>
+<li>Presents domain model to user interfaces.</li>
+<li>Coordinate use-cases in domain services, manage transactions, and handle security authorizations.</li>
+<li>Interacts directly with infrastructure components.</li>
+<li>Acts as gateway from user interfaces to domain models.</li>
+<li>Use DTO(Data Transfer Objects) to handle requests from interfaces.</li>
+<li>DTO should be loosening coupling between user interfaces and domain models.</li>
+<li>Use Mediator Pattern to wrap details of aggregates so we don't have to expose all of it through mediator.</li>
+<li>REST Interfaces:
+<ul>
+<li>Create representations based on use-cases, not aggregates.</li>
+<li>Don't expose aggregates and its innards through REST APIs in 1-1 mapping.</li>
+<li>Expose them through DTOs on use-cases bases.</li>
+</ul>
+</li>
+<li>DTOs evolve into Presentation Models as abstractions for domain models where views and edits are done.</li>
+<li>Use Command object to wrap many request's parameters.</li>
+<li>Handling multiple domain models:
+<ul>
+<li>Each with its own application layer, or</li>
+<li>1 application layer for multiple domain models, creating its own bounded context joining multiple bounded contexts(with their respective domain models).</li>
+</ul>
+</li>
+<li>Application layer can interact directly to infra layer or through domain layer, depends on the designs, no hard rules here.</li>
+</ul>
 
                     </main>
 
