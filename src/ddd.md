@@ -421,3 +421,25 @@ Modules are group of related and cohesive domain objects to separate it from oth
 
 
 ## Chapter 14: Application
+- Sit between domain model and user interfaces.
+- Application Services != Domain Services.
+- Application = DTOs, DPOs, Services.
+- Application layer is used to orchestrate domain models and their use-cases.
+- There should be no business rules and logics in Application Layer, they're in Domain Layer.
+- Presents domain model to user interfaces.
+- Coordinate use-cases in domain services, manage transactions, and handle security authorizations.
+- Interacts directly with infrastructure components.
+- Acts as gateway from user interfaces to domain models.
+- Use DTO(Data Transfer Objects) to handle requests from interfaces.
+- DTO should be loosening coupling between user interfaces and domain models.
+- Use Mediator Pattern to wrap details of aggregates so we don't have to expose all of it through mediator.
+- REST Interfaces:
+  - Create representations based on use-cases, not aggregates.
+  - Don't expose aggregates and its innards through REST APIs in 1-1 mapping.
+  - Expose them through DTOs on use-cases bases.
+- DTOs evolve into Presentation Models as abstractions for domain models where views and edits are done.
+- Use Command object to wrap many request's parameters.
+- Handling multiple domain models:
+  - Each with its own application layer, or
+  - 1 application layer for multiple domain models, creating its own bounded context joining multiple bounded contexts(with their respective domain models).
+- Application layer can interact directly to infra layer or through domain layer, depends on the designs, no hard rules here.
