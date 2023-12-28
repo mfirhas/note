@@ -272,10 +272,17 @@ methods, functions, and the like.</p>
 <ul>
 <li><em>&quot;Procedural code (code using data structures) makes it easy to add new functions without changing the existing data structures. OO code, on the other hand, makes it easy to add new classes without changing existing functions.&quot;</em></li>
 <li><em>&quot;Procedural code makes it hard to add new data structures because all the functions must change. OO code makes it hard to add new functions because all the classes must change&quot;</em></li>
-<li>Know when to use procedural code, when to use OOP. Not everything is an object.</li>
+<li>Know when to use procedural code, when to use OOP. Not everything has to be OO.</li>
 </ul>
 </li>
-<li>Law of Demeter: <em>The method should not invoke methods on objects that are returned by any of the allowed functions. In other words, talk to friends, not to strangers.</em></li>
+<li>Law of Demeter: <em>The method should not invoke methods on objects that are returned by any of the allowed functions. In other words, talk to friends, not to strangers.</em>. Law of Demeter explain a method should communicate with methods of these:
+<ul>
+<li>Class containing such method.</li>
+<li>Object created by such method.</li>
+<li>Arguments passed into such method.</li>
+<li>Attributes of class containing such method.</li>
+</ul>
+</li>
 <li>Train Wrecks: Long chain of calls should be avoided, prefer them into each lines.</li>
 <li>Data Transfer Object: Class/Data Structure with public members and no functions/methods.
 <ul>
@@ -287,6 +294,13 @@ methods, functions, and the like.</p>
 <li>they implement the Serializable Interface.</li>
 </ul>
 </li>
+</ul>
+</li>
+<li>Prefer Polymorphism to If/Else or Switch/Case
+<ul>
+<li>If/Else or Switch/Case might appropriate in case where adding new functions is more likely than adding new types.</li>
+<li>Cases where volatile functions are more rare than volatile types.</li>
+<li><em>Opinion: This choice between polymorphism and if/else/switch/case probably solved by utilizing type system like Haskell's Type classes or Rust's Traits in which they can accomodate both world</em></li>
 </ul>
 </li>
 </ul>
