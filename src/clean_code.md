@@ -109,8 +109,12 @@ methods, functions, and the like.
 - Objects: data and behaviour coupled, Data structure: data and behaviour separated.
   - *"Procedural code (code using data structures) makes it easy to add new functions without changing the existing data structures. OO code, on the other hand, makes it easy to add new classes without changing existing functions."*
   - *"Procedural code makes it hard to add new data structures because all the functions must change. OO code makes it hard to add new functions because all the classes must change"*
-  - Know when to use procedural code, when to use OOP. Not everything is an object.
-- Law of Demeter: *The method should not invoke methods on objects that are returned by any of the allowed functions. In other words, talk to friends, not to strangers.*
+  - Know when to use procedural code, when to use OOP. Not everything has to be OO.
+- Law of Demeter: *The method should not invoke methods on objects that are returned by any of the allowed functions. In other words, talk to friends, not to strangers.*. Law of Demeter explain a method should communicate with methods of these:
+  - Class containing such method.
+  - Object created by such method.
+  - Arguments passed into such method.
+  - Attributes of class containing such method.
 - Train Wrecks: Long chain of calls should be avoided, prefer them into each lines.
 - Data Transfer Object: Class/Data Structure with public members and no functions/methods.
   - Much like *bean* object in Java. DTO is one kind of a bean.
@@ -118,6 +122,10 @@ methods, functions, and the like.
     - all properties are private (and they are accessed through getters and setters).
     - they have zero-arg constructors (aka default constructors).
     - they implement the Serializable Interface.
+- Prefer Polymorphism to If/Else or Switch/Case
+  - If/Else or Switch/Case might appropriate in case where adding new functions is more likely than adding new types.
+  - Cases where volatile functions are more rare than volatile types.
+  - *Opinion: This choice between polymorphism and if/else/switch/case probably solved by utilizing type system like Haskell's Type classes or Rust's Traits in which they can accomodate both world*
 
 ## Errors Handling
 
