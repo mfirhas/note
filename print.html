@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="about.html"><strong aria-hidden="true">1.</strong> About</a></li><li class="chapter-item expanded "><a href="clean_code.html"><strong aria-hidden="true">2.</strong> Clean Code</a></li><li class="chapter-item expanded "><a href="clean_arch.html"><strong aria-hidden="true">3.</strong> Clean Architecture</a></li><li class="chapter-item expanded "><a href="ddd.html"><strong aria-hidden="true">4.</strong> Domain-Driven Design</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="about.html"><strong aria-hidden="true">1.</strong> About</a></li><li class="chapter-item expanded "><a href="clean_code.html"><strong aria-hidden="true">2.</strong> Clean Code</a></li><li class="chapter-item expanded "><a href="clean_arch.html"><strong aria-hidden="true">3.</strong> Clean Architecture</a></li><li class="chapter-item expanded "><a href="ddd.html"><strong aria-hidden="true">4.</strong> Domain-Driven Design</a></li><li class="chapter-item expanded "><a href="oop.html"><strong aria-hidden="true">5.</strong> OOP</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -1113,6 +1113,92 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li><em><strong>High Cohesion, Low Coupling</strong></em></li>
 </ul>
 <p><em>...as always, CMIIW!</em></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="object-oriented-programming-1"><a class="header" href="#object-oriented-programming-1">Object-Oriented Programming</a></h1>
+<p>source: ~~trust me~~My opinions about OOP</p>
+<p>So, What is OOP?, There are many explanations about OOP out there, and I myself not sure which is the most &quot;official&quot; one. </p>
+<p>Here are some of the definitions of OOP(after reading some sources; books, blogs/articles, forums, chat groups):</p>
+<ol>
+<li>OOP is when you combine data and behaviours/methods/operations into one entity. So anything with data and methods, could be sign OOP*-ness*.</li>
+<li>OOP is when you use particular languages with OOP constructs, e.g: Java, C#, Javascript, PHP, Python, etc.</li>
+<li>OOP is just a paradigm, the language doesn't matter, and you can apply the paradigm in any languages.</li>
+<li>OOP is the ones having 4 features of OOP: Encapsulation, Inheritance, Polymorphism, and Abstraction.</li>
+<li>OOP is when you apply the Clean Arch/SOLID design patterns and GoF design patterns in your code.</li>
+<li>OOP is when you do message passing and late-binding.(from original term of OOP itself)</li>
+</ol>
+<p>...and many more...</p>
+<p>All of those definitions are correct and seen in real-life OOP implementations. But if we give too much definitions on a thing, it's weakening the meaning of it and might give us multiple implementations with its own understanding and claim it OOP.</p>
+<p>Along with above definitions, I want to add some more things on them, which really define the OOP-ness of the languages. Again, this is just opinion and might be wrong.</p>
+<p>Most languages with OOP as their main paradigm, made <em>Objects</em> as reference types(Java, C#, Javascript, etc). This means that, most of the times, the underlying implementations of them are using some kind of pointers(hence you get NPE error in Java for null objects). Using reference make up the late bindings, and most probably dynamically dispatched. Those references are not known their data's exact size until got initiated at runtime. The references communicate eachother through message-passing, which mostly implemented via methods. This is what definitions number 1 &amp; 6 are all about.</p>
+<p>In OOP you design your program in term of objects, and an object is encapsulation of data and behaviours. Most languages implemented this via a construct called <code>Class</code> like in Java, C#, PHP, Python, etc. While some others implemented it via prototype-object like in Javascript. Class is just Abstract Data Type for your object, and mostly they are dynamic. These classes will get instantiate at runtime. What it means to be instantiated?, From users(humans) perspective it means creating an object with or without initial values become an instance on its own. But, from machine perspective it means <em>boxing</em> the <em>things</em> inside those classes into somewhere else, mostly heap, because of dynamic-ness of object. What is boxing means?, to me, it's just allocating memory(mostly heap) for the data it contains along with behaviour that might be stored inside a container called vtable.</p>
+<p>With that additional words about OOP, Object is just something <em>boxed</em> and <em>referenced</em> by others throughout the program lifecycle. The box could be empty and when you invoke this empty box, you got Null Pointer Exception(atleast in Java). This means that the box is just somekind of pointer to the actual data stored in other region of memory(mostly heap). Are these data the box <em>contained</em> are gonna be referenced forever?, what if nobody referencing them again?, For this, most OOP languages have GC to manage the lifetime of Objects and their references eachother. GC take care of allocating, de-allocating, moving, and tracking relations between those objects. It's separate program running alongside your main program, tracking things on your behalf.</p>
+<p>Does that mean all OOP languages require GC in order to work?, not exactly. Language like Swift doesn't require GC, instead it employs a mechanism called Automatic Reference Counting to track and manage how many references left for objects. C++ employ a concept called RAII to manage &quot;objects lifecycle and lifetime.</p>
+<p>Another thing about OOP is that, they have hierarchical types, means that there's some kind of object which is root of all objects defined, and all other objects derived/exteded from this &quot;root object&quot;.</p>
+<ul>
+<li>In Java the root object is <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html"><em>Object</em></a> class.</li>
+<li>In C# the root object is <a href="https://learn.microsoft.com/en-us/dotnet/api/system.object?view=net-8.0"><em>Object</em></a> class</li>
+<li>In Python it's <em>object</em> class.</li>
+<li>In Ruby it's <a href="https://ruby-doc.org/3.2.2/Object.html"><em>Object</em></a> class.</li>
+<li>In Javascript it's <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object"><em>Object</em></a> object.</li>
+</ul>
+<p>This is what make OOP languages differ from others, they have <em>tree</em> of objects related to eachother in relation of inheritance/extension. I'm not sure if this is exist in languages like C, C++, Rust, Go, etc.</p>
+<p>Hierarchical structure of &quot;types&quot; in OOP provide us what we called <em>inheritance</em>, <em>polymorphism</em> and <em>abstraction</em>, 3 of 4 core tenets in OOP.</p>
+<p>For <em>polymorphism</em>, OOP specifically talk about subtype polymorphism.</p>
+<p>So, OOP is just where objects are boxing things and got referenced and communicate eachother(message-passing/methods), and these objects have relations(subtyping) to eachothers, dynamically dispatched and/or late binding.</p>
+<p>Despite all above definitions, any language can simulate OOP paradigm and still call it OOP, even though it's not its main paradigm.</p>
+<p>Here are some example of OOP-ness of some languages I know:</p>
+<ul>
+<li>
+<p>Go:</p>
+<ul>
+<li>&quot;Object&quot; is represented via pointer types along with methods and <code>interface</code> type.</li>
+<li>Encapsulate data and behaviours with method receivers and package/directory access level.</li>
+<li>Has no inheritance:
+<ul>
+<li>instead prefer compositions where you can declare struct inside struct to derive its attributes and functionalities.</li>
+<li>Code reuse?, it's okay not too DRY in Go.</li>
+</ul>
+</li>
+<li>Polymorphism with <code>interface{...}</code></li>
+<li>Im not sure how exactly the concept of <em>abstraction</em> will work in Go.</li>
+</ul>
+</li>
+<li>
+<p>Java:</p>
+<ul>
+<li>&quot;Object&quot; is represented via Class in form of concrete class, enum class, abstract class, and interface class.</li>
+<li>Encapsulate data and behaviours inside class.</li>
+<li>Inheritance: type inheritance(class inherit other class), and behaviour inheritance(interface class).</li>
+<li>Polymorphism: subtype polymorphism with abstract class(single inheritance) and interface class(multiple inheritance).</li>
+<li>Abstraction: through abstract class.</li>
+</ul>
+</li>
+<li>
+<p>Rust</p>
+<ul>
+<li>&quot;Object&quot; is represented via smart pointer: 
+<ul>
+<li><code>Box&lt;T&gt;</code>, base for owned object.</li>
+<li><code>RefCell&lt;T&gt;</code>, mutable reference object.</li>
+<li><code>Rc&lt;T&gt;</code>, single-threaded reference object.</li>
+<li><code>Arc&lt;T&gt;</code>, multi-threaded reference object.</li>
+<li><code>Rc&lt;RefCell&lt;T&gt;&gt;</code>, single-threaded mutable reference object, it's not OOP if you cannot mutate things, since OOP is stateful and handling states.</li>
+<li><code>Arc&lt;Mutex&lt;T&gt;&gt;</code>, multi-threaded mutable reference object.</li>
+<li>...and many more.</li>
+</ul>
+</li>
+<li>Encapsulate data and behaviours through inherent methods associated with <code>struct</code> or <code>enum</code>.</li>
+<li>No inheritance in Rust, so how about reusability?, you can use <code>trait</code> for that with associated types and default behaviours.</li>
+<li>Polymorphism:
+<ul>
+<li>no subtype polymorphism in Rust(AFAIK), except lifetime, instead it uses Parametric Polymorphism.</li>
+<li>for <em>interface</em>-like polymorphism, use trait object(<code>dyn</code>).</li>
+</ul>
+</li>
+<li>Abstraction: same with inheritance, use trait for this.</li>
+</ul>
+</li>
+</ul>
+<p>All 3 above languages represent their own main paradigm: Procedural Programming(Go), OOP(Java), FP(Rust), eventhough you can mix the paradigms.</p>
 
                     </main>
 
