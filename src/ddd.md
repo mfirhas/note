@@ -262,7 +262,6 @@ What service is NOT:
 
 What service is:
 - Service in DDD contains business logics.
-- In Clean Architecture by Uncle Bob, this is called *Use Case*
 - Service is stateless.
 - Service tidak berurusan dengan implementasi dari database, web, http, dan IO lainnya.
 - Service contains more complex logics than entity and value objects.
@@ -449,17 +448,18 @@ Modules are group of related and cohesive domain objects to separate it from oth
 - DDD extends many concepts from Clean Architecture especially about SOLID principles.
 - DDD gives more detailed concept of separation of concerns leveraging from clean arch and SOLID principles.
 - DDD contains:
-  - **Domain Models**, The core of your software containing business rules and logics, separated from outer, and know nothing about outer layers. All other layers depend on this, while it should not depend on anything else(mostly). They are(from smallest to the biggest):
-    - Value Objects: Immutable. Wrap primitive values and provide cohesive operations related to values inside. Partial or Full Equivalence.
-    - Entities: Mutable. Contains primitives and/or value objects with cohesive operations. Identity Equivalence.
-    - Aggregates: Group of value objects and entities in 1 transaction consistency boundary. Multiple aggregates should be handled eventually.
-    - Services: Provide richer operations related to aggregates. Accessed and orchestrated by application layer.
-    - Events: Provide asynced/autonomous communication styles to different bounded context and aggregates. Usually handled through message queuing.
-  - **Application**, Connecting interfaces with domain models. Orchestrating aggregates and domain services. Handle aggregates's transactions, accepts requests and events from other bounded contexts. Direct client of Domain Model. Implementations:
+  - **Domain Layer**, The core of your software containing business rules and logics, separated from outer, and know nothing about outer layers. All other layers depend on this, while it should not depend on anything else(mostly). They are(from smallest to the biggest):
+    - **Domain Models**: Representing domain components the core of business models and logics:
+      - **Value Objects**: Immutable. Wrap primitive values and provide cohesive operations related to values inside. Partial or Full Equivalence.
+      - **Entities**: Mutable. Contains primitives and/or value objects with cohesive operations. Identity Equivalence.
+      - **Aggregates**: Group of value objects and entities in 1 transaction consistency boundary. Multiple aggregates should be handled eventually. 
+    - **Domain Services**: Domain specific operations containing business logics leveraging from domain models, also may handle and coordinate multiple value objects, entities, and aggregates.
+    - **Domain Events**: Handling events Asynchronously in form of notifications, eventual consistency on aggregates, log, etc. Incoming events are handled by subscribers/event handlers in application layer, and published through infrastructure layer. The event's business logics are handled within domain layer.
+  - **Application Layer**, Connecting interfaces with domain models. Orchestrating aggregates and domain services. Handle aggregates's transactions, accepts requests and events from other bounded contexts. Direct client of Domain Model. Implementations:
     - DTOs: Data Transfer Object containing request from user interfaces wrapping and mapping into domain models.
     - DPOs: Data Payload Object, bigger DTOs.
     - Services: APIs in form of: HTTP API/REST, RPC, messaging subscribers.
-  - **Infrastructures**, contain implementations details related to most outer layers connecting to other systems(networks, file system, remote APIs, messaging, etc).
+  - **Infrastructure Layer**, contain implementations details related to most outer layers connecting to other systems(networks, file system, remote APIs, messaging, etc).
     - Repository: contain implementation details of interaction to concrete databases(Relational or NoSQL), e.g. MySQL, Postgresql, sqlite, mongo, etc
     - Cache: contain implementation details of interaction to in-memory databases
     - Message Queue: contain implementation details of messaging infrastructure, e.g. rabbitmq, kafka, etc.
