@@ -176,13 +176,13 @@
                         <h1 id="domain-driven-design"><a class="header" href="#domain-driven-design">Domain-Driven Design</a></h1>
 <p>from book: <em>Implementing Domain-Driven Design</em> by Vaughn Vernon.</p>
 <h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
-<p>Ubiquitous Language: </p>
+<p>Ubiquitous Language:</p>
 <ul>
 <li><em>“It is a team pattern used to capture the concepts and terms of a specific core business domain in the software model itself”</em></li>
 <li><em>“The Ubiquitous Language is a shared language developed by the team—a team composed of both domain experts and software developers.”</em></li>
 <li><em>“more centered on how the business itself thinks and operates”</em></li>
 </ul>
-<p>Bounded Context: </p>
+<p>Bounded Context:</p>
 <ul>
 <li>Explicit boundaries around Ubiquitous Language.</li>
 <li>There is one Ubiquitous Language per bounded context.</li>
@@ -218,7 +218,7 @@
 <p>Core Domains is the more specialized domain which has smaller context but central to the business rules/logics.</p>
 <p>Supporting Domains are domain to compliment the systems widely, usually when you make adapter to certain business rules/logics.</p>
 <p>Whole business domain contains 1 to many bounded contexts. Each Bounded Context contains 1 to many domains(subdomains). Bounded context separate related domains/subdomains. Each domains/subdomains can communicate to other domains/subdomains in same bounded context or to other bounded context(context mapping).</p>
-<p>Bounded context is to give context to the domain, some domains might have same names, even same functionalities/operations, but they have different context. 
+<p>Bounded context is to give context to the domain, some domains might have same names, even same functionalities/operations, but they have different context.
 E.g. Account in term of banking is different than Account in term of social media.</p>
 <p>The business rules and logics inside domains are defined by Domain Experts, they are people having expertise in the particular domain, doesn't have to be the developers, can be anyone with required knowledge in the domain.</p>
 <p>Subdomain Types:</p>
@@ -229,8 +229,8 @@ E.g. Account in term of banking is different than Account in term of social medi
 </ul>
 <p>Domain dan subdomain terdiri dari:</p>
 <ul>
-<li><strong>Entity</strong>: </li>
-<li><strong>Value Object</strong>: </li>
+<li><strong>Entity</strong>:</li>
+<li><strong>Value Object</strong>:</li>
 </ul>
 <p>Bounded context bisa terdiri dari:</p>
 <ul>
@@ -256,7 +256,7 @@ E.g. Account in term of banking is different than Account in term of social medi
 <li><strong>Conformist</strong>: When downstream follows what upstream already defined.</li>
 <li><strong>Anticorruption Layer(ACL)</strong>: Downstream creates additional layer to translate upstream into downstream's own model. E.g. serde? validations?</li>
 <li><strong>Open Host Service(OHS)</strong>: Provide protocol to be accessed(e.g. http, grpc, message queue)</li>
-<li><strong>Published Language(PL)</strong>: Common &quot;language&quot; to communicate, combined with Opeh Host Service. Message exchange format, e.g. JSON, XML, Protobuf, etc.</li>
+<li><strong>Published Language(PL)</strong>: Common "language" to communicate, combined with Opeh Host Service. Message exchange format, e.g. JSON, XML, Protobuf, etc.</li>
 <li><strong>Separate Ways</strong>: No connections and specialized solutions within small scope. E.g. having own oauth implementation.</li>
 <li><strong>Big Ball of Mud</strong>: Where large domain models mixed and offer inconsistent connections. Proceed with cautious.</li>
 </ul>
@@ -307,7 +307,7 @@ E.g. Account in term of banking is different than Account in term of social medi
 </ul>
 <h2 id="pipes-and-filters"><a class="header" href="#pipes-and-filters">Pipes and Filters</a></h2>
 <p>Event-Driven Architecture is achieved by piping messages through <strong>Pipes/Channels</strong>, these messages got sent or accepted by <strong>Port</strong>, then port will pass the messages into <strong>filter processor/processors</strong> and send messages into another port to be sent into another pipes/channels.</p>
-<p>Processors are loosely coupled to each other, the orders can be re-order, and interchangable. 
+<p>Processors are loosely coupled to each other, the orders can be re-order, and interchangable.
 Filters/processors may read/write from/to 1/multiple pipes. Filters/processors can be made parallel.</p>
 <p>Channels or the messages queues/brokers can be used: amqp(e.g. rabbitmq), or kafka.
 Each amqp and kafka have different ports, but the messages can be processed the same.</p>
@@ -333,7 +333,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <p><em>“When an object is distinguished by its identity, rather than its attributes, make this primary to its definition in the model. Keep the class definition simple and focused on life cycle continuity and identity. Define a means of distinguishing each object regardless of its form or history. . . . The model must define what it means to be the same thing.”</em></p>
 <p>Entity:</p>
 <ul>
-<li>Representation of business object that has attributes and operations related to them. </li>
+<li>Representation of business object that has attributes and operations related to them.</li>
 <li>Store data and its changes through the stages of program.</li>
 <li>Identified by specific identity.
 <ul>
@@ -377,11 +377,11 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Values objects have operations related to them, but should be side-effects free.</li>
 <li>Values objects should avoid containing entities since entities are highly changeable making value object mutable.</li>
 <li>Passing entities into value objects methods will break immutability and inconsistency in API as it's not sure how it affects the entity.</li>
-<li>You can implement value objects immutability by: 
+<li>You can implement value objects immutability by:
 <ul>
-<li>create them at constructions, or </li>
+<li>create them at constructions, or</li>
 <li>injecting them into entities construction, or</li>
-<li>making setters private, or </li>
+<li>making setters private, or</li>
 <li>you can utilize language's type system such as Java final keyword, or Rust immutability(default).</li>
 </ul>
 </li>
@@ -400,11 +400,11 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li><em>Equality</em>:
 <ul>
 <li>Method that define equality of value objects.</li>
-<li>In Java it's <code>equals()</code> method derived, </li>
+<li>In Java it's <code>equals()</code> method derived,</li>
 <li>In Rust it's trait <code>Eq</code> for standard/built-in types or <code>PartialEq</code> for other types.</li>
 </ul>
 </li>
-<li><em>Hashable</em>: 
+<li><em>Hashable</em>:
 <ul>
 <li>Method to hash the object to create unique code/hash that differentiate it with others, even for tiny change.</li>
 <li>In Java it's <code>hashCode()</code> method derived,</li>
@@ -434,7 +434,6 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <p>What service is:</p>
 <ul>
 <li>Service in DDD contains business logics.</li>
-<li>In Clean Architecture by Uncle Bob, this is called <em>Use Case</em></li>
 <li>Service is stateless.</li>
 <li>Service tidak berurusan dengan implementasi dari database, web, http, dan IO lainnya.</li>
 <li>Service contains more complex logics than entity and value objects.</li>
@@ -452,13 +451,13 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <p>Synchronized batched process is when you gather all data that stored previously, and do the processing all at once, this require specific time needed(e.g. midnight) and require big cost of processing time the bigger the data.</p>
 <p>We can just publish all those data becoming events into subscriber to be handled right-away.</p>
 <p>Evented system consisted of 3 component: <strong>Publisher</strong>, <strong>Channel</strong>, and <strong>Subscriber</strong>.</p>
-<p>Events are handled asynchronously. </p>
+<p>Events are handled asynchronously.</p>
 <p>If transaction needed, can be done in subscriber in application context.</p>
 <p>Event is immutable, unlike entity, but it has identities just like entity, it has multiple identities based on event's properties and unique identity for that particular event. This means more than one event can be sent but still have uniqueness to them from the unique id they have.</p>
 <p>Adding unique identity is not mandatory if comparison between events are not needed, but still recommended if events are sent outside local bounded-context.</p>
 <p>Events are handled by a system called message queue. Event's source acts as published can be from any bounded context or aggregate, the events passed into channel the message queue, and forwarded into subscriber. Channel might has its own storage to store events published from publisher before forwarding into subscriber through queue/channel. This kind of system usually called message broker(channel + storage). Events sent through mq/mb commonly called messages.</p>
 <p>Events belong to domain model, not infrastructure.</p>
-<p>Publisher send events from aggregate, throught publisher implementation at infrastructure part </p>
+<p>Publisher send events from aggregate, throught publisher implementation at infrastructure part</p>
 <p>Subscriber receive events from application, to aggregate.</p>
 <p>Only modify 1 aggregate instance per transaction(publish-subscribe).</p>
 <p>Autonomous and Independence: avoid synchronized api like http, rpc.</p>
@@ -474,7 +473,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Module is about how to segregates domain and infrastructure components into accessible and testable APIs.</li>
 <li>Avoid cyclic dependencies between peer modules(Unidirectional).</li>
 <li>Domain objects inside module are cohesive, while inter-modules are low-coupled.</li>
-<li>Module encompasses many things inside(value objects, entities, events, etc), </li>
+<li>Module encompasses many things inside(value objects, entities, events, etc),</li>
 <li>Top-level module naming depends on programming languages convention/style.</li>
 <li>Next level is bounded-context.</li>
 <li>Do <strong>not</strong> name modules using models name from domains, because modules only represents API segregations, not representing specific objects/types.</li>
@@ -511,7 +510,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Query performance.</li>
 </ul>
 </li>
-<li><em>&quot;Transactions across distributed systems are not atomic. The various systems bring multiple Aggregates into a consistent state <strong>eventually</strong>.&quot;</em></li>
+<li><em>"Transactions across distributed systems are not atomic. The various systems bring multiple Aggregates into a consistent state <strong>eventually</strong>."</em></li>
 <li><em>Law of Demeter</em>:
 <ul>
 <li>When exposing services to clients, expose through public APIs, don't expose innards of the object implementations/services.</li>
@@ -548,7 +547,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Acts as interfaces directly to storage where you store Aggregates.</li>
 <li>2 kinds of repositories:
 <ul>
-<li>Collection-oriented repository: 
+<li>Collection-oriented repository:
 <ul>
 <li>Mimics <strong>Set</strong> data structure.</li>
 <li>Tracks changes to data being read/write.</li>
@@ -576,7 +575,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Repository can be said as bigger scope of DAO, as repository might employ DAO operations inside. All depends on implementations.</li>
 </ul>
 </li>
-<li>Testing repository: 
+<li>Testing repository:
 <ul>
 <li>Test the operations connected to the production database in used.</li>
 <li>Test the operations using in-memory implementations(mocked).</li>
@@ -646,23 +645,27 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>DDD gives more detailed concept of separation of concerns leveraging from clean arch and SOLID principles.</li>
 <li>DDD contains:
 <ul>
-<li><strong>Domain Models</strong>, The core of your software containing business rules and logics, separated from outer, and know nothing about outer layers. All other layers depend on this, while it should not depend on anything else(mostly). They are(from smallest to the biggest):
+<li><strong>Domain Layer</strong>, The core of your software containing business rules and logics, separated from outer, and know nothing about outer layers. All other layers depend on this, while it should not depend on anything else(mostly). They are(from smallest to the biggest):
 <ul>
-<li>Value Objects: Immutable. Wrap primitive values and provide cohesive operations related to values inside. Partial or Full Equivalence.</li>
-<li>Entities: Mutable. Contains primitives and/or value objects with cohesive operations. Identity Equivalence.</li>
-<li>Aggregates: Group of value objects and entities in 1 transaction consistency boundary. Multiple aggregates should be handled eventually.</li>
-<li>Services: Provide richer operations related to aggregates. Accessed and orchestrated by application layer.</li>
-<li>Events: Provide asynced/autonomous communication styles to different bounded context and aggregates. Usually handled through message queuing.</li>
+<li><strong>Domain Models</strong>: Representing domain components the core of business models and logics:
+<ul>
+<li><strong>Value Objects</strong>: Immutable. Wrap primitive values and provide cohesive operations related to values inside. Partial or Full Equivalence.</li>
+<li><strong>Entities</strong>: Mutable. Contains primitives and/or value objects with cohesive operations. Identity Equivalence.</li>
+<li><strong>Aggregates</strong>: Group of value objects and entities in 1 transaction consistency boundary. Multiple aggregates should be handled eventually.</li>
 </ul>
 </li>
-<li><strong>Application</strong>, Connecting interfaces with domain models. Orchestrating aggregates and domain services. Handle aggregates's transactions, accepts requests and events from other bounded contexts. Direct client of Domain Model. Implementations:
+<li><strong>Domain Services</strong>: Domain specific operations containing business logics leveraging from domain models, also may handle and coordinate multiple value objects, entities, and aggregates.</li>
+<li><strong>Domain Events</strong>: Handling events Asynchronously in form of notifications, eventual consistency on aggregates, log, etc. Incoming events are handled by subscribers/event handlers in application layer, and published through infrastructure layer. The event's business logics are handled within domain layer.</li>
+</ul>
+</li>
+<li><strong>Application Layer</strong>, Connecting interfaces with domain models. Orchestrating aggregates and domain services. Handle aggregates's transactions, accepts requests and events from other bounded contexts. Direct client of Domain Model. Implementations:
 <ul>
 <li>DTOs: Data Transfer Object containing request from user interfaces wrapping and mapping into domain models.</li>
 <li>DPOs: Data Payload Object, bigger DTOs.</li>
 <li>Services: APIs in form of: HTTP API/REST, RPC, messaging subscribers.</li>
 </ul>
 </li>
-<li><strong>Infrastructures</strong>, contain implementations details related to most outer layers connecting to other systems(networks, file system, remote APIs, messaging, etc).
+<li><strong>Infrastructure Layer</strong>, contain implementations details related to most outer layers connecting to other systems(networks, file system, remote APIs, messaging, etc).
 <ul>
 <li>Repository: contain implementation details of interaction to concrete databases(Relational or NoSQL), e.g. MySQL, Postgresql, sqlite, mongo, etc</li>
 <li>Cache: contain implementation details of interaction to in-memory databases</li>

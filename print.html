@@ -181,32 +181,32 @@
 <div style="break-before: page; page-break-before: always;"></div><h1 id="clean-code"><a class="header" href="#clean-code">Clean Code</a></h1>
 <p>from book: <em>Clean Code A Handbook of Agile Software Craftsmanship</em> by Robert C. Martin.</p>
 <h2 id="what"><a class="header" href="#what">What?</a></h2>
-<p><em>&quot;I like my code to be elegant and efficient. The
+<p><em>"I like my code to be elegant and efficient. The
 logic should be straightforward to make it hard
 for bugs to hide, the dependencies minimal to
 ease maintenance, error handling complete
 according to an articulated strategy, and performance close to optimal so as not to tempt
 people to make the code messy with unprincipled optimizations. Clean code does one thing
-well.&quot;</em></p>
+well."</em></p>
 <p>~ Bjarne Stroustrup</p>
 <p>Clean code: elegant and efficient.</p>
-<p><em>&quot;Clean code is simple and direct. Clean code
+<p><em>"Clean code is simple and direct. Clean code
 reads like well-written prose. Clean code never
 obscures the designer’s intent but rather is full
 of crisp abstractions and straightforward lines
-of control.&quot;</em></p>
+of control."</em></p>
 <p>~ Grady Booch, author of Object
 Oriented Analysis and Design with
 Applications</p>
 <p>Clean code: simple &amp; direct -&gt; readibility.</p>
-<p><em>&quot;Clean code can be read, and enhanced by a
+<p><em>"Clean code can be read, and enhanced by a
 developer other than its original author. It has
 unit and acceptance tests. It has meaningful
 names. It provides one way rather than many
 ways for doing one thing. It has minimal dependencies, which are explicitly defined, and provides a clear and minimal API. Code should be
 literate since depending on the language, not all
 necessary information can be expressed clearly
-in code alone.&quot;</em></p>
+in code alone."</em></p>
 <p>~ “Big” Dave Thomas, founder
 of OTI, godfather of the
 Eclipse strategy</p>
@@ -253,7 +253,7 @@ methods, functions, and the like.</p>
 <ul>
 <li>Don't comment bad code, rewrite it.</li>
 <li>Make code self explainatory</li>
-<li>Good comments: 
+<li>Good comments:
 <ul>
 <li>Legal comments(e.g. license).</li>
 <li>Informative and details of the code, if cannot be explain by function name.</li>
@@ -270,8 +270,8 @@ methods, functions, and the like.</p>
 <li>Make attributes private, access them with methods.</li>
 <li>Objects: data and behaviour coupled, Data structure: data and behaviour separated.
 <ul>
-<li><em>&quot;Procedural code (code using data structures) makes it easy to add new functions without changing the existing data structures. OO code, on the other hand, makes it easy to add new classes without changing existing functions.&quot;</em></li>
-<li><em>&quot;Procedural code makes it hard to add new data structures because all the functions must change. OO code makes it hard to add new functions because all the classes must change&quot;</em></li>
+<li><em>"Procedural code (code using data structures) makes it easy to add new functions without changing the existing data structures. OO code, on the other hand, makes it easy to add new classes without changing existing functions."</em></li>
+<li><em>"Procedural code makes it hard to add new data structures because all the functions must change. OO code makes it hard to add new functions because all the classes must change"</em></li>
 <li>Know when to use procedural code, when to use OOP. Not everything has to be OO.</li>
 </ul>
 </li>
@@ -382,7 +382,7 @@ methods, functions, and the like.</p>
 <li>Actual: it improves performance only when there're wait points on blocking components(e.g. IOs, or some syscalls).</li>
 </ul>
 </li>
-<li>Myth: <em>Design doesn't change when writing concurrent programs</em>. 
+<li>Myth: <em>Design doesn't change when writing concurrent programs</em>.
 <ul>
 <li>It could be</li>
 <li>(e.g <em>What's the color of your functions?</em>)</li>
@@ -391,7 +391,7 @@ methods, functions, and the like.</p>
 <li>Myth: <em>Understanding concurrency issues is not important when working with a container such as a Web or EJB container.</em>
 <ul>
 <li>How to deal with requests coming from the web servers?</li>
-<li>How to synchronize the shared data?, </li>
+<li>How to synchronize the shared data?,</li>
 <li>How to ensure thread safety?</li>
 </ul>
 </li>
@@ -437,16 +437,16 @@ from being decomposed recursively into smaller and smaller units, thereby preven
 divide-and-conquer approach necessary for reasonable proofs.</em></p>
 </blockquote>
 <p>Structured Programming: using the good parts of <code>goto</code> feature, the imperative constructs, like <code>if/then/else</code> and <code>do/while</code>.</p>
-<p>In 1968, Dijkstra wrote a letter titled &quot;Go To Statement Considered Harmful&quot;</p>
+<p>In 1968, Dijkstra wrote a letter titled "Go To Statement Considered Harmful"</p>
 <p>From Dijkstra -&gt; Tests: <em>are to show the presence of bugs, not the absence of them. We tests our program as much as we can until we failed to prove incorrectness</em>, then it's correct enough.</p>
 <h2 id="object-oriented-programming"><a class="header" href="#object-oriented-programming">Object-Oriented Programming</a></h2>
 <p>First form of OO is when Dahl and Nygaard before 1966 moved function call stack-frame to heap becoming function pointer.
-The definition become: &quot;Data + Behaviour&quot;. 
-Then become: &quot;Encapsulation + Inheritance + Polymorphism&quot;</p>
+The definition become: "Data + Behaviour".
+Then become: "Encapsulation + Inheritance + Polymorphism"</p>
 <ul>
 <li>Encapsulation: not unique to OO language as a general concept. C has actually encapsulation in form of header file.
 The removal of header file and using private,public and protected members as a way to encapsulate things actually weakens encapsulation C has.</li>
-<li>Inheritance: Prior to OOP &quot;inheritance&quot; was done through some kind of composition, becoming superset of something, even today composition still preferred over inheritance.</li>
+<li>Inheritance: Prior to OOP "inheritance" was done through some kind of composition, becoming superset of something, even today composition still preferred over inheritance.</li>
 <li>Polymorphism: Pre-OO has somekind of inheritance in form of function pointers which have same signatures for different implementations.
 E.g. IO interface functions in UNIX having 5 API: <code>open</code>, <code>close</code>, <code>read</code>, <code>write</code>, and <code>seek</code>.
 This state that function pointer is the early form of OO's inheritance.</li>
@@ -505,17 +505,17 @@ Client/caller depends on abstractions(e.g. interface) not concrete implementatio
 </ul>
 <h2 id="business-rules"><a class="header" href="#business-rules">Business Rules</a></h2>
 <ul>
-<li>Entities: 
+<li>Entities:
 <ul>
-<li>contains core business data and logics. </li>
+<li>contains core business data and logics.</li>
 <li>Not related to other technical implementations(e.g. databases, IOs, etc)</li>
 <li>Depend on nothing.</li>
 </ul>
 </li>
-<li>Use Cases: 
+<li>Use Cases:
 <ul>
-<li>Defines more elaborated business rules by utilizing entities. </li>
-<li>Entities know nothing about use cases, use cases know about entities. </li>
+<li>Defines more elaborated business rules by utilizing entities.</li>
+<li>Entities know nothing about use cases, use cases know about entities.</li>
 <li>Usecases contain input and output data from outside(e.g. user inputs), process the input with its own logics and utilizing entities and give an output.</li>
 <li>Depend on Entities</li>
 </ul>
@@ -551,9 +551,9 @@ Object implementor terpisah dan comply ke set of common interfaces defined. Cuku
 Bisa menggunakan abstract class atau interface class sebagai boundaries untuk internal implementor dan memenuhi dependency inversion rule dimana abstract/interface class tersebut yang define rules(behaviours/functions/methods).</p>
 <h2 id="components"><a class="header" href="#components">Components</a></h2>
 <ul>
-<li>Monolith: 
+<li>Monolith:
 <ul>
-<li>Produce 1 binary, </li>
+<li>Produce 1 binary,</li>
 <li>The boundaries are all compiled into 1 binary/artifact,</li>
 <li>Boundaries are in the level of function calls, abstract/interface segregation.</li>
 <li>Run in one process</li>
@@ -577,7 +577,7 @@ Bisa menggunakan abstract class atau interface class sebagai boundaries untuk in
 <li>Don't depend on volatile things, volatile things mostly are the IOs where they happen to be in infrastructure layers.</li>
 <li>Test coupling:
 <ul>
-<li>Structural coupling: 
+<li>Structural coupling:
 <ul>
 <li>Provide test apis to avoid this.</li>
 <li>Test apis hide production code internal details so it's free to change, leaving test code unaffected.</li>
@@ -597,13 +597,13 @@ Bisa menggunakan abstract class atau interface class sebagai boundaries untuk in
 <div style="break-before: page; page-break-before: always;"></div><h1 id="domain-driven-design"><a class="header" href="#domain-driven-design">Domain-Driven Design</a></h1>
 <p>from book: <em>Implementing Domain-Driven Design</em> by Vaughn Vernon.</p>
 <h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
-<p>Ubiquitous Language: </p>
+<p>Ubiquitous Language:</p>
 <ul>
 <li><em>“It is a team pattern used to capture the concepts and terms of a specific core business domain in the software model itself”</em></li>
 <li><em>“The Ubiquitous Language is a shared language developed by the team—a team composed of both domain experts and software developers.”</em></li>
 <li><em>“more centered on how the business itself thinks and operates”</em></li>
 </ul>
-<p>Bounded Context: </p>
+<p>Bounded Context:</p>
 <ul>
 <li>Explicit boundaries around Ubiquitous Language.</li>
 <li>There is one Ubiquitous Language per bounded context.</li>
@@ -639,7 +639,7 @@ Bisa menggunakan abstract class atau interface class sebagai boundaries untuk in
 <p>Core Domains is the more specialized domain which has smaller context but central to the business rules/logics.</p>
 <p>Supporting Domains are domain to compliment the systems widely, usually when you make adapter to certain business rules/logics.</p>
 <p>Whole business domain contains 1 to many bounded contexts. Each Bounded Context contains 1 to many domains(subdomains). Bounded context separate related domains/subdomains. Each domains/subdomains can communicate to other domains/subdomains in same bounded context or to other bounded context(context mapping).</p>
-<p>Bounded context is to give context to the domain, some domains might have same names, even same functionalities/operations, but they have different context. 
+<p>Bounded context is to give context to the domain, some domains might have same names, even same functionalities/operations, but they have different context.
 E.g. Account in term of banking is different than Account in term of social media.</p>
 <p>The business rules and logics inside domains are defined by Domain Experts, they are people having expertise in the particular domain, doesn't have to be the developers, can be anyone with required knowledge in the domain.</p>
 <p>Subdomain Types:</p>
@@ -650,8 +650,8 @@ E.g. Account in term of banking is different than Account in term of social medi
 </ul>
 <p>Domain dan subdomain terdiri dari:</p>
 <ul>
-<li><strong>Entity</strong>: </li>
-<li><strong>Value Object</strong>: </li>
+<li><strong>Entity</strong>:</li>
+<li><strong>Value Object</strong>:</li>
 </ul>
 <p>Bounded context bisa terdiri dari:</p>
 <ul>
@@ -677,7 +677,7 @@ E.g. Account in term of banking is different than Account in term of social medi
 <li><strong>Conformist</strong>: When downstream follows what upstream already defined.</li>
 <li><strong>Anticorruption Layer(ACL)</strong>: Downstream creates additional layer to translate upstream into downstream's own model. E.g. serde? validations?</li>
 <li><strong>Open Host Service(OHS)</strong>: Provide protocol to be accessed(e.g. http, grpc, message queue)</li>
-<li><strong>Published Language(PL)</strong>: Common &quot;language&quot; to communicate, combined with Opeh Host Service. Message exchange format, e.g. JSON, XML, Protobuf, etc.</li>
+<li><strong>Published Language(PL)</strong>: Common "language" to communicate, combined with Opeh Host Service. Message exchange format, e.g. JSON, XML, Protobuf, etc.</li>
 <li><strong>Separate Ways</strong>: No connections and specialized solutions within small scope. E.g. having own oauth implementation.</li>
 <li><strong>Big Ball of Mud</strong>: Where large domain models mixed and offer inconsistent connections. Proceed with cautious.</li>
 </ul>
@@ -728,7 +728,7 @@ E.g. Account in term of banking is different than Account in term of social medi
 </ul>
 <h2 id="pipes-and-filters"><a class="header" href="#pipes-and-filters">Pipes and Filters</a></h2>
 <p>Event-Driven Architecture is achieved by piping messages through <strong>Pipes/Channels</strong>, these messages got sent or accepted by <strong>Port</strong>, then port will pass the messages into <strong>filter processor/processors</strong> and send messages into another port to be sent into another pipes/channels.</p>
-<p>Processors are loosely coupled to each other, the orders can be re-order, and interchangable. 
+<p>Processors are loosely coupled to each other, the orders can be re-order, and interchangable.
 Filters/processors may read/write from/to 1/multiple pipes. Filters/processors can be made parallel.</p>
 <p>Channels or the messages queues/brokers can be used: amqp(e.g. rabbitmq), or kafka.
 Each amqp and kafka have different ports, but the messages can be processed the same.</p>
@@ -754,7 +754,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <p><em>“When an object is distinguished by its identity, rather than its attributes, make this primary to its definition in the model. Keep the class definition simple and focused on life cycle continuity and identity. Define a means of distinguishing each object regardless of its form or history. . . . The model must define what it means to be the same thing.”</em></p>
 <p>Entity:</p>
 <ul>
-<li>Representation of business object that has attributes and operations related to them. </li>
+<li>Representation of business object that has attributes and operations related to them.</li>
 <li>Store data and its changes through the stages of program.</li>
 <li>Identified by specific identity.
 <ul>
@@ -798,11 +798,11 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Values objects have operations related to them, but should be side-effects free.</li>
 <li>Values objects should avoid containing entities since entities are highly changeable making value object mutable.</li>
 <li>Passing entities into value objects methods will break immutability and inconsistency in API as it's not sure how it affects the entity.</li>
-<li>You can implement value objects immutability by: 
+<li>You can implement value objects immutability by:
 <ul>
-<li>create them at constructions, or </li>
+<li>create them at constructions, or</li>
 <li>injecting them into entities construction, or</li>
-<li>making setters private, or </li>
+<li>making setters private, or</li>
 <li>you can utilize language's type system such as Java final keyword, or Rust immutability(default).</li>
 </ul>
 </li>
@@ -821,11 +821,11 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li><em>Equality</em>:
 <ul>
 <li>Method that define equality of value objects.</li>
-<li>In Java it's <code>equals()</code> method derived, </li>
+<li>In Java it's <code>equals()</code> method derived,</li>
 <li>In Rust it's trait <code>Eq</code> for standard/built-in types or <code>PartialEq</code> for other types.</li>
 </ul>
 </li>
-<li><em>Hashable</em>: 
+<li><em>Hashable</em>:
 <ul>
 <li>Method to hash the object to create unique code/hash that differentiate it with others, even for tiny change.</li>
 <li>In Java it's <code>hashCode()</code> method derived,</li>
@@ -855,7 +855,6 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <p>What service is:</p>
 <ul>
 <li>Service in DDD contains business logics.</li>
-<li>In Clean Architecture by Uncle Bob, this is called <em>Use Case</em></li>
 <li>Service is stateless.</li>
 <li>Service tidak berurusan dengan implementasi dari database, web, http, dan IO lainnya.</li>
 <li>Service contains more complex logics than entity and value objects.</li>
@@ -873,13 +872,13 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <p>Synchronized batched process is when you gather all data that stored previously, and do the processing all at once, this require specific time needed(e.g. midnight) and require big cost of processing time the bigger the data.</p>
 <p>We can just publish all those data becoming events into subscriber to be handled right-away.</p>
 <p>Evented system consisted of 3 component: <strong>Publisher</strong>, <strong>Channel</strong>, and <strong>Subscriber</strong>.</p>
-<p>Events are handled asynchronously. </p>
+<p>Events are handled asynchronously.</p>
 <p>If transaction needed, can be done in subscriber in application context.</p>
 <p>Event is immutable, unlike entity, but it has identities just like entity, it has multiple identities based on event's properties and unique identity for that particular event. This means more than one event can be sent but still have uniqueness to them from the unique id they have.</p>
 <p>Adding unique identity is not mandatory if comparison between events are not needed, but still recommended if events are sent outside local bounded-context.</p>
 <p>Events are handled by a system called message queue. Event's source acts as published can be from any bounded context or aggregate, the events passed into channel the message queue, and forwarded into subscriber. Channel might has its own storage to store events published from publisher before forwarding into subscriber through queue/channel. This kind of system usually called message broker(channel + storage). Events sent through mq/mb commonly called messages.</p>
 <p>Events belong to domain model, not infrastructure.</p>
-<p>Publisher send events from aggregate, throught publisher implementation at infrastructure part </p>
+<p>Publisher send events from aggregate, throught publisher implementation at infrastructure part</p>
 <p>Subscriber receive events from application, to aggregate.</p>
 <p>Only modify 1 aggregate instance per transaction(publish-subscribe).</p>
 <p>Autonomous and Independence: avoid synchronized api like http, rpc.</p>
@@ -895,7 +894,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Module is about how to segregates domain and infrastructure components into accessible and testable APIs.</li>
 <li>Avoid cyclic dependencies between peer modules(Unidirectional).</li>
 <li>Domain objects inside module are cohesive, while inter-modules are low-coupled.</li>
-<li>Module encompasses many things inside(value objects, entities, events, etc), </li>
+<li>Module encompasses many things inside(value objects, entities, events, etc),</li>
 <li>Top-level module naming depends on programming languages convention/style.</li>
 <li>Next level is bounded-context.</li>
 <li>Do <strong>not</strong> name modules using models name from domains, because modules only represents API segregations, not representing specific objects/types.</li>
@@ -932,7 +931,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Query performance.</li>
 </ul>
 </li>
-<li><em>&quot;Transactions across distributed systems are not atomic. The various systems bring multiple Aggregates into a consistent state <strong>eventually</strong>.&quot;</em></li>
+<li><em>"Transactions across distributed systems are not atomic. The various systems bring multiple Aggregates into a consistent state <strong>eventually</strong>."</em></li>
 <li><em>Law of Demeter</em>:
 <ul>
 <li>When exposing services to clients, expose through public APIs, don't expose innards of the object implementations/services.</li>
@@ -969,7 +968,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Acts as interfaces directly to storage where you store Aggregates.</li>
 <li>2 kinds of repositories:
 <ul>
-<li>Collection-oriented repository: 
+<li>Collection-oriented repository:
 <ul>
 <li>Mimics <strong>Set</strong> data structure.</li>
 <li>Tracks changes to data being read/write.</li>
@@ -997,7 +996,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Repository can be said as bigger scope of DAO, as repository might employ DAO operations inside. All depends on implementations.</li>
 </ul>
 </li>
-<li>Testing repository: 
+<li>Testing repository:
 <ul>
 <li>Test the operations connected to the production database in used.</li>
 <li>Test the operations using in-memory implementations(mocked).</li>
@@ -1067,23 +1066,27 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>DDD gives more detailed concept of separation of concerns leveraging from clean arch and SOLID principles.</li>
 <li>DDD contains:
 <ul>
-<li><strong>Domain Models</strong>, The core of your software containing business rules and logics, separated from outer, and know nothing about outer layers. All other layers depend on this, while it should not depend on anything else(mostly). They are(from smallest to the biggest):
+<li><strong>Domain Layer</strong>, The core of your software containing business rules and logics, separated from outer, and know nothing about outer layers. All other layers depend on this, while it should not depend on anything else(mostly). They are(from smallest to the biggest):
 <ul>
-<li>Value Objects: Immutable. Wrap primitive values and provide cohesive operations related to values inside. Partial or Full Equivalence.</li>
-<li>Entities: Mutable. Contains primitives and/or value objects with cohesive operations. Identity Equivalence.</li>
-<li>Aggregates: Group of value objects and entities in 1 transaction consistency boundary. Multiple aggregates should be handled eventually.</li>
-<li>Services: Provide richer operations related to aggregates. Accessed and orchestrated by application layer.</li>
-<li>Events: Provide asynced/autonomous communication styles to different bounded context and aggregates. Usually handled through message queuing.</li>
+<li><strong>Domain Models</strong>: Representing domain components the core of business models and logics:
+<ul>
+<li><strong>Value Objects</strong>: Immutable. Wrap primitive values and provide cohesive operations related to values inside. Partial or Full Equivalence.</li>
+<li><strong>Entities</strong>: Mutable. Contains primitives and/or value objects with cohesive operations. Identity Equivalence.</li>
+<li><strong>Aggregates</strong>: Group of value objects and entities in 1 transaction consistency boundary. Multiple aggregates should be handled eventually.</li>
 </ul>
 </li>
-<li><strong>Application</strong>, Connecting interfaces with domain models. Orchestrating aggregates and domain services. Handle aggregates's transactions, accepts requests and events from other bounded contexts. Direct client of Domain Model. Implementations:
+<li><strong>Domain Services</strong>: Domain specific operations containing business logics leveraging from domain models, also may handle and coordinate multiple value objects, entities, and aggregates.</li>
+<li><strong>Domain Events</strong>: Handling events Asynchronously in form of notifications, eventual consistency on aggregates, log, etc. Incoming events are handled by subscribers/event handlers in application layer, and published through infrastructure layer. The event's business logics are handled within domain layer.</li>
+</ul>
+</li>
+<li><strong>Application Layer</strong>, Connecting interfaces with domain models. Orchestrating aggregates and domain services. Handle aggregates's transactions, accepts requests and events from other bounded contexts. Direct client of Domain Model. Implementations:
 <ul>
 <li>DTOs: Data Transfer Object containing request from user interfaces wrapping and mapping into domain models.</li>
 <li>DPOs: Data Payload Object, bigger DTOs.</li>
 <li>Services: APIs in form of: HTTP API/REST, RPC, messaging subscribers.</li>
 </ul>
 </li>
-<li><strong>Infrastructures</strong>, contain implementations details related to most outer layers connecting to other systems(networks, file system, remote APIs, messaging, etc).
+<li><strong>Infrastructure Layer</strong>, contain implementations details related to most outer layers connecting to other systems(networks, file system, remote APIs, messaging, etc).
 <ul>
 <li>Repository: contain implementation details of interaction to concrete databases(Relational or NoSQL), e.g. MySQL, Postgresql, sqlite, mongo, etc</li>
 <li>Cache: contain implementation details of interaction to in-memory databases</li>
@@ -1115,7 +1118,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <p><em>...as always, CMIIW!</em></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="object-oriented-programming-1"><a class="header" href="#object-oriented-programming-1">Object-Oriented Programming</a></h1>
 <p>source: <s>trust me</s>My opinions about OOP</p>
-<p>So, What is OOP?, There are many explanations about OOP out there, and I myself not sure which is the most &quot;official&quot; one. </p>
+<p>So, What is OOP?, There are many explanations about OOP out there, and I myself not sure which is the most "official" one.</p>
 <p>Here are some of the definitions of OOP I gathered from books, blogs/articles, forums, chat groups:</p>
 <ol>
 <li>OOP is when you combine data and behaviours/methods/operations into one entity. So anything with data and methods, could be sign OOP*-ness*.</li>
@@ -1132,7 +1135,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <p>In OOP you design your program in term of objects, and an object is encapsulation of data and behaviours. Most languages implemented this via a construct called <code>Class</code> like in Java, C#, PHP, Python, etc. While some others implemented it via prototype-object like in Javascript. Class is just Abstract Data Type for your object, and mostly they are dynamic. These classes will get instantiated at runtime. What it means to be instantiated?, From users(humans) perspective it means creating an object with or without initial values become an instance on its own. But, from machine perspective it means <em>boxing</em> the <em>things</em> inside those classes into somewhere else, mostly heap, because of dynamic-ness of object. What is boxing means?, to me, it's just allocating memory(mostly heap) for the data it contains along with behaviour that might be stored inside a container called vtable.</p>
 <p>With that additional words about OOP, Object is just something <em>boxed</em> and <em>referenced</em> by others throughout the program lifecycle. The box could be empty and when you invoke this empty box, you got Null Pointer Exception(atleast in Java). This means that the box is just somekind of pointer to the actual data stored in other region of memory(mostly heap). Are these data the box <em>contained</em> are gonna be referenced forever?, what if nobody referencing them again?, For this, most OOP languages have GC to manage the lifetime of Objects and their references eachother. GC take care of allocating, de-allocating, moving, and tracking relations between those objects. It's separate program running alongside your main program, tracking things on your behalf.</p>
 <p>Does that mean all OOP languages require GC in order to work?, not exactly. Language like Swift doesn't require GC, instead it employs a mechanism called Automatic Reference Counting to track and manage how many references left for objects. C++ employ a concept called RAII to manage objects lifecycle and lifetime.</p>
-<p>Another thing about OOP is that, they have hierarchical types, means that there's some kind of object which is root of all objects defined, and all other objects derived/exteded from this &quot;root object&quot;.</p>
+<p>Another thing about OOP is that, they have hierarchical types, means that there's some kind of object which is root of all objects defined, and all other objects derived/exteded from this "root object".</p>
 <ul>
 <li>In Java the root object is <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html"><em>Object</em></a> class.</li>
 <li>In C# the root object is <a href="https://learn.microsoft.com/en-us/dotnet/api/system.object?view=net-8.0"><em>Object</em></a> class</li>
@@ -1141,7 +1144,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>In Javascript it's <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object"><em>Object</em></a> object.</li>
 </ul>
 <p>This is what make OOP languages differ from others, they have <em>tree</em> of objects related to eachother in relation of inheritance/extension. I'm not sure if this feature exists in languages like C, C++, Rust, Go, etc.</p>
-<p>Hierarchical structure of &quot;types&quot; in OOP provide us what we called <em>inheritance</em>, <em>polymorphism</em> and <em>abstraction</em>, 3 of 4 core tenets in OOP.</p>
+<p>Hierarchical structure of "types" in OOP provide us what we called <em>inheritance</em>, <em>polymorphism</em> and <em>abstraction</em>, 3 of 4 core tenets in OOP.</p>
 <p>For <em>polymorphism</em>, OOP specifically talk about subtype polymorphism, through inheritance/extension.</p>
 <p>So, OOP is just where objects are boxed things and got referenced and communicate eachother(message-passing/methods), and these objects have relations(subtyping) to eachothers, dynamically dispatched and/or late binding.</p>
 <p>Despite all above definitions, any language can simulate OOP paradigm and still call it OOP, even though it's not its main paradigm.</p>
@@ -1150,7 +1153,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>
 <p>Go:</p>
 <ul>
-<li>&quot;Object&quot; is represented via pointer types along with methods and <code>interface</code> type.</li>
+<li>"Object" is represented via pointer types along with methods and <code>interface</code> type.</li>
 <li>Encapsulate data and behaviours with method receivers and package/directory access level.</li>
 <li>Has no inheritance:
 <ul>
@@ -1165,7 +1168,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>
 <p>Java:</p>
 <ul>
-<li>&quot;Object&quot; is represented via Class in form of concrete class, enum class, abstract class, and interface class.</li>
+<li>"Object" is represented via Class in form of concrete class, enum class, abstract class, and interface class.</li>
 <li>Encapsulate data and behaviours inside class.</li>
 <li>Inheritance: type inheritance(class inherit other class), and behaviour inheritance(interface class).</li>
 <li>Polymorphism: subtype polymorphism with abstract class(single inheritance) and interface class(multiple inheritance).</li>
@@ -1175,7 +1178,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>
 <p>Rust</p>
 <ul>
-<li>&quot;Object&quot; is represented via smart pointer: 
+<li>"Object" is represented via smart pointer:
 <ul>
 <li><code>Box&lt;T&gt;</code>, base for owned object.</li>
 <li><code>RefCell&lt;T&gt;</code>, mutable reference object.</li>

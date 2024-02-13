@@ -175,7 +175,7 @@
                     <main>
                         <h1 id="object-oriented-programming"><a class="header" href="#object-oriented-programming">Object-Oriented Programming</a></h1>
 <p>source: <s>trust me</s>My opinions about OOP</p>
-<p>So, What is OOP?, There are many explanations about OOP out there, and I myself not sure which is the most &quot;official&quot; one. </p>
+<p>So, What is OOP?, There are many explanations about OOP out there, and I myself not sure which is the most "official" one.</p>
 <p>Here are some of the definitions of OOP I gathered from books, blogs/articles, forums, chat groups:</p>
 <ol>
 <li>OOP is when you combine data and behaviours/methods/operations into one entity. So anything with data and methods, could be sign OOP*-ness*.</li>
@@ -192,7 +192,7 @@
 <p>In OOP you design your program in term of objects, and an object is encapsulation of data and behaviours. Most languages implemented this via a construct called <code>Class</code> like in Java, C#, PHP, Python, etc. While some others implemented it via prototype-object like in Javascript. Class is just Abstract Data Type for your object, and mostly they are dynamic. These classes will get instantiated at runtime. What it means to be instantiated?, From users(humans) perspective it means creating an object with or without initial values become an instance on its own. But, from machine perspective it means <em>boxing</em> the <em>things</em> inside those classes into somewhere else, mostly heap, because of dynamic-ness of object. What is boxing means?, to me, it's just allocating memory(mostly heap) for the data it contains along with behaviour that might be stored inside a container called vtable.</p>
 <p>With that additional words about OOP, Object is just something <em>boxed</em> and <em>referenced</em> by others throughout the program lifecycle. The box could be empty and when you invoke this empty box, you got Null Pointer Exception(atleast in Java). This means that the box is just somekind of pointer to the actual data stored in other region of memory(mostly heap). Are these data the box <em>contained</em> are gonna be referenced forever?, what if nobody referencing them again?, For this, most OOP languages have GC to manage the lifetime of Objects and their references eachother. GC take care of allocating, de-allocating, moving, and tracking relations between those objects. It's separate program running alongside your main program, tracking things on your behalf.</p>
 <p>Does that mean all OOP languages require GC in order to work?, not exactly. Language like Swift doesn't require GC, instead it employs a mechanism called Automatic Reference Counting to track and manage how many references left for objects. C++ employ a concept called RAII to manage objects lifecycle and lifetime.</p>
-<p>Another thing about OOP is that, they have hierarchical types, means that there's some kind of object which is root of all objects defined, and all other objects derived/exteded from this &quot;root object&quot;.</p>
+<p>Another thing about OOP is that, they have hierarchical types, means that there's some kind of object which is root of all objects defined, and all other objects derived/exteded from this "root object".</p>
 <ul>
 <li>In Java the root object is <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html"><em>Object</em></a> class.</li>
 <li>In C# the root object is <a href="https://learn.microsoft.com/en-us/dotnet/api/system.object?view=net-8.0"><em>Object</em></a> class</li>
@@ -201,7 +201,7 @@
 <li>In Javascript it's <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object"><em>Object</em></a> object.</li>
 </ul>
 <p>This is what make OOP languages differ from others, they have <em>tree</em> of objects related to eachother in relation of inheritance/extension. I'm not sure if this feature exists in languages like C, C++, Rust, Go, etc.</p>
-<p>Hierarchical structure of &quot;types&quot; in OOP provide us what we called <em>inheritance</em>, <em>polymorphism</em> and <em>abstraction</em>, 3 of 4 core tenets in OOP.</p>
+<p>Hierarchical structure of "types" in OOP provide us what we called <em>inheritance</em>, <em>polymorphism</em> and <em>abstraction</em>, 3 of 4 core tenets in OOP.</p>
 <p>For <em>polymorphism</em>, OOP specifically talk about subtype polymorphism, through inheritance/extension.</p>
 <p>So, OOP is just where objects are boxed things and got referenced and communicate eachother(message-passing/methods), and these objects have relations(subtyping) to eachothers, dynamically dispatched and/or late binding.</p>
 <p>Despite all above definitions, any language can simulate OOP paradigm and still call it OOP, even though it's not its main paradigm.</p>
@@ -210,7 +210,7 @@
 <li>
 <p>Go:</p>
 <ul>
-<li>&quot;Object&quot; is represented via pointer types along with methods and <code>interface</code> type.</li>
+<li>"Object" is represented via pointer types along with methods and <code>interface</code> type.</li>
 <li>Encapsulate data and behaviours with method receivers and package/directory access level.</li>
 <li>Has no inheritance:
 <ul>
@@ -225,7 +225,7 @@
 <li>
 <p>Java:</p>
 <ul>
-<li>&quot;Object&quot; is represented via Class in form of concrete class, enum class, abstract class, and interface class.</li>
+<li>"Object" is represented via Class in form of concrete class, enum class, abstract class, and interface class.</li>
 <li>Encapsulate data and behaviours inside class.</li>
 <li>Inheritance: type inheritance(class inherit other class), and behaviour inheritance(interface class).</li>
 <li>Polymorphism: subtype polymorphism with abstract class(single inheritance) and interface class(multiple inheritance).</li>
@@ -235,7 +235,7 @@
 <li>
 <p>Rust</p>
 <ul>
-<li>&quot;Object&quot; is represented via smart pointer: 
+<li>"Object" is represented via smart pointer:
 <ul>
 <li><code>Box&lt;T&gt;</code>, base for owned object.</li>
 <li><code>RefCell&lt;T&gt;</code>, mutable reference object.</li>
