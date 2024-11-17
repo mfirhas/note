@@ -16,7 +16,7 @@ hooks:
 	cd .git/hooks && ln -s -f ../../hooks/pre-push pre-push
 
 install:
-	cargo install mdbook
+	cargo install mdbook --version 0.4.25 
 	cargo install mdbook-sitemap-generator
 
 s serve:
