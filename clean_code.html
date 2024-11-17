@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -10,7 +10,7 @@
         
         <meta name="description" content="Some notes">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff">
+        <meta name="theme-color" content="#ffffff" />
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -31,8 +31,7 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+    <body>
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -61,71 +60,40 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
+            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add('js');
         </script>
-
-        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="about.html"><strong aria-hidden="true">1.</strong> About</a></li><li class="chapter-item expanded "><a href="clean_code.html" class="active"><strong aria-hidden="true">2.</strong> Clean Code</a></li><li class="chapter-item expanded "><a href="clean_arch.html"><strong aria-hidden="true">3.</strong> Clean Architecture</a></li><li class="chapter-item expanded "><a href="ddd.html"><strong aria-hidden="true">4.</strong> Domain-Driven Design</a></li><li class="chapter-item expanded "><a href="oop.html"><strong aria-hidden="true">5.</strong> OOP</a></li><li class="chapter-item expanded "><a href="tdd.html"><strong aria-hidden="true">6.</strong> TDD</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
-                <div class="sidebar-resize-indicator"></div>
-            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky">
+                <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
-                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </label>
+                        </button>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -176,32 +144,32 @@
                         <h1 id="clean-code"><a class="header" href="#clean-code">Clean Code</a></h1>
 <p>from book: <em>Clean Code A Handbook of Agile Software Craftsmanship</em> by Robert C. Martin.</p>
 <h2 id="what"><a class="header" href="#what">What?</a></h2>
-<p><em>"I like my code to be elegant and efficient. The
+<p><em>&quot;I like my code to be elegant and efficient. The
 logic should be straightforward to make it hard
 for bugs to hide, the dependencies minimal to
 ease maintenance, error handling complete
 according to an articulated strategy, and performance close to optimal so as not to tempt
 people to make the code messy with unprincipled optimizations. Clean code does one thing
-well."</em></p>
+well.&quot;</em></p>
 <p>~ Bjarne Stroustrup</p>
 <p>Clean code: elegant and efficient.</p>
-<p><em>"Clean code is simple and direct. Clean code
+<p><em>&quot;Clean code is simple and direct. Clean code
 reads like well-written prose. Clean code never
 obscures the designer’s intent but rather is full
 of crisp abstractions and straightforward lines
-of control."</em></p>
+of control.&quot;</em></p>
 <p>~ Grady Booch, author of Object
 Oriented Analysis and Design with
 Applications</p>
 <p>Clean code: simple &amp; direct -&gt; readibility.</p>
-<p><em>"Clean code can be read, and enhanced by a
+<p><em>&quot;Clean code can be read, and enhanced by a
 developer other than its original author. It has
 unit and acceptance tests. It has meaningful
 names. It provides one way rather than many
 ways for doing one thing. It has minimal dependencies, which are explicitly defined, and provides a clear and minimal API. Code should be
 literate since depending on the language, not all
 necessary information can be expressed clearly
-in code alone."</em></p>
+in code alone.&quot;</em></p>
 <p>~ “Big” Dave Thomas, founder
 of OTI, godfather of the
 Eclipse strategy</p>
@@ -248,7 +216,7 @@ methods, functions, and the like.</p>
 <ul>
 <li>Don't comment bad code, rewrite it.</li>
 <li>Make code self explainatory</li>
-<li>Good comments:
+<li>Good comments: 
 <ul>
 <li>Legal comments(e.g. license).</li>
 <li>Informative and details of the code, if cannot be explain by function name.</li>
@@ -265,8 +233,8 @@ methods, functions, and the like.</p>
 <li>Make attributes private, access them with methods.</li>
 <li>Objects: data and behaviour coupled, Data structure: data and behaviour separated.
 <ul>
-<li><em>"Procedural code (code using data structures) makes it easy to add new functions without changing the existing data structures. OO code, on the other hand, makes it easy to add new classes without changing existing functions."</em></li>
-<li><em>"Procedural code makes it hard to add new data structures because all the functions must change. OO code makes it hard to add new functions because all the classes must change"</em></li>
+<li><em>&quot;Procedural code (code using data structures) makes it easy to add new functions without changing the existing data structures. OO code, on the other hand, makes it easy to add new classes without changing existing functions.&quot;</em></li>
+<li><em>&quot;Procedural code makes it hard to add new data structures because all the functions must change. OO code makes it hard to add new functions because all the classes must change&quot;</em></li>
 <li>Know when to use procedural code, when to use OOP. Not everything has to be OO.</li>
 </ul>
 </li>
@@ -377,7 +345,7 @@ methods, functions, and the like.</p>
 <li>Actual: it improves performance only when there're wait points on blocking components(e.g. IOs, or some syscalls).</li>
 </ul>
 </li>
-<li>Myth: <em>Design doesn't change when writing concurrent programs</em>.
+<li>Myth: <em>Design doesn't change when writing concurrent programs</em>. 
 <ul>
 <li>It could be</li>
 <li>(e.g <em>What's the color of your functions?</em>)</li>
@@ -386,7 +354,7 @@ methods, functions, and the like.</p>
 <li>Myth: <em>Understanding concurrency issues is not important when working with a container such as a Web or EJB container.</em>
 <ul>
 <li>How to deal with requests coming from the web servers?</li>
-<li>How to synchronize the shared data?,</li>
+<li>How to synchronize the shared data?, </li>
 <li>How to ensure thread safety?</li>
 </ul>
 </li>
@@ -415,7 +383,7 @@ methods, functions, and the like.</p>
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="clean_arch.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="clean_arch.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -429,7 +397,7 @@ methods, functions, and the like.</p>
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="clean_arch.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="clean_arch.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -455,6 +423,5 @@ methods, functions, and the like.</p>
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

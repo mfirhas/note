@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -10,7 +10,7 @@
         
         <meta name="description" content="Some notes">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff">
+        <meta name="theme-color" content="#ffffff" />
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -31,8 +31,7 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+    <body>
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -61,71 +60,40 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
+            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add('js');
         </script>
-
-        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="about.html"><strong aria-hidden="true">1.</strong> About</a></li><li class="chapter-item expanded "><a href="clean_code.html"><strong aria-hidden="true">2.</strong> Clean Code</a></li><li class="chapter-item expanded "><a href="clean_arch.html" class="active"><strong aria-hidden="true">3.</strong> Clean Architecture</a></li><li class="chapter-item expanded "><a href="ddd.html"><strong aria-hidden="true">4.</strong> Domain-Driven Design</a></li><li class="chapter-item expanded "><a href="oop.html"><strong aria-hidden="true">5.</strong> OOP</a></li><li class="chapter-item expanded "><a href="tdd.html"><strong aria-hidden="true">6.</strong> TDD</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
-                <div class="sidebar-resize-indicator"></div>
-            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky">
+                <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
-                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </label>
+                        </button>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -199,16 +167,16 @@ from being decomposed recursively into smaller and smaller units, thereby preven
 divide-and-conquer approach necessary for reasonable proofs.</em></p>
 </blockquote>
 <p>Structured Programming: using the good parts of <code>goto</code> feature, the imperative constructs, like <code>if/then/else</code> and <code>do/while</code>.</p>
-<p>In 1968, Dijkstra wrote a letter titled "Go To Statement Considered Harmful"</p>
+<p>In 1968, Dijkstra wrote a letter titled &quot;Go To Statement Considered Harmful&quot;</p>
 <p>From Dijkstra -&gt; Tests: <em>are to show the presence of bugs, not the absence of them. We tests our program as much as we can until we failed to prove incorrectness</em>, then it's correct enough.</p>
 <h2 id="object-oriented-programming"><a class="header" href="#object-oriented-programming">Object-Oriented Programming</a></h2>
 <p>First form of OO is when Dahl and Nygaard before 1966 moved function call stack-frame to heap becoming function pointer.
-The definition become: "Data + Behaviour".
-Then become: "Encapsulation + Inheritance + Polymorphism"</p>
+The definition become: &quot;Data + Behaviour&quot;. 
+Then become: &quot;Encapsulation + Inheritance + Polymorphism&quot;</p>
 <ul>
 <li>Encapsulation: not unique to OO language as a general concept. C has actually encapsulation in form of header file.
 The removal of header file and using private,public and protected members as a way to encapsulate things actually weakens encapsulation C has.</li>
-<li>Inheritance: Prior to OOP "inheritance" was done through some kind of composition, becoming superset of something, even today composition still preferred over inheritance.</li>
+<li>Inheritance: Prior to OOP &quot;inheritance&quot; was done through some kind of composition, becoming superset of something, even today composition still preferred over inheritance.</li>
 <li>Polymorphism: Pre-OO has somekind of inheritance in form of function pointers which have same signatures for different implementations.
 E.g. IO interface functions in UNIX having 5 API: <code>open</code>, <code>close</code>, <code>read</code>, <code>write</code>, and <code>seek</code>.
 This state that function pointer is the early form of OO's inheritance.</li>
@@ -267,17 +235,17 @@ Client/caller depends on abstractions(e.g. interface) not concrete implementatio
 </ul>
 <h2 id="business-rules"><a class="header" href="#business-rules">Business Rules</a></h2>
 <ul>
-<li>Entities:
+<li>Entities: 
 <ul>
-<li>contains core business data and logics.</li>
+<li>contains core business data and logics. </li>
 <li>Not related to other technical implementations(e.g. databases, IOs, etc)</li>
 <li>Depend on nothing.</li>
 </ul>
 </li>
-<li>Use Cases:
+<li>Use Cases: 
 <ul>
-<li>Defines more elaborated business rules by utilizing entities.</li>
-<li>Entities know nothing about use cases, use cases know about entities.</li>
+<li>Defines more elaborated business rules by utilizing entities. </li>
+<li>Entities know nothing about use cases, use cases know about entities. </li>
 <li>Usecases contain input and output data from outside(e.g. user inputs), process the input with its own logics and utilizing entities and give an output.</li>
 <li>Depend on Entities</li>
 </ul>
@@ -313,9 +281,9 @@ Object implementor terpisah dan comply ke set of common interfaces defined. Cuku
 Bisa menggunakan abstract class atau interface class sebagai boundaries untuk internal implementor dan memenuhi dependency inversion rule dimana abstract/interface class tersebut yang define rules(behaviours/functions/methods).</p>
 <h2 id="components"><a class="header" href="#components">Components</a></h2>
 <ul>
-<li>Monolith:
+<li>Monolith: 
 <ul>
-<li>Produce 1 binary,</li>
+<li>Produce 1 binary, </li>
 <li>The boundaries are all compiled into 1 binary/artifact,</li>
 <li>Boundaries are in the level of function calls, abstract/interface segregation.</li>
 <li>Run in one process</li>
@@ -339,7 +307,7 @@ Bisa menggunakan abstract class atau interface class sebagai boundaries untuk in
 <li>Don't depend on volatile things, volatile things mostly are the IOs where they happen to be in infrastructure layers.</li>
 <li>Test coupling:
 <ul>
-<li>Structural coupling:
+<li>Structural coupling: 
 <ul>
 <li>Provide test apis to avoid this.</li>
 <li>Test apis hide production code internal details so it's free to change, leaving test code unaffected.</li>
@@ -365,7 +333,7 @@ Bisa menggunakan abstract class atau interface class sebagai boundaries untuk in
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="ddd.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="ddd.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -379,7 +347,7 @@ Bisa menggunakan abstract class atau interface class sebagai boundaries untuk in
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="ddd.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="ddd.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -405,6 +373,5 @@ Bisa menggunakan abstract class atau interface class sebagai boundaries untuk in
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

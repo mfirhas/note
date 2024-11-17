@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>note</title>
-        <meta name="robots" content="noindex">
+        <meta name="robots" content="noindex" />
 
 
         <!-- Custom HTML head -->
         
         <meta name="description" content="Some notes">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff">
+        <meta name="theme-color" content="#ffffff" />
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -32,8 +32,7 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+    <body>
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -62,71 +61,40 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
+            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add('js');
         </script>
-
-        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="about.html"><strong aria-hidden="true">1.</strong> About</a></li><li class="chapter-item expanded "><a href="clean_code.html"><strong aria-hidden="true">2.</strong> Clean Code</a></li><li class="chapter-item expanded "><a href="clean_arch.html"><strong aria-hidden="true">3.</strong> Clean Architecture</a></li><li class="chapter-item expanded "><a href="ddd.html"><strong aria-hidden="true">4.</strong> Domain-Driven Design</a></li><li class="chapter-item expanded "><a href="oop.html"><strong aria-hidden="true">5.</strong> OOP</a></li><li class="chapter-item expanded "><a href="tdd.html"><strong aria-hidden="true">6.</strong> TDD</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
-                <div class="sidebar-resize-indicator"></div>
-            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky">
+                <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
-                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </label>
+                        </button>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -181,32 +149,32 @@
 <div style="break-before: page; page-break-before: always;"></div><h1 id="clean-code"><a class="header" href="#clean-code">Clean Code</a></h1>
 <p>from book: <em>Clean Code A Handbook of Agile Software Craftsmanship</em> by Robert C. Martin.</p>
 <h2 id="what"><a class="header" href="#what">What?</a></h2>
-<p><em>"I like my code to be elegant and efficient. The
+<p><em>&quot;I like my code to be elegant and efficient. The
 logic should be straightforward to make it hard
 for bugs to hide, the dependencies minimal to
 ease maintenance, error handling complete
 according to an articulated strategy, and performance close to optimal so as not to tempt
 people to make the code messy with unprincipled optimizations. Clean code does one thing
-well."</em></p>
+well.&quot;</em></p>
 <p>~ Bjarne Stroustrup</p>
 <p>Clean code: elegant and efficient.</p>
-<p><em>"Clean code is simple and direct. Clean code
+<p><em>&quot;Clean code is simple and direct. Clean code
 reads like well-written prose. Clean code never
 obscures the designer’s intent but rather is full
 of crisp abstractions and straightforward lines
-of control."</em></p>
+of control.&quot;</em></p>
 <p>~ Grady Booch, author of Object
 Oriented Analysis and Design with
 Applications</p>
 <p>Clean code: simple &amp; direct -&gt; readibility.</p>
-<p><em>"Clean code can be read, and enhanced by a
+<p><em>&quot;Clean code can be read, and enhanced by a
 developer other than its original author. It has
 unit and acceptance tests. It has meaningful
 names. It provides one way rather than many
 ways for doing one thing. It has minimal dependencies, which are explicitly defined, and provides a clear and minimal API. Code should be
 literate since depending on the language, not all
 necessary information can be expressed clearly
-in code alone."</em></p>
+in code alone.&quot;</em></p>
 <p>~ “Big” Dave Thomas, founder
 of OTI, godfather of the
 Eclipse strategy</p>
@@ -253,7 +221,7 @@ methods, functions, and the like.</p>
 <ul>
 <li>Don't comment bad code, rewrite it.</li>
 <li>Make code self explainatory</li>
-<li>Good comments:
+<li>Good comments: 
 <ul>
 <li>Legal comments(e.g. license).</li>
 <li>Informative and details of the code, if cannot be explain by function name.</li>
@@ -270,8 +238,8 @@ methods, functions, and the like.</p>
 <li>Make attributes private, access them with methods.</li>
 <li>Objects: data and behaviour coupled, Data structure: data and behaviour separated.
 <ul>
-<li><em>"Procedural code (code using data structures) makes it easy to add new functions without changing the existing data structures. OO code, on the other hand, makes it easy to add new classes without changing existing functions."</em></li>
-<li><em>"Procedural code makes it hard to add new data structures because all the functions must change. OO code makes it hard to add new functions because all the classes must change"</em></li>
+<li><em>&quot;Procedural code (code using data structures) makes it easy to add new functions without changing the existing data structures. OO code, on the other hand, makes it easy to add new classes without changing existing functions.&quot;</em></li>
+<li><em>&quot;Procedural code makes it hard to add new data structures because all the functions must change. OO code makes it hard to add new functions because all the classes must change&quot;</em></li>
 <li>Know when to use procedural code, when to use OOP. Not everything has to be OO.</li>
 </ul>
 </li>
@@ -382,7 +350,7 @@ methods, functions, and the like.</p>
 <li>Actual: it improves performance only when there're wait points on blocking components(e.g. IOs, or some syscalls).</li>
 </ul>
 </li>
-<li>Myth: <em>Design doesn't change when writing concurrent programs</em>.
+<li>Myth: <em>Design doesn't change when writing concurrent programs</em>. 
 <ul>
 <li>It could be</li>
 <li>(e.g <em>What's the color of your functions?</em>)</li>
@@ -391,7 +359,7 @@ methods, functions, and the like.</p>
 <li>Myth: <em>Understanding concurrency issues is not important when working with a container such as a Web or EJB container.</em>
 <ul>
 <li>How to deal with requests coming from the web servers?</li>
-<li>How to synchronize the shared data?,</li>
+<li>How to synchronize the shared data?, </li>
 <li>How to ensure thread safety?</li>
 </ul>
 </li>
@@ -437,16 +405,16 @@ from being decomposed recursively into smaller and smaller units, thereby preven
 divide-and-conquer approach necessary for reasonable proofs.</em></p>
 </blockquote>
 <p>Structured Programming: using the good parts of <code>goto</code> feature, the imperative constructs, like <code>if/then/else</code> and <code>do/while</code>.</p>
-<p>In 1968, Dijkstra wrote a letter titled "Go To Statement Considered Harmful"</p>
+<p>In 1968, Dijkstra wrote a letter titled &quot;Go To Statement Considered Harmful&quot;</p>
 <p>From Dijkstra -&gt; Tests: <em>are to show the presence of bugs, not the absence of them. We tests our program as much as we can until we failed to prove incorrectness</em>, then it's correct enough.</p>
 <h2 id="object-oriented-programming"><a class="header" href="#object-oriented-programming">Object-Oriented Programming</a></h2>
 <p>First form of OO is when Dahl and Nygaard before 1966 moved function call stack-frame to heap becoming function pointer.
-The definition become: "Data + Behaviour".
-Then become: "Encapsulation + Inheritance + Polymorphism"</p>
+The definition become: &quot;Data + Behaviour&quot;. 
+Then become: &quot;Encapsulation + Inheritance + Polymorphism&quot;</p>
 <ul>
 <li>Encapsulation: not unique to OO language as a general concept. C has actually encapsulation in form of header file.
 The removal of header file and using private,public and protected members as a way to encapsulate things actually weakens encapsulation C has.</li>
-<li>Inheritance: Prior to OOP "inheritance" was done through some kind of composition, becoming superset of something, even today composition still preferred over inheritance.</li>
+<li>Inheritance: Prior to OOP &quot;inheritance&quot; was done through some kind of composition, becoming superset of something, even today composition still preferred over inheritance.</li>
 <li>Polymorphism: Pre-OO has somekind of inheritance in form of function pointers which have same signatures for different implementations.
 E.g. IO interface functions in UNIX having 5 API: <code>open</code>, <code>close</code>, <code>read</code>, <code>write</code>, and <code>seek</code>.
 This state that function pointer is the early form of OO's inheritance.</li>
@@ -505,17 +473,17 @@ Client/caller depends on abstractions(e.g. interface) not concrete implementatio
 </ul>
 <h2 id="business-rules"><a class="header" href="#business-rules">Business Rules</a></h2>
 <ul>
-<li>Entities:
+<li>Entities: 
 <ul>
-<li>contains core business data and logics.</li>
+<li>contains core business data and logics. </li>
 <li>Not related to other technical implementations(e.g. databases, IOs, etc)</li>
 <li>Depend on nothing.</li>
 </ul>
 </li>
-<li>Use Cases:
+<li>Use Cases: 
 <ul>
-<li>Defines more elaborated business rules by utilizing entities.</li>
-<li>Entities know nothing about use cases, use cases know about entities.</li>
+<li>Defines more elaborated business rules by utilizing entities. </li>
+<li>Entities know nothing about use cases, use cases know about entities. </li>
 <li>Usecases contain input and output data from outside(e.g. user inputs), process the input with its own logics and utilizing entities and give an output.</li>
 <li>Depend on Entities</li>
 </ul>
@@ -551,9 +519,9 @@ Object implementor terpisah dan comply ke set of common interfaces defined. Cuku
 Bisa menggunakan abstract class atau interface class sebagai boundaries untuk internal implementor dan memenuhi dependency inversion rule dimana abstract/interface class tersebut yang define rules(behaviours/functions/methods).</p>
 <h2 id="components"><a class="header" href="#components">Components</a></h2>
 <ul>
-<li>Monolith:
+<li>Monolith: 
 <ul>
-<li>Produce 1 binary,</li>
+<li>Produce 1 binary, </li>
 <li>The boundaries are all compiled into 1 binary/artifact,</li>
 <li>Boundaries are in the level of function calls, abstract/interface segregation.</li>
 <li>Run in one process</li>
@@ -577,7 +545,7 @@ Bisa menggunakan abstract class atau interface class sebagai boundaries untuk in
 <li>Don't depend on volatile things, volatile things mostly are the IOs where they happen to be in infrastructure layers.</li>
 <li>Test coupling:
 <ul>
-<li>Structural coupling:
+<li>Structural coupling: 
 <ul>
 <li>Provide test apis to avoid this.</li>
 <li>Test apis hide production code internal details so it's free to change, leaving test code unaffected.</li>
@@ -597,13 +565,13 @@ Bisa menggunakan abstract class atau interface class sebagai boundaries untuk in
 <div style="break-before: page; page-break-before: always;"></div><h1 id="domain-driven-design"><a class="header" href="#domain-driven-design">Domain-Driven Design</a></h1>
 <p>from book: <em>Implementing Domain-Driven Design</em> by Vaughn Vernon.</p>
 <h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
-<p>Ubiquitous Language:</p>
+<p>Ubiquitous Language: </p>
 <ul>
 <li><em>“It is a team pattern used to capture the concepts and terms of a specific core business domain in the software model itself”</em></li>
 <li><em>“The Ubiquitous Language is a shared language developed by the team—a team composed of both domain experts and software developers.”</em></li>
 <li><em>“more centered on how the business itself thinks and operates”</em></li>
 </ul>
-<p>Bounded Context:</p>
+<p>Bounded Context: </p>
 <ul>
 <li>Explicit boundaries around Ubiquitous Language.</li>
 <li>There is one Ubiquitous Language per bounded context.</li>
@@ -639,7 +607,7 @@ Bisa menggunakan abstract class atau interface class sebagai boundaries untuk in
 <p>Core Domains is the more specialized domain which has smaller context but central to the business rules/logics.</p>
 <p>Supporting Domains are domain to compliment the systems widely, usually when you make adapter to certain business rules/logics.</p>
 <p>Whole business domain contains 1 to many bounded contexts. Each Bounded Context contains 1 to many domains(subdomains). Bounded context separate related domains/subdomains. Each domains/subdomains can communicate to other domains/subdomains in same bounded context or to other bounded context(context mapping).</p>
-<p>Bounded context is to give context to the domain, some domains might have same names, even same functionalities/operations, but they have different context.
+<p>Bounded context is to give context to the domain, some domains might have same names, even same functionalities/operations, but they have different context. 
 E.g. Account in term of banking is different than Account in term of social media.</p>
 <p>The business rules and logics inside domains are defined by Domain Experts, they are people having expertise in the particular domain, doesn't have to be the developers, can be anyone with required knowledge in the domain.</p>
 <p>Subdomain Types:</p>
@@ -650,8 +618,8 @@ E.g. Account in term of banking is different than Account in term of social medi
 </ul>
 <p>Domain dan subdomain terdiri dari:</p>
 <ul>
-<li><strong>Entity</strong>:</li>
-<li><strong>Value Object</strong>:</li>
+<li><strong>Entity</strong>: </li>
+<li><strong>Value Object</strong>: </li>
 </ul>
 <p>Bounded context bisa terdiri dari:</p>
 <ul>
@@ -677,7 +645,7 @@ E.g. Account in term of banking is different than Account in term of social medi
 <li><strong>Conformist</strong>: When downstream follows what upstream already defined.</li>
 <li><strong>Anticorruption Layer(ACL)</strong>: Downstream creates additional layer to translate upstream into downstream's own model. E.g. serde? validations?</li>
 <li><strong>Open Host Service(OHS)</strong>: Provide protocol to be accessed(e.g. http, grpc, message queue)</li>
-<li><strong>Published Language(PL)</strong>: Common "language" to communicate, combined with Opeh Host Service. Message exchange format, e.g. JSON, XML, Protobuf, etc.</li>
+<li><strong>Published Language(PL)</strong>: Common &quot;language&quot; to communicate, combined with Opeh Host Service. Message exchange format, e.g. JSON, XML, Protobuf, etc.</li>
 <li><strong>Separate Ways</strong>: No connections and specialized solutions within small scope. E.g. having own oauth implementation.</li>
 <li><strong>Big Ball of Mud</strong>: Where large domain models mixed and offer inconsistent connections. Proceed with cautious.</li>
 </ul>
@@ -728,7 +696,7 @@ E.g. Account in term of banking is different than Account in term of social medi
 </ul>
 <h2 id="pipes-and-filters"><a class="header" href="#pipes-and-filters">Pipes and Filters</a></h2>
 <p>Event-Driven Architecture is achieved by piping messages through <strong>Pipes/Channels</strong>, these messages got sent or accepted by <strong>Port</strong>, then port will pass the messages into <strong>filter processor/processors</strong> and send messages into another port to be sent into another pipes/channels.</p>
-<p>Processors are loosely coupled to each other, the orders can be re-order, and interchangable.
+<p>Processors are loosely coupled to each other, the orders can be re-order, and interchangable. 
 Filters/processors may read/write from/to 1/multiple pipes. Filters/processors can be made parallel.</p>
 <p>Channels or the messages queues/brokers can be used: amqp(e.g. rabbitmq), or kafka.
 Each amqp and kafka have different ports, but the messages can be processed the same.</p>
@@ -754,7 +722,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <p><em>“When an object is distinguished by its identity, rather than its attributes, make this primary to its definition in the model. Keep the class definition simple and focused on life cycle continuity and identity. Define a means of distinguishing each object regardless of its form or history. . . . The model must define what it means to be the same thing.”</em></p>
 <p>Entity:</p>
 <ul>
-<li>Representation of business object that has attributes and operations related to them.</li>
+<li>Representation of business object that has attributes and operations related to them. </li>
 <li>Store data and its changes through the stages of program.</li>
 <li>Identified by specific identity.
 <ul>
@@ -798,11 +766,11 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Values objects have operations related to them, but should be side-effects free.</li>
 <li>Values objects should avoid containing entities since entities are highly changeable making value object mutable.</li>
 <li>Passing entities into value objects methods will break immutability and inconsistency in API as it's not sure how it affects the entity.</li>
-<li>You can implement value objects immutability by:
+<li>You can implement value objects immutability by: 
 <ul>
-<li>create them at constructions, or</li>
+<li>create them at constructions, or </li>
 <li>injecting them into entities construction, or</li>
-<li>making setters private, or</li>
+<li>making setters private, or </li>
 <li>you can utilize language's type system such as Java final keyword, or Rust immutability(default).</li>
 </ul>
 </li>
@@ -821,11 +789,11 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li><em>Equality</em>:
 <ul>
 <li>Method that define equality of value objects.</li>
-<li>In Java it's <code>equals()</code> method derived,</li>
+<li>In Java it's <code>equals()</code> method derived, </li>
 <li>In Rust it's trait <code>Eq</code> for standard/built-in types or <code>PartialEq</code> for other types.</li>
 </ul>
 </li>
-<li><em>Hashable</em>:
+<li><em>Hashable</em>: 
 <ul>
 <li>Method to hash the object to create unique code/hash that differentiate it with others, even for tiny change.</li>
 <li>In Java it's <code>hashCode()</code> method derived,</li>
@@ -872,13 +840,13 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <p>Synchronized batched process is when you gather all data that stored previously, and do the processing all at once, this require specific time needed(e.g. midnight) and require big cost of processing time the bigger the data.</p>
 <p>We can just publish all those data becoming events into subscriber to be handled right-away.</p>
 <p>Evented system consisted of 3 component: <strong>Publisher</strong>, <strong>Channel</strong>, and <strong>Subscriber</strong>.</p>
-<p>Events are handled asynchronously.</p>
+<p>Events are handled asynchronously. </p>
 <p>If transaction needed, can be done in subscriber in application context.</p>
 <p>Event is immutable, unlike entity, but it has identities just like entity, it has multiple identities based on event's properties and unique identity for that particular event. This means more than one event can be sent but still have uniqueness to them from the unique id they have.</p>
 <p>Adding unique identity is not mandatory if comparison between events are not needed, but still recommended if events are sent outside local bounded-context.</p>
 <p>Events are handled by a system called message queue. Event's source acts as published can be from any bounded context or aggregate, the events passed into channel the message queue, and forwarded into subscriber. Channel might has its own storage to store events published from publisher before forwarding into subscriber through queue/channel. This kind of system usually called message broker(channel + storage). Events sent through mq/mb commonly called messages.</p>
 <p>Events belong to domain model, not infrastructure.</p>
-<p>Publisher send events from aggregate, throught publisher implementation at infrastructure part</p>
+<p>Publisher send events from aggregate, throught publisher implementation at infrastructure part </p>
 <p>Subscriber receive events from application, to aggregate.</p>
 <p>Only modify 1 aggregate instance per transaction(publish-subscribe).</p>
 <p>Autonomous and Independence: avoid synchronized api like http, rpc.</p>
@@ -894,7 +862,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Module is about how to segregates domain and infrastructure components into accessible and testable APIs.</li>
 <li>Avoid cyclic dependencies between peer modules(Unidirectional).</li>
 <li>Domain objects inside module are cohesive, while inter-modules are low-coupled.</li>
-<li>Module encompasses many things inside(value objects, entities, events, etc),</li>
+<li>Module encompasses many things inside(value objects, entities, events, etc), </li>
 <li>Top-level module naming depends on programming languages convention/style.</li>
 <li>Next level is bounded-context.</li>
 <li>Do <strong>not</strong> name modules using models name from domains, because modules only represents API segregations, not representing specific objects/types.</li>
@@ -931,7 +899,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Query performance.</li>
 </ul>
 </li>
-<li><em>"Transactions across distributed systems are not atomic. The various systems bring multiple Aggregates into a consistent state <strong>eventually</strong>."</em></li>
+<li><em>&quot;Transactions across distributed systems are not atomic. The various systems bring multiple Aggregates into a consistent state <strong>eventually</strong>.&quot;</em></li>
 <li><em>Law of Demeter</em>:
 <ul>
 <li>When exposing services to clients, expose through public APIs, don't expose innards of the object implementations/services.</li>
@@ -968,7 +936,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Acts as interfaces directly to storage where you store Aggregates.</li>
 <li>2 kinds of repositories:
 <ul>
-<li>Collection-oriented repository:
+<li>Collection-oriented repository: 
 <ul>
 <li>Mimics <strong>Set</strong> data structure.</li>
 <li>Tracks changes to data being read/write.</li>
@@ -996,7 +964,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Repository can be said as bigger scope of DAO, as repository might employ DAO operations inside. All depends on implementations.</li>
 </ul>
 </li>
-<li>Testing repository:
+<li>Testing repository: 
 <ul>
 <li>Test the operations connected to the production database in used.</li>
 <li>Test the operations using in-memory implementations(mocked).</li>
@@ -1072,7 +1040,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <ul>
 <li><strong>Value Objects</strong>: Immutable. Wrap primitive values and provide cohesive operations related to values inside. Partial or Full Equivalence.</li>
 <li><strong>Entities</strong>: Mutable. Contains primitives and/or value objects with cohesive operations. Identity Equivalence.</li>
-<li><strong>Aggregates</strong>: Group of value objects and entities in 1 transaction consistency boundary. Multiple aggregates should be handled eventually.</li>
+<li><strong>Aggregates</strong>: Group of value objects and entities in 1 transaction consistency boundary. Multiple aggregates should be handled eventually. </li>
 </ul>
 </li>
 <li><strong>Domain Services</strong>: Domain specific operations containing business logics leveraging from domain models, also may handle and coordinate multiple value objects, entities, and aggregates.</li>
@@ -1116,131 +1084,8 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li><em><strong>High Cohesion, Low Coupling</strong></em></li>
 </ul>
 <p><em>...as always, CMIIW!</em></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="object-oriented-programming-1"><a class="header" href="#object-oriented-programming-1">Object-Oriented Programming</a></h1>
-<p>source: <s>trust me</s>My opinions about OOP</p>
-<p>So, What is OOP?, There are many explanations about OOP out there, and I myself not sure which is the most "official" one.</p>
-<p>Here are some of the definitions of OOP I gathered from books, blogs/articles, forums, chat groups:</p>
-<ol>
-<li>OOP is when you combine data and behaviours/methods/operations into one entity. So anything with data and methods, could be sign OOP*-ness*.</li>
-<li>OOP is when you use particular languages with OOP constructs, e.g: Java, C#, Javascript, PHP, Python, etc.</li>
-<li>OOP is just a paradigm, the language doesn't matter, and you can apply the paradigm in any languages.</li>
-<li>OOP is the ones having 4 features of OOP: Encapsulation, Inheritance, Polymorphism, and Abstraction.</li>
-<li>OOP is when you apply the Clean Arch/SOLID design patterns and GoF design patterns in your code.</li>
-<li>OOP is when you do message passing and late-binding.(from original term of OOP itself)</li>
-</ol>
-<p><em>...and many more...</em></p>
-<p>All of those definitions are correct and seen in real-life OOP implementations. But if we give too much definitions on a thing, it's weakening the meaning of it and might give us multiple implementations with its own understanding and claim it OOP.</p>
-<p>Along with above definitions, I want to add some more things on them, which really define the OOP-ness of the languages. Again, this is just opinion and might be wrong.</p>
-<p>Most languages with OOP as their main paradigm, made <em>Objects</em> as reference types(Java, C#, Javascript, etc). This means that, most of the times, the underlying implementations of them are using some kind of pointers(hence you get NPE error in Java for null objects). Using reference make up the late bindings, and most probably dynamically dispatched. Those references are not known their data's exact size until got initiated at runtime. The references communicate eachother through message-passing, which mostly implemented via methods. This is what definitions number 1 &amp; 6 are all about.</p>
-<p>In OOP you design your program in term of objects, and an object is encapsulation of data and behaviours. Most languages implemented this via a construct called <code>Class</code> like in Java, C#, PHP, Python, etc. While some others implemented it via prototype-object like in Javascript. Class is just Abstract Data Type for your object, and mostly they are dynamic. These classes will get instantiated at runtime. What it means to be instantiated?, From users(humans) perspective it means creating an object with or without initial values become an instance on its own. But, from machine perspective it means <em>boxing</em> the <em>things</em> inside those classes into somewhere else, mostly heap, because of dynamic-ness of object. What is boxing means?, to me, it's just allocating memory(mostly heap) for the data it contains along with behaviour that might be stored inside a container called vtable.</p>
-<p>With that additional words about OOP, Object is just something <em>boxed</em> and <em>referenced</em> by others throughout the program lifecycle. The box could be empty and when you invoke this empty box, you got Null Pointer Exception(atleast in Java). This means that the box is just somekind of pointer to the actual data stored in other region of memory(mostly heap). Are these data the box <em>contained</em> are gonna be referenced forever?, what if nobody referencing them again?, For this, most OOP languages have GC to manage the lifetime of Objects and their references eachother. GC take care of allocating, de-allocating, moving, and tracking relations between those objects. It's separate program running alongside your main program, tracking things on your behalf.</p>
-<p>Does that mean all OOP languages require GC in order to work?, not exactly. Language like Swift doesn't require GC, instead it employs a mechanism called Automatic Reference Counting to track and manage how many references left for objects. C++ employ a concept called RAII to manage objects lifecycle and lifetime.</p>
-<p>Another thing about OOP is that, they have hierarchical types, means that there's some kind of object which is root of all objects defined, and all other objects derived/exteded from this "root object".</p>
-<ul>
-<li>In Java the root object is <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html"><em>Object</em></a> class.</li>
-<li>In C# the root object is <a href="https://learn.microsoft.com/en-us/dotnet/api/system.object?view=net-8.0"><em>Object</em></a> class</li>
-<li>In Python it's <em>object</em> class.</li>
-<li>In Ruby it's <a href="https://ruby-doc.org/3.2.2/Object.html"><em>Object</em></a> class.</li>
-<li>In Javascript it's <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object"><em>Object</em></a> object.</li>
-</ul>
-<p>This is what make OOP languages differ from others, they have <em>tree</em> of objects related to eachother in relation of inheritance/extension. I'm not sure if this feature exists in languages like C, C++, Rust, Go, etc.</p>
-<p>Hierarchical structure of "types" in OOP provide us what we called <em>inheritance</em>, <em>polymorphism</em> and <em>abstraction</em>, 3 of 4 core tenets in OOP.</p>
-<p>For <em>polymorphism</em>, OOP specifically talk about subtype polymorphism, through inheritance/extension.</p>
-<p>So, OOP is just where objects are boxed things and got referenced and communicate eachother(message-passing/methods), and these objects have relations(subtyping) to eachothers, dynamically dispatched and/or late binding.</p>
-<p>Despite all above definitions, any language can simulate OOP paradigm and still call it OOP, even though it's not its main paradigm.</p>
-<p>Here are some example of OOP-ness of some languages I know:</p>
-<ul>
-<li>
-<p>Go:</p>
-<ul>
-<li>"Object" is represented via pointer types along with methods and <code>interface</code> type.</li>
-<li>Encapsulate data and behaviours with method receivers and package/directory access level.</li>
-<li>Has no inheritance:
-<ul>
-<li>instead prefer compositions where you can declare struct inside struct to derive its attributes and functionalities.</li>
-<li>Code reuse?, it's okay not too DRY in Go.</li>
-</ul>
-</li>
-<li>Polymorphism with <code>interface{...}</code></li>
-<li>Im not sure how exactly the concept of <em>abstraction</em> will work in Go.</li>
-</ul>
-</li>
-<li>
-<p>Java:</p>
-<ul>
-<li>"Object" is represented via Class in form of concrete class, enum class, abstract class, and interface class.</li>
-<li>Encapsulate data and behaviours inside class.</li>
-<li>Inheritance: type inheritance(class inherit other class), and behaviour inheritance(interface class).</li>
-<li>Polymorphism: subtype polymorphism with abstract class(single inheritance) and interface class(multiple inheritance).</li>
-<li>Abstraction: through abstract class.</li>
-</ul>
-</li>
-<li>
-<p>Rust</p>
-<ul>
-<li>"Object" is represented via smart pointer:
-<ul>
-<li><code>Box&lt;T&gt;</code>, base for owned object.</li>
-<li><code>RefCell&lt;T&gt;</code>, mutable reference object.</li>
-<li><code>Rc&lt;T&gt;</code>, single-threaded reference object.</li>
-<li><code>Arc&lt;T&gt;</code>, multi-threaded reference object.</li>
-<li><code>Rc&lt;RefCell&lt;T&gt;&gt;</code>, single-threaded mutable reference object, it's not OOP if you cannot mutate things, since OOP is stateful and handling states.</li>
-<li><code>Arc&lt;Mutex&lt;T&gt;&gt;</code>, multi-threaded mutable reference object.</li>
-<li>...and many more.</li>
-</ul>
-</li>
-<li>Encapsulate data and behaviours through inherent methods associated with <code>struct</code> or <code>enum</code>.</li>
-<li>No inheritance in Rust, so how about reusability?, you can use <code>trait</code> for that with associated types and default behaviours.</li>
-<li>Polymorphism:
-<ul>
-<li>no subtype polymorphism in Rust(AFAIK), except lifetime, instead it uses Parametric Polymorphism.</li>
-<li>for <em>interface</em>-like polymorphism, use trait object(<code>dyn</code>).</li>
-</ul>
-</li>
-<li>Abstraction: same with inheritance, use trait for this.</li>
-</ul>
-</li>
-</ul>
-<p>All 3 above languages represent their own main paradigm: Procedural Programming(Go), OOP(Java), FP(Rust), eventhough you can mix the paradigms.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="test-driven-development"><a class="header" href="#test-driven-development">Test-Driven Development</a></h1>
-<p>source: My opinions about TDD</p>
-<p>TDD is one of the hottest topic in programming community. It frequently discussed and debated in each generations. Some pros and some cons to it. It originates from Kent Beck's practice on Extreme Programming practice and popularizing TDD practice with that.</p>
-<p>What TDD really is about?</p>
-<p>Here are some definitions of TDD I gathered from many sources(internet, forum, group chat, book, youtube, etc):</p>
-<ul>
-<li>Development practice emphasizes on writing test code first, before production code.</li>
-<li>A practice to achieve modular and good design in writing software.</li>
-<li>A disciplined and flows in development to guide devs into making code more correct and maintainable.</li>
-<li>An effort into making a testable and maintainable software.</li>
-<li>Iterations in development with Red, Green, and Refactor phases.</li>
-<li>Part of Clean Code practices.</li>
-</ul>
-<p>Here are some opinions from devs who cons on it:</p>
-<ul>
-<li>It's a cult practice, writing tests before any code exist, can't make sense of this.</li>
-<li>Writing tests took too long to implement slowing deliverability.</li>
-<li>Diminishing return.</li>
-<li><em>"You're paid only for working/deployed code"</em>.</li>
-<li>Achieving 100% test coverage is wasting time.</li>
-<li>I just want to implement the solution right-away.</li>
-</ul>
-<p>I think each of them have their own experience with TDD.</p>
-<p>I myself agree with all of above definitions because the benefit is real. But, I have a little different approach in doing TDD compared to most practitioners. If TDD is really about writing tests first, literally, then Im not really doing that(in my TDD).</p>
-<p>To me, TDD doesn't strictly to write tests first, instead what come first are APIs/public interfaces. Then after the APIs/public interfaces firmly defined, we write tests based on them. Surely the tests will fail because you're only testing APIs/public interface with no implementation yet. We write the implementation right after tests written. After each implementation written, test again, keep going until all are satisfying both APIs/public interfaces definitions and tests passed.</p>
-<p>My <s>TDD</s>BDD approach:</p>
-<ol>
-<li>Define APIs/public interfaces.</li>
-<li>Write tests on the APIs/public interfaces.</li>
-<li>Write the implementations.</li>
-</ol>
-<p>It's more closely related to BDD, because what driving the behaviours are APIs and public interfaces. Hence I prefer to call this practice as BDD.</p>
-<p>I agree with cons no #1 above, but im not calling it cult, it's just weird to write tests before anything really exist. What should I write?, Do I just create dummy object with methods before Im really sure that's the object/methods I need?, how can I write tests before Im sure how my program will behave?, If I just write tests first guessing the object and their methods, well, what if after a bunch of tests written, turn out the APIs changed, all of those tests written need to be adjusted altogether. If I already defined and firmed on how the APIs and public interfaces look like, then writing tests will be more simple and adjustments are minimum compared to "test-first" approachs.</p>
-<p>After both APIs/public interfaces and tests are firmed, then implementing them will be breeze, since we are guarded by 2 constraints: the "contracts" and the tests.</p>
-<p>After the implementations done, the only thing need to do is adjusting the "assertions" in your tests against implementations, just to make sure. Tests change only when you change the API/public interfaces, and changing them should be rarely happening since it's breaking stability, probably you need version 2 for that. The refactoring will be safer since those 2 guards will validate your code and you know whether you meet the requirements and implement them correctly. The other benefit is to make sure your API's/interfaces's stability whenever your code are changing.</p>
-<p>My experience with previous codebase I handled/maintained, the distinction between <em>Interfaces</em> and <em>Implementations</em> is blurred, anything can be changed, without anything really breaks, or if it breaks, it gave worrysome to your head where thing really broke. It's nightmare for next maintainer handling these kind of codes, because they deal with things already in production, but not much things guarding them from changes.</p>
-<p>Another cons on writing test later is that: <em>"it's already on production, and worked, why should I write tests for that?"</em>, demotivating the will of current and future devs/maintainers writing tests on existing codes. But, if the tests are included in development phase via <s>TDD</s>BDD, then it's really adding value to the end codebase. Devs are gonna test their code in the end, whether manually or automatically, atleast with <s>TDD</s>BDD you're reducing time for manual testing and guarding the code from regressions, automatically. <s>TDD</s>BDD is great complement for statically and strongly typed language because you get 3 guards in your code: type system, API/interface constraints, and tests. Maintaining these code will be ease the life of future devs/maintainers.</p>
-<p>--@@--</p>
-<p><em>..CMIIW..</em></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="oop"><a class="header" href="#oop">OOP</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="tdd"><a class="header" href="#tdd">TDD</a></h1>
 
                     </main>
 
@@ -1283,6 +1128,5 @@ Data can be gathered and made by combining multiple changes made into storage.</
         });
         </script>
 
-    </div>
     </body>
 </html>

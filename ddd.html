@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -10,7 +10,7 @@
         
         <meta name="description" content="Some notes">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff">
+        <meta name="theme-color" content="#ffffff" />
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -31,8 +31,7 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+    <body>
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -61,71 +60,40 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
+            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add('js');
         </script>
-
-        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="about.html"><strong aria-hidden="true">1.</strong> About</a></li><li class="chapter-item expanded "><a href="clean_code.html"><strong aria-hidden="true">2.</strong> Clean Code</a></li><li class="chapter-item expanded "><a href="clean_arch.html"><strong aria-hidden="true">3.</strong> Clean Architecture</a></li><li class="chapter-item expanded "><a href="ddd.html" class="active"><strong aria-hidden="true">4.</strong> Domain-Driven Design</a></li><li class="chapter-item expanded "><a href="oop.html"><strong aria-hidden="true">5.</strong> OOP</a></li><li class="chapter-item expanded "><a href="tdd.html"><strong aria-hidden="true">6.</strong> TDD</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
-                <div class="sidebar-resize-indicator"></div>
-            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky">
+                <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
-                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </label>
+                        </button>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -176,13 +144,13 @@
                         <h1 id="domain-driven-design"><a class="header" href="#domain-driven-design">Domain-Driven Design</a></h1>
 <p>from book: <em>Implementing Domain-Driven Design</em> by Vaughn Vernon.</p>
 <h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
-<p>Ubiquitous Language:</p>
+<p>Ubiquitous Language: </p>
 <ul>
 <li><em>“It is a team pattern used to capture the concepts and terms of a specific core business domain in the software model itself”</em></li>
 <li><em>“The Ubiquitous Language is a shared language developed by the team—a team composed of both domain experts and software developers.”</em></li>
 <li><em>“more centered on how the business itself thinks and operates”</em></li>
 </ul>
-<p>Bounded Context:</p>
+<p>Bounded Context: </p>
 <ul>
 <li>Explicit boundaries around Ubiquitous Language.</li>
 <li>There is one Ubiquitous Language per bounded context.</li>
@@ -218,7 +186,7 @@
 <p>Core Domains is the more specialized domain which has smaller context but central to the business rules/logics.</p>
 <p>Supporting Domains are domain to compliment the systems widely, usually when you make adapter to certain business rules/logics.</p>
 <p>Whole business domain contains 1 to many bounded contexts. Each Bounded Context contains 1 to many domains(subdomains). Bounded context separate related domains/subdomains. Each domains/subdomains can communicate to other domains/subdomains in same bounded context or to other bounded context(context mapping).</p>
-<p>Bounded context is to give context to the domain, some domains might have same names, even same functionalities/operations, but they have different context.
+<p>Bounded context is to give context to the domain, some domains might have same names, even same functionalities/operations, but they have different context. 
 E.g. Account in term of banking is different than Account in term of social media.</p>
 <p>The business rules and logics inside domains are defined by Domain Experts, they are people having expertise in the particular domain, doesn't have to be the developers, can be anyone with required knowledge in the domain.</p>
 <p>Subdomain Types:</p>
@@ -229,8 +197,8 @@ E.g. Account in term of banking is different than Account in term of social medi
 </ul>
 <p>Domain dan subdomain terdiri dari:</p>
 <ul>
-<li><strong>Entity</strong>:</li>
-<li><strong>Value Object</strong>:</li>
+<li><strong>Entity</strong>: </li>
+<li><strong>Value Object</strong>: </li>
 </ul>
 <p>Bounded context bisa terdiri dari:</p>
 <ul>
@@ -256,7 +224,7 @@ E.g. Account in term of banking is different than Account in term of social medi
 <li><strong>Conformist</strong>: When downstream follows what upstream already defined.</li>
 <li><strong>Anticorruption Layer(ACL)</strong>: Downstream creates additional layer to translate upstream into downstream's own model. E.g. serde? validations?</li>
 <li><strong>Open Host Service(OHS)</strong>: Provide protocol to be accessed(e.g. http, grpc, message queue)</li>
-<li><strong>Published Language(PL)</strong>: Common "language" to communicate, combined with Opeh Host Service. Message exchange format, e.g. JSON, XML, Protobuf, etc.</li>
+<li><strong>Published Language(PL)</strong>: Common &quot;language&quot; to communicate, combined with Opeh Host Service. Message exchange format, e.g. JSON, XML, Protobuf, etc.</li>
 <li><strong>Separate Ways</strong>: No connections and specialized solutions within small scope. E.g. having own oauth implementation.</li>
 <li><strong>Big Ball of Mud</strong>: Where large domain models mixed and offer inconsistent connections. Proceed with cautious.</li>
 </ul>
@@ -307,7 +275,7 @@ E.g. Account in term of banking is different than Account in term of social medi
 </ul>
 <h2 id="pipes-and-filters"><a class="header" href="#pipes-and-filters">Pipes and Filters</a></h2>
 <p>Event-Driven Architecture is achieved by piping messages through <strong>Pipes/Channels</strong>, these messages got sent or accepted by <strong>Port</strong>, then port will pass the messages into <strong>filter processor/processors</strong> and send messages into another port to be sent into another pipes/channels.</p>
-<p>Processors are loosely coupled to each other, the orders can be re-order, and interchangable.
+<p>Processors are loosely coupled to each other, the orders can be re-order, and interchangable. 
 Filters/processors may read/write from/to 1/multiple pipes. Filters/processors can be made parallel.</p>
 <p>Channels or the messages queues/brokers can be used: amqp(e.g. rabbitmq), or kafka.
 Each amqp and kafka have different ports, but the messages can be processed the same.</p>
@@ -333,7 +301,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <p><em>“When an object is distinguished by its identity, rather than its attributes, make this primary to its definition in the model. Keep the class definition simple and focused on life cycle continuity and identity. Define a means of distinguishing each object regardless of its form or history. . . . The model must define what it means to be the same thing.”</em></p>
 <p>Entity:</p>
 <ul>
-<li>Representation of business object that has attributes and operations related to them.</li>
+<li>Representation of business object that has attributes and operations related to them. </li>
 <li>Store data and its changes through the stages of program.</li>
 <li>Identified by specific identity.
 <ul>
@@ -377,11 +345,11 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Values objects have operations related to them, but should be side-effects free.</li>
 <li>Values objects should avoid containing entities since entities are highly changeable making value object mutable.</li>
 <li>Passing entities into value objects methods will break immutability and inconsistency in API as it's not sure how it affects the entity.</li>
-<li>You can implement value objects immutability by:
+<li>You can implement value objects immutability by: 
 <ul>
-<li>create them at constructions, or</li>
+<li>create them at constructions, or </li>
 <li>injecting them into entities construction, or</li>
-<li>making setters private, or</li>
+<li>making setters private, or </li>
 <li>you can utilize language's type system such as Java final keyword, or Rust immutability(default).</li>
 </ul>
 </li>
@@ -400,11 +368,11 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li><em>Equality</em>:
 <ul>
 <li>Method that define equality of value objects.</li>
-<li>In Java it's <code>equals()</code> method derived,</li>
+<li>In Java it's <code>equals()</code> method derived, </li>
 <li>In Rust it's trait <code>Eq</code> for standard/built-in types or <code>PartialEq</code> for other types.</li>
 </ul>
 </li>
-<li><em>Hashable</em>:
+<li><em>Hashable</em>: 
 <ul>
 <li>Method to hash the object to create unique code/hash that differentiate it with others, even for tiny change.</li>
 <li>In Java it's <code>hashCode()</code> method derived,</li>
@@ -451,13 +419,13 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <p>Synchronized batched process is when you gather all data that stored previously, and do the processing all at once, this require specific time needed(e.g. midnight) and require big cost of processing time the bigger the data.</p>
 <p>We can just publish all those data becoming events into subscriber to be handled right-away.</p>
 <p>Evented system consisted of 3 component: <strong>Publisher</strong>, <strong>Channel</strong>, and <strong>Subscriber</strong>.</p>
-<p>Events are handled asynchronously.</p>
+<p>Events are handled asynchronously. </p>
 <p>If transaction needed, can be done in subscriber in application context.</p>
 <p>Event is immutable, unlike entity, but it has identities just like entity, it has multiple identities based on event's properties and unique identity for that particular event. This means more than one event can be sent but still have uniqueness to them from the unique id they have.</p>
 <p>Adding unique identity is not mandatory if comparison between events are not needed, but still recommended if events are sent outside local bounded-context.</p>
 <p>Events are handled by a system called message queue. Event's source acts as published can be from any bounded context or aggregate, the events passed into channel the message queue, and forwarded into subscriber. Channel might has its own storage to store events published from publisher before forwarding into subscriber through queue/channel. This kind of system usually called message broker(channel + storage). Events sent through mq/mb commonly called messages.</p>
 <p>Events belong to domain model, not infrastructure.</p>
-<p>Publisher send events from aggregate, throught publisher implementation at infrastructure part</p>
+<p>Publisher send events from aggregate, throught publisher implementation at infrastructure part </p>
 <p>Subscriber receive events from application, to aggregate.</p>
 <p>Only modify 1 aggregate instance per transaction(publish-subscribe).</p>
 <p>Autonomous and Independence: avoid synchronized api like http, rpc.</p>
@@ -473,7 +441,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Module is about how to segregates domain and infrastructure components into accessible and testable APIs.</li>
 <li>Avoid cyclic dependencies between peer modules(Unidirectional).</li>
 <li>Domain objects inside module are cohesive, while inter-modules are low-coupled.</li>
-<li>Module encompasses many things inside(value objects, entities, events, etc),</li>
+<li>Module encompasses many things inside(value objects, entities, events, etc), </li>
 <li>Top-level module naming depends on programming languages convention/style.</li>
 <li>Next level is bounded-context.</li>
 <li>Do <strong>not</strong> name modules using models name from domains, because modules only represents API segregations, not representing specific objects/types.</li>
@@ -510,7 +478,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Query performance.</li>
 </ul>
 </li>
-<li><em>"Transactions across distributed systems are not atomic. The various systems bring multiple Aggregates into a consistent state <strong>eventually</strong>."</em></li>
+<li><em>&quot;Transactions across distributed systems are not atomic. The various systems bring multiple Aggregates into a consistent state <strong>eventually</strong>.&quot;</em></li>
 <li><em>Law of Demeter</em>:
 <ul>
 <li>When exposing services to clients, expose through public APIs, don't expose innards of the object implementations/services.</li>
@@ -547,7 +515,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Acts as interfaces directly to storage where you store Aggregates.</li>
 <li>2 kinds of repositories:
 <ul>
-<li>Collection-oriented repository:
+<li>Collection-oriented repository: 
 <ul>
 <li>Mimics <strong>Set</strong> data structure.</li>
 <li>Tracks changes to data being read/write.</li>
@@ -575,7 +543,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <li>Repository can be said as bigger scope of DAO, as repository might employ DAO operations inside. All depends on implementations.</li>
 </ul>
 </li>
-<li>Testing repository:
+<li>Testing repository: 
 <ul>
 <li>Test the operations connected to the production database in used.</li>
 <li>Test the operations using in-memory implementations(mocked).</li>
@@ -651,7 +619,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
 <ul>
 <li><strong>Value Objects</strong>: Immutable. Wrap primitive values and provide cohesive operations related to values inside. Partial or Full Equivalence.</li>
 <li><strong>Entities</strong>: Mutable. Contains primitives and/or value objects with cohesive operations. Identity Equivalence.</li>
-<li><strong>Aggregates</strong>: Group of value objects and entities in 1 transaction consistency boundary. Multiple aggregates should be handled eventually.</li>
+<li><strong>Aggregates</strong>: Group of value objects and entities in 1 transaction consistency boundary. Multiple aggregates should be handled eventually. </li>
 </ul>
 </li>
 <li><strong>Domain Services</strong>: Domain specific operations containing business logics leveraging from domain models, also may handle and coordinate multiple value objects, entities, and aggregates.</li>
@@ -704,7 +672,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="oop.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="oop.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -718,7 +686,7 @@ Data can be gathered and made by combining multiple changes made into storage.</
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="oop.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="oop.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -744,6 +712,5 @@ Data can be gathered and made by combining multiple changes made into storage.</
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>
