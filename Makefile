@@ -17,7 +17,7 @@ hooks:
 
 install:
 	cargo install mdbook --version 0.4.25 
-	cargo install mdbook-sitemap-generator
+	cargo install mdbook-sitemap-generator --version 0.1.0
 
 s serve:
 	mdbook serve
